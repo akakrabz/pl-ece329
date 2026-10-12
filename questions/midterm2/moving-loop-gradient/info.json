@@ -1,0 +1,20 @@
+{
+  "uuid": "833490d1-601c-45aa-aa5b-b835645b92df",
+  "title": "A loop moving through a graded magnetic field: orientation, flux, emf and current",
+  "topic": "Magnetostatics",
+  "tags": [
+    "lec14",
+    "midterm2",
+    "exam-style",
+    "calculate",
+    "concept",
+    "numeric",
+    "MC",
+    "multianswer",
+    "faraday"
+  ],
+  "type": "v3",
+  "gradingMethod": "Internal",
+  "singleVariant": false,
+  "showCorrectAnswer": true
+}

@@ -1,0 +1,71 @@
+<pl-question-panel>
+  <p>
+    A parallel-plate capacitor has two circular plates of radius $a = {{params.a_cm}}\ \mathrm{cm}$, centred on the $z$ axis, in the planes $z = 0$ (bottom plate) and $z = d = {{params.d_mm}}\ \mathrm{mm}$ (top plate).
+    The gap is filled with {{params.material}} ($\epsilon_r = {{params.er}}$, a perfect dielectric, $\mu = \mu_0$).
+    Thin straight leads run along the $z$ axis: one from far below up to the bottom plate, one from the top plate up to far above.
+    Ignore fringing: between the plates $\mathbf{E}$ is uniform and along $\hat z$, and outside the gap $\mathbf{E} = 0$.
+    {{{params.drive}}}
+  </p>
+  <p>
+    Sign conventions: $\partial D_z/\partial t$ is positive along $+\hat z$; $H_\phi$ is positive along $+\hat\phi$, i.e. counterclockwise as seen from $+z$; $i$ denotes the current in the lower lead, counted positive along $+\hat z$. Use $\epsilon_0 = 8.854\times10^{-12}\ \mathrm{F/m}$.
+  </p>
+</pl-question-panel>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(a)</b> The displacement current density $\partial D_z/\partial t$ in the gap {{{params.when}}}:</p>
+<pl-number-input answers-name="Jd" label="$\partial D_z/\partial t =$" suffix="$\mathrm{A/m^2}$" comparison="relabs" rtol="0.01" atol="1e-9"></pl-number-input>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(b)</b> $H_\phi$ in the mid-plane $z = d/2$, at $r_1 = {{params.r1_cm}}\ \mathrm{cm}$ (between the plates) and at $r_2 = {{params.r2_cm}}\ \mathrm{cm}$ (beyond their edge), at the same instant:</p>
+<pl-number-input answers-name="H1" label="$H_\phi(r_1) =$" suffix="$\mathrm{mA/m}$" comparison="relabs" rtol="0.01" atol="1e-9"></pl-number-input>
+<pl-number-input answers-name="H2" label="$H_\phi(r_2) =$" suffix="$\mathrm{mA/m}$" comparison="relabs" rtol="0.01" atol="1e-9"></pl-number-input>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(c)</b> Let $C$ be the circle of radius ${{params.Rc_cm}}\ \mathrm{cm}$ centred on the axis in the plane $z = -{{params.zc_mm}}\ \mathrm{mm}$ (around the lower lead, below the bottom plate), traversed counterclockwise as seen from $+z$.
+$S_1$ is the flat disk bounded by $C$. $S_2$ is a cup-shaped surface bounded by $C$ whose bottom lies inside the gap, so that $S_1$ and $S_2$ together enclose the bottom plate; $S_2$ touches neither the plates nor the leads.
+Which statement is correct?</p>
+<pl-multiple-choice answers-name="paradox">
+  {{#params.paradox}}<pl-answer correct="{{correct}}" feedback="{{feedback}}">{{{text}}}</pl-answer>
+  {{/params.paradox}}
+</pl-multiple-choice>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(d)</b> A separate situation, with fields that vary in time: a perfect conductor fills the half-space ${{params.pec_region}}$, with free space in ${{params.pec_free}}$.
+At one instant, at a point on its surface, the magnetic field just outside is $\mathbf{H}_1 = {{{params.H1_tex}}}\ \mathrm{A/m}$.
+Find the surface current density $\mathbf{J}_s$ at that point. (Medium 1 is the free space, medium 2 the conductor; $\hat n$ points from medium 2 into medium 1, i.e. out of the conductor.)</p>
+<pl-number-input answers-name="Jsx" label="$J_{s,x} =$" suffix="$\mathrm{A/m}$" comparison="relabs" rtol="0.01" atol="1e-6"></pl-number-input>
+<pl-number-input answers-name="Jsy" label="$J_{s,y} =$" suffix="$\mathrm{A/m}$" comparison="relabs" rtol="0.01" atol="1e-6"></pl-number-input>
+<pl-number-input answers-name="Jsz" label="$J_{s,z} =$" suffix="$\mathrm{A/m}$" comparison="relabs" rtol="0.01" atol="1e-6"></pl-number-input>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(e)</b> Select all the true statements.</p>
+<pl-checkbox answers-name="facts" number-answers="5" min-correct="1" max-correct="4" partial-credit="each-answer" order="fixed">
+  {{#params.facts}}<pl-answer correct="{{correct}}" feedback="{{why}}">{{{text}}}</pl-answer>
+  {{/params.facts}}
+</pl-checkbox>
+</div></div>
+
+<pl-hidden-hints>
+  <pl-hint hint-name="Displacement current">
+    The displacement current density is $\partial\mathbf{D}/\partial t$, with $\mathbf{D}$ (not $\epsilon_0\mathbf{E}$). Just above the bottom plate, Gauss's law gives $D_z = \rho_s$ of that plate. For $H_\phi$, apply $\oint_C\mathbf{H}\cdot d\mathbf{l} = \int_S(\mathbf{J} + \partial\mathbf{D}/\partial t)\cdot d\mathbf{S}$ to a circle in the mid-plane and the flat disk it bounds.
+  </pl-hint>
+  <pl-hint hint-name="Perfect conductor" show-after-submission="1">
+    Take the conductor as medium 2 and free space as medium 1, so $\hat n$ points out of the conductor. With $\mathbf{H} = 0$ inside, $\hat n\times(\mathbf{H}_1 - \mathbf{H}_2) = \mathbf{J}_s$ becomes $\mathbf{J}_s = \hat n\times\mathbf{H}_1$. Just outside, $\mathbf{E}$ must be normal to the surface and $\mathbf{H}$ tangential.
+  </pl-hint>
+</pl-hidden-hints>
+
+<pl-answer-panel>
+  <p><b>(a)</b> {{{params.a_words}}}</p>
+  <p><b>(b)</b> {{{params.b_words}}}</p>
+  <p><b>(c)</b> {{{params.c_words}}}</p>
+  <p><b>(d)</b> {{{params.d_words}}}</p>
+  <p><b>(e)</b></p>
+  <ul>
+  {{#params.facts}}<li>{{{text}}} <b>{{verdict}}.</b> {{{why}}}</li>
+  {{/params.facts}}
+  </ul>
+</pl-answer-panel>

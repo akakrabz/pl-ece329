@@ -1,0 +1,68 @@
+<pl-question-panel>
+  <p>
+    Two point charges are held fixed in free space, both in the plane $z = 0$ (coordinates $(x,\ y)$ in centimetres):
+    $$q_1 = {{params.q1_s}}\ \mathrm{nC}\ \text{ at } {{{params.P1_tex}}}\ \mathrm{cm},\qquad q_2 = {{params.q2_s}}\ \mathrm{nC}\ \text{ at } {{{params.P2_tex}}}\ \mathrm{cm}.$$
+    The points $A = {{{params.A_tex}}}\ \mathrm{cm}$ and $B = {{{params.B_tex}}}\ \mathrm{cm}$ lie in the same plane.
+    Take $V(\infty) = 0$ and $\epsilon_0 = 8.854\times10^{-12}\ \mathrm{F/m}$, so that $1/(4\pi\epsilon_0) = 8.988\times10^{9}\ \mathrm{m/F}$.
+  </p>
+  <p>
+    A third point charge $q_3 = {{params.q3_s}}\ \mathrm{nC}$ is then carried by an external agent from $A$ to $B$ <b>slowly</b>: it starts and ends at rest, and $q_1$, $q_2$ do not move.
+    $U = q_3V$ denotes the electric potential energy of $q_3$ in the field of $q_1$ and $q_2$.
+  </p>
+</pl-question-panel>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(a)</b> The potentials produced by $q_1$ and $q_2$ at the two points:</p>
+<pl-number-input answers-name="VA" label="$V_A =$" suffix="$\mathrm{V}$" comparison="relabs" rtol="0.02" atol="0.01"></pl-number-input>
+<pl-number-input answers-name="VB" label="$V_B =$" suffix="$\mathrm{V}$" comparison="relabs" rtol="0.02" atol="0.01"></pl-number-input>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(b)</b> The work done <em>by the external agent</em> in carrying $q_3$ from $A$ to $B$ (positive if the agent does positive work on $q_3$):</p>
+<pl-number-input answers-name="W" label="$W_{\text{ext}} =$" suffix="$\mu\mathrm{J}$" comparison="relabs" rtol="0.02" atol="1e-5"></pl-number-input>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(c)</b> Which statement about the move from $A$ to $B$ is correct?</p>
+<pl-multiple-choice answers-name="energy" order="fixed">
+  {{#params.mc}}
+  <pl-answer correct="{{correct}}" feedback="{{feedback}}">{{{text}}}</pl-answer>
+  {{/params.mc}}
+</pl-multiple-choice>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(d)</b> Select <b>all</b> the true statements. All fields are electrostatic.</p>
+<pl-checkbox answers-name="facts" number-answers="5" min-correct="1" max-correct="4" partial-credit="each-answer">
+  {{#params.cb}}
+  <pl-answer correct="{{correct}}" feedback="{{feedback}}">{{{text}}}</pl-answer>
+  {{/params.cb}}
+</pl-checkbox>
+</div></div>
+
+<pl-hidden-hints>
+  <pl-hint hint-name="Scalar superposition">
+    Each charge contributes $q_i/(4\pi\epsilon_0R_i)$ to the potential, where $R_i$ is the distance from charge $i$ to the point. Add the contributions as signed numbers (no components, no unit vectors), after converting cm to m and nC to C.
+  </pl-hint>
+  <pl-hint hint-name="Work and potential energy" show-after-submission="1">
+    In a slow move the kinetic energy does not change, so the agent's work is the change in potential energy: $W_{\text{ext}} = \Delta U = q_3\,[V(B) - V(A)]$, whatever the path. The field does the opposite amount of work, $W_{\text{field}} = -W_{\text{ext}}$.
+  </pl-hint>
+</pl-hidden-hints>
+
+<pl-answer-panel>
+  <p><b>(a)</b> Distances in cm: $r_{1A} = {{{params.rA1_tex}}}$, $r_{2A} = {{{params.rA2_tex}}}$, $r_{1B} = {{{params.rB1_tex}}}$, $r_{2B} = {{{params.rB2_tex}}}$. Potentials add as signed numbers:
+    $$V_A = \frac{1}{4\pi\epsilon_0}\left(\frac{q_1}{r_{1A}} + \frac{q_2}{r_{2A}}\right) = 8.988\times10^{9}\left(\frac{ {{params.q1}}\times10^{-9} }{ {{{params.rA1_m}}} } + \frac{ {{params.q2}}\times10^{-9} }{ {{{params.rA2_m}}} }\right) = {{{params.tA1}}} + {{{params.tA2}}} = {{{params.VA_str}}}\ \mathrm{V},$$
+    $$V_B = 8.988\times10^{9}\left(\frac{ {{params.q1}}\times10^{-9} }{ {{{params.rB1_m}}} } + \frac{ {{params.q2}}\times10^{-9} }{ {{{params.rB2_m}}} }\right) = {{{params.tB1}}} + {{{params.tB2}}} = {{{params.VB_str}}}\ \mathrm{V}.$$
+  </p>
+  <p><b>(b)</b> Carried slowly, $q_3$ gains no kinetic energy, so the agent's work equals the change in its potential energy:
+    $$W_{\text{ext}} = q_3\,[V_B - V_A] = ({{params.q3}}\times10^{-9}\ \mathrm{C})\,({{{params.dV_paren}}}\ \mathrm{V}) = {{{params.W_J}}}\ \mathrm{J} = {{{params.W_str}}}\ \mu\mathrm{J}.$$
+    No path was needed: the static field is curl-free, so any route from $A$ to $B$ gives the same work.
+  </p>
+  <p><b>(c)</b> {{{params.c_words}}} The agent's work and the field's work cancel because the kinetic energy of $q_3$ is the same at both ends; that does not make $\Delta U$ zero.</p>
+  <p><b>(d)</b> The statements in the pool, with the reason for each:</p>
+  <ul>
+    {{#params.cb}}
+    <li>{{{text}}} <b>{{tf}}.</b> {{{why}}}</li>
+    {{/params.cb}}
+  </ul>
+</pl-answer-panel>

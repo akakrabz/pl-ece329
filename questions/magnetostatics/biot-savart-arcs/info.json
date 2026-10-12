@@ -1,0 +1,18 @@
+{
+  "uuid": "8bff9b36-b04c-416d-a46f-7931dde57d59",
+  "title": "Biot-Savart for loops made of arcs and radial segments",
+  "topic": "Magnetostatics",
+  "tags": [
+    "lec12",
+    "midterm2",
+    "concept",
+    "MC",
+    "multianswer",
+    "numeric",
+    "biot-savart"
+  ],
+  "type": "v3",
+  "gradingMethod": "Internal",
+  "singleVariant": false,
+  "showCorrectAnswer": true
+}

@@ -1,0 +1,94 @@
+<pl-question-panel>
+  <p>
+    A small particle with charge $q = {{params.q}}\ \mu\mathrm{C}$ moves through a region of uniform, static fields
+    $$\mathbf{E} = \left( {{{params.E_tex}}} \right)\ \mathrm{kV/m},\qquad \mathbf{B} = \left( {{{params.B_tex}}} \right)\ \mathrm{T}.$$
+    At the instant of interest its velocity is
+    $$\mathbf{v} = \left( {{{params.v_tex}}} \right)\ \mathrm{km/s}.$$
+    Ignore gravity. Parts (d) and (e) describe a separate experiment.
+  </p>
+</pl-question-panel>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(a)</b> The total electromagnetic force on the particle at this instant, component by component:</p>
+<pl-number-input answers-name="Fx" label="$F_x =$" suffix="$\mathrm{mN}$" comparison="relabs" rtol="0.01" atol="1e-6"></pl-number-input>
+<pl-number-input answers-name="Fy" label="$F_y =$" suffix="$\mathrm{mN}$" comparison="relabs" rtol="0.01" atol="1e-6"></pl-number-input>
+<pl-number-input answers-name="Fz" label="$F_z =$" suffix="$\mathrm{mN}$" comparison="relabs" rtol="0.01" atol="1e-6"></pl-number-input>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(b)</b> The power the fields deliver to the particle at this instant, $P = \mathbf{F}\cdot\mathbf{v}$ (positive when the particle is gaining kinetic energy):</p>
+<pl-number-input answers-name="P" label="$P =$" suffix="$\mathrm{W}$" comparison="relabs" rtol="0.01" atol="1e-6"></pl-number-input>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(c)</b> Select <b>all</b> the statements that are true.</p>
+<pl-checkbox answers-name="facts" number-answers="5" min-correct="1" max-correct="4" partial-credit="each-answer" weight="2">
+  {{#params.facts}}
+  <pl-answer correct="{{correct}}" feedback="{{feedback}}">{{{text}}}</pl-answer>
+  {{/params.facts}}
+</pl-checkbox>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(d)</b> A separate experiment: a velocity selector. In a region of crossed, uniform, static fields
+  $$\mathbf{E} = {{{params.Esel_tex}}}\ \mathrm{kV/m},\qquad \mathbf{B} = {{{params.Bsel_tex}}}\ \mathrm{mT},$$
+  a beam of {{{params.particle}}} is injected along one of the six directions $\pm\hat{x}$, $\pm\hat{y}$, $\pm\hat{z}$.
+  For exactly one of these directions there is a speed at which the particles pass straight through, undeflected. Which direction is it?</p>
+<pl-multiple-choice answers-name="seldir" order="fixed" hide-letter-keys="true">
+  {{#params.dir_choices}}
+  <pl-answer correct="{{correct}}" feedback="{{feedback}}">{{{text}}}</pl-answer>
+  {{/params.dir_choices}}
+</pl-multiple-choice>
+<p>And what speed must the particles have in that direction?</p>
+<pl-number-input answers-name="vsel" label="$v =$" suffix="$\mathrm{km/s}$" comparison="relabs" rtol="0.01" atol="1e-6"></pl-number-input>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(e)</b> Which statement about the selector of part (d) is correct?</p>
+<pl-multiple-choice answers-name="selwhy">
+  <pl-answer correct="true" feedback="Right: zero force means $\mathbf{E}+\mathbf{v}\times\mathbf{B} = 0$, a condition on $\mathbf{v}$ alone; $q$ cancels and $m$ never appears.">The selected velocity is fixed by the two fields alone: particles of any charge, any mass and either sign of charge pass straight through at that velocity.</pl-answer>
+  <pl-answer correct="false" feedback="The condition is zero net force, $q(\mathbf{E}+\mathbf{v}\times\mathbf{B}) = 0$: $q$ divides out and $m$ never enters, because nothing accelerates. Mass matters only once particles are deflected, as in a mass spectrometer, $R = mv/(|q|B)$.">The selected speed also depends on the charge-to-mass ratio $q/m$ of the particles.</pl-answer>
+  <pl-answer correct="false" feedback="For a negative charge both $q\mathbf{E}$ and $q\,\mathbf{v}\times\mathbf{B}$ reverse, so they still cancel at the same velocity, in the same direction.">Positive particles pass along the direction found in (d); negative particles must be injected in the opposite direction.</pl-answer>
+  <pl-answer correct="false" feedback="Both forces are proportional to $q$: $|q|E_0 = |q|vB_0$ gives the same $v$ whatever $|q|$ is.">A more highly charged ion (say charge $+2e$ instead of $+e$) must move faster to pass undeflected, because the electric force on it is larger.</pl-answer>
+  <pl-answer correct="false" feedback="Mass does not enter the force balance. An unbalanced force would deflect a heavy ion less, but at the selected velocity there is no net force on any particle.">Heavier ions must move faster than lighter ones to balance the electric force.</pl-answer>
+</pl-multiple-choice>
+</div></div>
+
+<pl-hidden-hints>
+  <pl-hint hint-name="Units that keep the numbers integer">
+    $(\mathrm{km/s})(\mathrm{T}) = \mathrm{kV/m}$, $(\mu\mathrm{C})(\mathrm{kV/m}) = \mathrm{mN}$ and $(\mathrm{mN})(\mathrm{km/s}) = \mathrm{W}$.
+    Expand $\mathbf{v}\times\mathbf{B}$ as a determinant and keep the minus sign on the $\hat{y}$ term.
+  </pl-hint>
+  <pl-hint hint-name="Work, and zero force" show-after-submission="1">
+    $(\mathbf{v}\times\mathbf{B})\cdot\mathbf{v} = 0$ for any $\mathbf{v}$ and $\mathbf{B}$, so only $q\mathbf{E}$ can deliver power.
+    In the selector, zero force means $\mathbf{v}\times\mathbf{B} = -\mathbf{E}$: test each candidate direction with
+    $\hat{x}\times\hat{y} = \hat{z}$, $\hat{y}\times\hat{z} = \hat{x}$, $\hat{z}\times\hat{x} = \hat{y}$.
+  </pl-hint>
+</pl-hidden-hints>
+
+<pl-answer-panel>
+  <p><b>(a)</b> Expanding the determinant (with $(\mathrm{km/s})(\mathrm{T}) = \mathrm{kV/m}$, since $1\ \mathrm{T} = 1\ \mathrm{V\,s/m^2}$):
+    $$\mathbf{v}\times\mathbf{B} = {{{params.cross_work}}} = \left( {{{params.vxB_tex}}} \right)\ \mathrm{kV/m}.$$
+    Then $\mathbf{E}+\mathbf{v}\times\mathbf{B} = \left( {{{params.tot_tex}}} \right)\ \mathrm{kV/m}$, and
+    $$\mathbf{F} = q\left(\mathbf{E}+\mathbf{v}\times\mathbf{B}\right) = ({{params.q}}\ \mu\mathrm{C})\left( {{{params.tot_tex}}} \right)\ \mathrm{kV/m} = \left( {{{params.F_tex}}} \right)\ \mathrm{mN},$$
+    so $F_x = {{params.Fx}}$, $F_y = {{params.Fy}}$, $F_z = {{params.Fz}}$ mN.</p>
+  <p><b>(b)</b> $P = \mathbf{F}\cdot\mathbf{v} = {{{params.Fv_dot}}} = {{params.P}}\ \mathrm{W}$, with $(\mathrm{mN})(\mathrm{km/s}) = \mathrm{W}$.
+    Only the electric force contributes: the magnetic part gives $(\mathbf{v}\times\mathbf{B})\cdot\mathbf{v} = {{{params.vxBv_dot}}} = 0$, as it must for any $\mathbf{v}$ and $\mathbf{B}$, so
+    $P = q\,\mathbf{E}\cdot\mathbf{v} = ({{params.q}})\left[{{{params.Ev_dot}}}\right] = ({{params.q}})({{params.Edotv}}) = {{params.P}}\ \mathrm{W}$.
+    {{{params.p_words}}}</p>
+  <p><b>(c)</b></p>
+  <ul>
+    {{#params.facts}}
+    <li>{{{text}}} <b>{{verdict}}</b>: {{{why}}}</li>
+    {{/params.facts}}
+  </ul>
+  <p><b>(d)</b> Zero net force requires $\mathbf{E}+\mathbf{v}\times\mathbf{B} = 0$, i.e. $\mathbf{v}\times\mathbf{B} = -\mathbf{E}$, which points along ${{{params.minus_eE_dir}}}$.
+    For $\mathbf{v}$ along ${{{params.ev_dir}}}$: $({{{params.ev_dir}}})\times({{{params.eB_dir}}}) = {{{params.minus_eE_dir}}}$, the required direction. This is the direction of $\mathbf{E}\times\mathbf{B}$.
+    Along ${{{params.negev_dir}}}$ the magnetic force would point along $+\mathbf{E}$ and add to $q\mathbf{E}$; along $\pm\mathbf{E}$ it is perpendicular to $\mathbf{E}$, and along $\pm\mathbf{B}$ it vanishes, so in those directions nothing can cancel $q\mathbf{E}$.
+    Balancing magnitudes, $vB_0 = E_0$:
+    $$v = \frac{E_0}{B_0} = \frac{ {{params.E0}}\times10^{3}\ \mathrm{V/m} }{ {{params.B0}}\times10^{-3}\ \mathrm{T} } = {{params.speed}}\ \mathrm{km/s}.$$
+    Faster particles are bent along the magnetic force, slower ones along the electric force.</p>
+  <p><b>(e)</b> The condition $q(\mathbf{E}+\mathbf{v}\times\mathbf{B}) = 0$ is a condition on $\mathbf{v}$ alone: $q$ divides out (so its size and sign do not matter) and the mass never appears, because a particle that feels no force does not accelerate.
+    So the {{{params.particle}}} go straight through, and so would any other charged particle injected along ${{{params.ev_dir}}}$ at {{params.speed}} km/s.
+    Mass matters only after a particle has been deflected, for example in the radius $R = mv/(|q|B)$ of a mass spectrometer.</p>
+</pl-answer-panel>

@@ -1,0 +1,114 @@
+{
+  "uuid": "f79d2715-676b-488d-beab-d84a71ef081f",
+  "type": "Homework",
+  "title": "Concept checks — one question per lecture, Lectures 12–19",
+  "set": "Practice",
+  "number": "5",
+  "comment": "Concept-focused questions (multiple choice, select-all, matching) with a few numerical parts; one per lecture.",
+  "accessControl": [
+    {
+      "dateControl": {
+        "release": {
+          "date": "2026-10-12T00:00:01"
+        },
+        "due": {
+          "date": "2026-12-20T23:59:59"
+        },
+        "afterLastDeadline": {
+          "allowSubmissions": true,
+          "credit": 0
+        }
+      }
+    }
+  ],
+  "zones": [
+    {
+      "title": "Lecture 12 — Biot–Savart",
+      "questions": [
+        {
+          "id": "magnetostatics/biot-savart-arcs",
+          "autoPoints": 5,
+          "maxAutoPoints": 15,
+          "triesPerVariant": 3
+        }
+      ]
+    },
+    {
+      "title": "Lecture 13 — Ampère's law by symmetry, toroids, vector potential",
+      "questions": [
+        {
+          "id": "magnetostatics/ampere-symmetry-toroid",
+          "autoPoints": 5,
+          "maxAutoPoints": 15,
+          "triesPerVariant": 3
+        }
+      ]
+    },
+    {
+      "title": "Lecture 14 — motional emf",
+      "questions": [
+        {
+          "id": "magnetostatics/rotating-rod-emf",
+          "autoPoints": 5,
+          "maxAutoPoints": 15,
+          "triesPerVariant": 3
+        }
+      ]
+    },
+    {
+      "title": "Lecture 15 — mutual inductance and RL circuits",
+      "questions": [
+        {
+          "id": "magnetostatics/mutual-inductance-rl",
+          "autoPoints": 5,
+          "maxAutoPoints": 15,
+          "triesPerVariant": 3
+        }
+      ]
+    },
+    {
+      "title": "Lecture 16 — displacement current and perfect conductors",
+      "questions": [
+        {
+          "id": "waves/displacement-current-pec",
+          "autoPoints": 5,
+          "maxAutoPoints": 15,
+          "triesPerVariant": 3
+        }
+      ]
+    },
+    {
+      "title": "Lecture 17 — magnetization and magnetic media",
+      "questions": [
+        {
+          "id": "waves/magnetization-materials",
+          "autoPoints": 5,
+          "maxAutoPoints": 15,
+          "triesPerVariant": 3
+        }
+      ]
+    },
+    {
+      "title": "Lecture 18 — reading a plane wave",
+      "questions": [
+        {
+          "id": "waves/plane-wave-reading",
+          "autoPoints": 5,
+          "maxAutoPoints": 15,
+          "triesPerVariant": 3
+        }
+      ]
+    },
+    {
+      "title": "Lecture 19 — current-sheet radiation and the Poynting vector",
+      "questions": [
+        {
+          "id": "waves/sheet-radiation-poynting",
+          "autoPoints": 5,
+          "maxAutoPoints": 15,
+          "triesPerVariant": 3
+        }
+      ]
+    }
+  ]
+}

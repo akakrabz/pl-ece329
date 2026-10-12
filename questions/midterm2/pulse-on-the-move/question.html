@@ -1,0 +1,72 @@
+<pl-question-panel>
+  <p>
+    A uniform, non-magnetic medium ($\mu = \mu_0$) fills all space. A plane electromagnetic pulse travels through it toward ${{params.dir_word}}$ at speed $v = {{params.v}}\ \mathrm{m/ns}$ ($= {{params.v_tex}}\ \mathrm{m/s}$), and is observed to keep exactly its shape and size as it travels.
+    At $t = t_0 = {{params.t0}}\ \mathrm{ns}$ its electric field is $\mathbf{E}(z, t_0) = {{params.e_tex}}\,F(z)$, where the snapshot $F(z)$ (figure) is zero outside ${{params.zA}}\ \mathrm{m} \lt z \lt {{params.zD}}\ \mathrm{m}$. It changes linearly from $0$ at $z = {{params.zA}}\ \mathrm{m}$ to ${{params.E0}}\ \mathrm{V/m}$ at $z = {{params.zB}}\ \mathrm{m}$, {{{params.flat_desc}}}then returns linearly to $0$ at $z = {{params.zD}}\ \mathrm{m}$.
+  </p>
+  <p>Positions are in metres and times in nanoseconds throughout. Use $c = 1/\sqrt{\mu_0\epsilon_0} = 2.998\times10^{8}\ \mathrm{m/s}$ and $\mu_0 = 4\pi\times10^{-7}\ \mathrm{H/m}$.</p>
+  <div class="text-center">{{{params.svg}}}</div>
+</pl-question-panel>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(a)</b> The signed field component $E_{ {{params.pol}} }$ at three events:</p>
+<pl-number-input answers-name="E1" label="$E_{ {{params.pol}} }(z = {{params.z1}}\ \mathrm{m},\ t = {{params.t1}}\ \mathrm{ns}) =$" suffix="$\mathrm{V/m}$" comparison="relabs" rtol="0.01" atol="0.005"></pl-number-input>
+<pl-number-input answers-name="E2" label="$E_{ {{params.pol}} }(z = {{params.z2}}\ \mathrm{m},\ t = {{params.t2}}\ \mathrm{ns}) =$" suffix="$\mathrm{V/m}$" comparison="relabs" rtol="0.01" atol="0.005"></pl-number-input>
+<pl-number-input answers-name="E3" label="$E_{ {{params.pol}} }(z = {{params.z3}}\ \mathrm{m},\ t = {{params.t3}}\ \mathrm{ns}) =$" suffix="$\mathrm{V/m}$" comparison="relabs" rtol="0.01" atol="0.005"></pl-number-input>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(b)</b> With $F$ the snapshot function defined above, which expression gives the field at every $z$ and $t$ ($z$ in m, $t$ in ns)?</p>
+<pl-multiple-choice answers-name="expr" hide-letter-keys="true">
+  {{#params.expr_choices}}
+  <pl-answer correct="{{correct}}" feedback="{{feedback}}">{{{text}}}</pl-answer>
+  {{/params.expr_choices}}
+</pl-multiple-choice>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(c)</b> The relative permittivity of the medium ($\mu_r = 1$):</p>
+<pl-number-input answers-name="epsr" label="$\epsilon_r =$" comparison="relabs" rtol="0.01" atol="1e-6"></pl-number-input>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(d)</b> The magnetic field at the first event of (a), $z = {{params.z1}}\ \mathrm{m}$, $t = {{params.t1}}\ \mathrm{ns}$: its magnitude</p>
+<pl-number-input answers-name="H1" label="$|\mathbf{H}| =$" suffix="$\mathrm{mA/m}$" comparison="relabs" rtol="0.01" atol="1e-6"></pl-number-input>
+<p>and its direction:</p>
+<pl-multiple-choice answers-name="Hdir" hide-letter-keys="true">
+  {{#params.hdir_choices}}
+  <pl-answer correct="{{correct}}" feedback="{{feedback}}">{{{text}}}</pl-answer>
+  {{/params.hdir_choices}}
+</pl-multiple-choice>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(e)</b> Could this medium be a conductor ($\sigma \gt 0$)?</p>
+<pl-multiple-choice answers-name="lossless" hide-letter-keys="true">
+  <pl-answer correct="true">No. In a conductor the current $\mathbf{J} = \sigma\mathbf{E}$ dissipates energy, so the pulse would shrink and change shape as it travels. A pulse that travels unchanged at $v \lt c$ is in a lossless dielectric.</pl-answer>
+  <pl-answer correct="false" feedback="Any dielectric with $\epsilon_r \gt 1$ slows a wave, $v = c/\sqrt{\mu_r\epsilon_r}$, without any loss.">Yes: only a conductor can make a wave travel slower than $c$.</pl-answer>
+  <pl-answer correct="false" feedback="That variation is the pulse's shape, and it is the same at every time. Attenuation would make the same feature smaller at later times.">Yes: the field changes along the pulse, which shows that the pulse is being attenuated.</pl-answer>
+  <pl-answer correct="false" feedback="In a lossless medium every frequency travels at the same $v$, so any waveform keeps its shape. A shape that is observed not to change already rules out loss.">It cannot be decided without knowing the frequencies contained in the pulse.</pl-answer>
+</pl-multiple-choice>
+</div></div>
+
+<pl-hidden-hints>
+  <pl-hint hint-name="Moving a snapshot">
+    A pattern sliding rigidly at speed $v$ toward $+z$ obeys $\mathbf{E}(z,t) = \mathbf{E}\big(z - v(t - t_0),\ t_0\big)$; toward $-z$ the shift is $z + v(t - t_0)$. Check the direction with one feature: at a later time the front must be further along the direction of travel.
+  </pl-hint>
+  <pl-hint hint-name="Speed, impedance and the direction of H" show-after-submission="1">
+    In a lossless medium $v = c/\sqrt{\mu_r\epsilon_r}$ and $\eta = \sqrt{\mu/\epsilon} = \mu v$. For a plane wave travelling along $\hat{k}$, $\mathbf{H} = \hat{k}\times\mathbf{E}/\eta$, and $\mathbf{E}\times\mathbf{H}$ must point along $\hat{k}$.
+  </pl-hint>
+</pl-hidden-hints>
+
+<pl-answer-panel>
+  <p><b>(a)</b> The pattern slides rigidly toward ${{params.dir_word}}$ at $v = {{params.v}}$ m/ns, so the field at $(z, t)$ is the snapshot value at the point it came from, $\zeta = z {{params.op}} v(t - t_0)$: $E_{ {{params.pol}} }(z,t) = F(\zeta)$.</p>
+  <ul>
+    <li>Event 1: ${{{params.zeta1_line}}}$. This lies on the ramp ${{params.zA}} \lt \zeta_1 \lt {{params.zB}}$ m, where $F = E_0\,(\zeta - z_A)/(z_B - z_A)$ with $E_0 = {{params.E0}}$ V/m: $E_{ {{params.pol}} } = ({{params.E0}})\,\dfrac{ {{params.zeta1}} - ({{params.zA}}) }{ {{params.a}} } = {{params.E1_str}}\ \mathrm{V/m}$.</li>
+    <li>Event 2: ${{{params.zeta2_line}}}$. This lies on the ramp ${{params.zC}} \lt \zeta_2 \lt {{params.zD}}$ m, where $F = E_0\,(z_D - \zeta)/(z_D - z_C)$: $E_{ {{params.pol}} } = ({{params.E0}})\,\dfrac{ {{params.zD}} - ({{params.zeta2}}) }{ {{params.b}} } = {{params.E2_str}}\ \mathrm{V/m}$.</li>
+    <li>Event 3: ${{{params.zeta3_line}}}$, which lies outside ${{params.zA}} \lt \zeta \lt {{params.zD}}$ m, so $E_{ {{params.pol}} } = 0$. In words: the front is {{{params.front_word}}}. At $t_0$ it was at ${{params.front_t0}}$ m, and at $t = {{params.t3}}$ ns it was at ${{params.front_t0}} {{params.op}} {{params.v}}\,({{params.t0}} - {{params.t3}}) = {{params.front_t3}}$ m. The point $z = {{params.z3}}$ m was still ahead of it: the pulse had not arrived.</li>
+  </ul>
+  <p><b>(b)</b> At $t = t_0$ the expression must reduce to $F(z)$; that rules out the versions with $t$ or $t + t_0$ in place of $t - t_0$. As time goes on, every feature must move toward ${{params.dir_word}}$: a feature at $\zeta$ in the snapshot is at $z = \zeta {{params.nop}} v\,(t - t_0)$ at time $t$, so the argument of $F$ is $\zeta = z {{params.op}} v\,(t - t_0)$. The distance moved is $v$ times the elapsed time, not the elapsed time divided by $v$.</p>
+  <p><b>(c)</b> The unchanged shape means the medium is lossless (part (e)), so $v = c/\sqrt{\epsilon_r}$ with $\mu_r = 1$, and $\epsilon_r = (c/v)^2 = \left(\dfrac{2.998\times10^{8}}{ {{params.v_tex}} }\right)^2 = {{params.eps_str}}$.</p>
+  <p><b>(d)</b> $\eta = \sqrt{\mu_0/\epsilon} = \mu_0v = (4\pi\times10^{-7})({{params.v_tex}}) = {{params.eta_str}}\ \Omega$, the same as $\eta_0/\sqrt{\epsilon_r}$. So $|\mathbf{H}| = |E|/\eta = ({{params.absE1}}\ \mathrm{V/m})/({{params.eta_str}}\ \Omega) = {{params.H1_str}}\ \mathrm{mA/m}$. Direction: $\mathbf{H} = \hat{k}\times\mathbf{E}/\eta$ with $\hat{k} = {{params.k_vec}}$ and $\mathbf{E}$ along ${{params.E1_vec}}$ at this event, so $\mathbf{H}$ is along $({{params.k_vec}})\times({{params.E1_vec}}) = {{params.H_vec}}$. Check: $({{params.E1_vec}})\times({{params.H_vec}}) = {{params.k_vec}}$, the direction of travel.</p>
+  <p><b>(e)</b> No. With $\sigma \gt 0$ the wave equation gains a loss term $\mu\sigma\,\partial\mathbf{E}/\partial t$, so a pulse would decay and distort as it moves. This one keeps its exact shape and size at a speed below $c$, which is what a lossless dielectric with $\epsilon_r = {{params.eps_str}}$ does. The slower speed comes from $\epsilon_r$, not from conduction, and the variation along the pulse is its shape, not attenuation.</p>
+</pl-answer-panel>

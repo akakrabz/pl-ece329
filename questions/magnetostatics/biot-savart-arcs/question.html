@@ -1,0 +1,85 @@
+<pl-question-panel>
+  <p>
+    A thin wire loop lies in the plane $z = 0$ of free space and carries a steady current $I = {{params.I_str}}\ \mathrm{A}$. It is built from circular arcs
+    centred on the origin O and from straight segments along rays from O; one straight segment lies on the positive $x$ axis and the other on the ray
+    at angle $\phi = \theta$ from it, with $\theta = {{params.theta_deg}}^\circ$ ($\phi$ measured counterclockwise from $+\hat{x}$ as seen from $+z$).
+  </p>
+  <p>{{{params.geom}}}</p>
+  <p>
+    On the straight segment that lies on the $x$ axis the current flows along ${{{params.xdir}}}$, so it circulates <b>{{params.sense}}</b> around the loop
+    as seen from $+z$. Use $\mu_0 = 4\pi\times10^{-7}\ \mathrm{H/m}$.
+  </p>
+  <svg viewBox="0 0 320 148" width="320" style="max-width:100%;display:block;margin:auto" role="img" aria-label="Shape (i): a sector of radius R and angle theta with its vertex at O. Shape (ii): an annular sector between radii R1 and R2 spanning the same angle, centred on O.">
+    <g fill="none" stroke="currentColor" stroke-width="1.6">
+      <path d="M50 115 L135 115 A85 85 0 0 0 7.5 41.4 Z"/>
+      <path d="M250 115 L300 115 A85 85 0 0 0 172.5 41.4 L197.5 84.7 A35 35 0 0 1 250 115 Z"/>
+    </g>
+    <g fill="none" stroke="currentColor" stroke-width="0.8" stroke-dasharray="3 3">
+      <path d="M215 115 L250 115 M215 115 L197.5 84.7"/>
+      <path d="M66 115 A16 16 0 0 0 42 101.1 M231 115 A16 16 0 0 0 207 101.1"/>
+    </g>
+    <g fill="currentColor" stroke="none" font-size="11" font-family="sans-serif">
+      <text x="44" y="129">O</text><text x="209" y="129">O</text>
+      <text x="139" y="119">x</text><text x="304" y="119">x</text>
+      <text x="58" y="99">θ</text><text x="223" y="99">θ</text>
+      <text x="112" y="52">R</text><text x="238" y="82">R₁</text><text x="281" y="52">R₂</text>
+      <text x="40" y="145">(i) sector</text><text x="196" y="145">(ii) annular sector</text>
+    </g>
+  </svg>
+  <p style="text-align:center"><small>The two possible shapes, drawn with $\theta = 120^\circ$ (not to scale); this variant uses the one described above.</small></p>
+</pl-question-panel>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(a)</b> The $z$-component of the magnetic flux density at O (signed: positive along $+\hat{z}$):</p>
+<pl-number-input answers-name="Bz" label="$B_z(\mathrm{O}) =$" suffix="$\mu\mathrm{T}$" comparison="relabs" rtol="0.01" atol="1e-6"></pl-number-input>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(b)</b> What do the two straight segments contribute to $\mathbf{B}$ at O?</p>
+<pl-multiple-choice answers-name="segments" order="fixed" hide-letter-keys="true">
+  {{#params.seg_choices}}
+  <pl-answer correct="{{correct}}" feedback="{{feedback}}">{{{text}}}</pl-answer>
+  {{/params.seg_choices}}
+</pl-multiple-choice>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(c)</b> Which way does $\mathbf{B}$ at O point, and why?</p>
+<pl-multiple-choice answers-name="direction" order="fixed" hide-letter-keys="true">
+  {{#params.dir_choices}}
+  <pl-answer correct="{{correct}}" feedback="{{feedback}}">{{{text}}}</pl-answer>
+  {{/params.dir_choices}}
+</pl-multiple-choice>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(d)</b> Select <b>all</b> true statements about the Biot–Savart law and this loop.</p>
+<pl-checkbox answers-name="facts" number-answers="5" min-correct="1" max-correct="4" partial-credit="each-answer" hide-letter-keys="true">
+  {{#params.pool}}
+  <pl-answer correct="{{correct}}" feedback="{{feedback}}">{{{text}}}</pl-answer>
+  {{/params.pool}}
+</pl-checkbox>
+</div></div>
+
+<pl-hidden-hints>
+  <pl-hint hint-name="Biot–Savart, piece by piece">
+    $d\mathbf{B} = \dfrac{\mu_0}{4\pi}\dfrac{I\,d\mathbf{l}\times\hat{R}}{R^2}$ with $\hat{R}$ from the element to O. Treat each arc and each straight segment separately:
+    on an arc centred on O, every element is at the same distance and perpendicular to $\hat{R}$; on a segment along a ray from O, every element points along $\hat{R}$.
+  </pl-hint>
+  <pl-hint hint-name="Signs" show-after-submission="1">
+    Find the sense in which each arc carries current <em>about O</em> (seen from $+z$): counterclockwise gives $+\hat{z}$ at O, clockwise gives $-\hat{z}$.
+    In an annular sector the two arcs are traversed in opposite senses about O.
+  </pl-hint>
+</pl-hidden-hints>
+
+<pl-answer-panel>
+  <p><b>(a)</b> {{{params.a_expl}}}</p>
+  <p><b>(b)</b> Nothing. On a segment along a ray from O, $d\mathbf{l}$ is parallel or antiparallel to $\hat{R}$ at every element, so $d\mathbf{l}\times\hat{R} = 0$:
+    each segment contributes zero on its own (it is not a cancellation between the two). The half-infinite-wire value $\mu_0I/(4\pi a)$ applies at a perpendicular
+    distance $a$ from a wire's end, not at a point on the wire's own line.</p>
+  <p><b>(c)</b> {{{params.c_expl}}}</p>
+  <p><b>(d)</b> Biot–Savart is linear and superposable; $\hat{R}$ runs from the source element to the field point, and the order $d\mathbf{l}\times\hat{R}$ matters.
+    An element contributes nothing along its own line and falls off as $1/R^2$ elsewhere, so an arc gives $\mu_0I\theta/(4\pi a)$: proportional to $\theta$,
+    inversely proportional to its radius (smaller for a larger, longer arc). Doubling every length halves $B$. Ampère's law needs symmetry to yield $B$; here a circle about O
+    has $\mathbf{B}\perp d\mathbf{l}$ everywhere, so its circulation is zero for any $B$. The magnetic force $q\mathbf{v}\times\mathbf{B}$ never changes a charge's speed.</p>
+</pl-answer-panel>

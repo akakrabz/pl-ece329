@@ -1,0 +1,21 @@
+{
+  "uuid": "977dadff-7e6e-466b-9d69-0f0b4b905e85",
+  "title": "From a vector potential to B, the current, and E",
+  "topic": "Magnetostatics",
+  "tags": [
+    "lec13",
+    "lec15",
+    "midterm2",
+    "exam-style",
+    "calculate",
+    "concept",
+    "numeric",
+    "MC",
+    "vector-potential",
+    "boundary-conditions"
+  ],
+  "type": "v3",
+  "gradingMethod": "Internal",
+  "singleVariant": false,
+  "showCorrectAnswer": true
+}

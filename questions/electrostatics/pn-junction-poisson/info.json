@@ -1,0 +1,17 @@
+{
+  "uuid": "926baa01-c86c-4c0d-9376-4bd35b5b150f",
+  "title": "Poisson's equation in an abrupt pn junction",
+  "topic": "Electrostatics",
+  "tags": [
+    "lec07",
+    "concept",
+    "MC",
+    "multianswer",
+    "numeric",
+    "poisson"
+  ],
+  "type": "v3",
+  "gradingMethod": "Internal",
+  "singleVariant": false,
+  "showCorrectAnswer": true
+}

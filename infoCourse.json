@@ -112,6 +112,181 @@
       "name": "concept",
       "color": "brown2",
       "description": "Concept check"
+    },
+    {
+      "name": "lec01",
+      "color": "blue1",
+      "description": "Lecture 1: Fields as force per charge; the Lorentz force"
+    },
+    {
+      "name": "lec02",
+      "color": "blue1",
+      "description": "Lecture 2: Coulomb's law and superposition; selectors"
+    },
+    {
+      "name": "lec03",
+      "color": "blue1",
+      "description": "Lecture 3: Gauss's law with symmetry"
+    },
+    {
+      "name": "lec04",
+      "color": "blue1",
+      "description": "Lecture 4: Divergence, curl, the integral theorems, continuity"
+    },
+    {
+      "name": "lec05",
+      "color": "blue1",
+      "description": "Lecture 5: Electrostatic potential and work"
+    },
+    {
+      "name": "lec06",
+      "color": "blue1",
+      "description": "Lecture 6: Circulation and boundary conditions"
+    },
+    {
+      "name": "lec07",
+      "color": "blue1",
+      "description": "Lecture 7: Poisson and Laplace in 1-D; pn junction"
+    },
+    {
+      "name": "lec08",
+      "color": "blue1",
+      "description": "Lecture 8: Conductors, Ohm's law, relaxation, polarization"
+    },
+    {
+      "name": "lec09",
+      "color": "blue1",
+      "description": "Lecture 9: Static fields in dielectric media"
+    },
+    {
+      "name": "lec10",
+      "color": "blue1",
+      "description": "Lecture 10: Capacitance, energy, force, conductance"
+    },
+    {
+      "name": "lec11",
+      "color": "blue1",
+      "description": "Lecture 11: Drude and Lorentz models"
+    },
+    {
+      "name": "lec12",
+      "color": "green1",
+      "description": "Lecture 12: Magnetic force, Biot-Savart, Ampere"
+    },
+    {
+      "name": "lec13",
+      "color": "green1",
+      "description": "Lecture 13: Current sheets, solenoids, toroids, vector potential"
+    },
+    {
+      "name": "lec14",
+      "color": "green1",
+      "description": "Lecture 14: Faraday's law and emf"
+    },
+    {
+      "name": "lec15",
+      "color": "green1",
+      "description": "Lecture 15: Inductance and magnetic energy"
+    },
+    {
+      "name": "lec16",
+      "color": "purple1",
+      "description": "Lecture 16: Displacement current and the full Maxwell equations"
+    },
+    {
+      "name": "lec17",
+      "color": "purple1",
+      "description": "Lecture 17: Magnetization and magnetic media"
+    },
+    {
+      "name": "lec18",
+      "color": "purple1",
+      "description": "Lecture 18: Wave equation and plane TEM waves"
+    },
+    {
+      "name": "lec19",
+      "color": "purple1",
+      "description": "Lecture 19: Radiation from current sheets; Poynting vector"
+    },
+    {
+      "name": "midterm2",
+      "color": "red1",
+      "description": "In scope for Midterm 2 (Lectures 11-19)"
+    },
+    {
+      "name": "exam-style",
+      "color": "orange1",
+      "description": "Multi-part problem modelled on a past ECE 329 exam (re-parameterized)"
+    },
+    {
+      "name": "matching",
+      "color": "turquoise3",
+      "description": "Has matching parts"
+    },
+    {
+      "name": "lorentz-force",
+      "color": "pink1",
+      "description": "Lorentz force on moving charges"
+    },
+    {
+      "name": "coulomb",
+      "color": "blue3",
+      "description": "Coulomb's law and superposition"
+    },
+    {
+      "name": "divergence-curl",
+      "color": "blue2",
+      "description": "Divergence, curl, continuity"
+    },
+    {
+      "name": "poisson",
+      "color": "turquoise1",
+      "description": "Poisson/Laplace equation"
+    },
+    {
+      "name": "conductors",
+      "color": "yellow1",
+      "description": "Conductors and charge relaxation"
+    },
+    {
+      "name": "polarization",
+      "color": "pink3",
+      "description": "Polarization and bound charge"
+    },
+    {
+      "name": "drude-lorentz",
+      "color": "orange2",
+      "description": "Drude and Lorentz material models"
+    },
+    {
+      "name": "biot-savart",
+      "color": "green2",
+      "description": "Biot-Savart law"
+    },
+    {
+      "name": "vector-potential",
+      "color": "green3",
+      "description": "Magnetic vector potential"
+    },
+    {
+      "name": "magnetization",
+      "color": "purple2",
+      "description": "Magnetization, magnetic materials, permeability"
+    },
+    {
+      "name": "displacement-current",
+      "color": "purple3",
+      "description": "Displacement current and Maxwell's equations"
+    },
+    {
+      "name": "waves",
+      "color": "purple1",
+      "description": "Wave equation and plane waves"
+    },
+    {
+      "name": "radiation",
+      "color": "pink2",
+      "description": "Current-sheet radiation and the Poynting vector"
     }
   ]
 }

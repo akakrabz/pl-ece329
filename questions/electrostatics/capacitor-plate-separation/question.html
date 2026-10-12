@@ -1,0 +1,74 @@
+<pl-question-panel>
+  <p>
+    Two parallel metal plates, each of area $A = {{params.A_cm2}}\ \mathrm{cm^2}$, face each other across an air gap $d_1 = {{params.d1_str}}\ \mathrm{mm}$.
+    A battery charges them to a voltage $V_0 = {{params.V0}}\ \mathrm{V}$. {{{params.scenario}}}
+    The final gap is $d_2 = {{params.d2_str}}\ \mathrm{mm}$; the plates stay parallel and nothing acquires kinetic energy.
+  </p>
+  <p>
+    Treat air as vacuum ($\epsilon_0 = 8.854\times10^{-12}\ \mathrm{F/m}$) and ignore fringing. "Work done by you" is the work of the external pulling force;
+    the force asked for in (d) is the magnitude of the electric attraction between the plates.
+  </p>
+</pl-question-panel>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(a)</b> The capacitance before and after the separation:</p>
+<pl-number-input answers-name="C1" label="$C_1 =$" suffix="$\mathrm{pF}$" comparison="relabs" rtol="0.01" atol="1e-6"></pl-number-input>
+<pl-number-input answers-name="C2" label="$C_2 =$" suffix="$\mathrm{pF}$" comparison="relabs" rtol="0.01" atol="1e-6"></pl-number-input>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(b)</b> The electrostatic energy stored in the capacitor before and after:</p>
+<pl-number-input answers-name="W1" label="$W_1 =$" suffix="$\mu\mathrm{J}$" comparison="relabs" rtol="0.01" atol="1e-6"></pl-number-input>
+<pl-number-input answers-name="W2" label="$W_2 =$" suffix="$\mu\mathrm{J}$" comparison="relabs" rtol="0.01" atol="1e-6"></pl-number-input>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(c)</b> The work done by you in moving the plates from $d_1$ to $d_2$ (signed: positive if you supply energy):</p>
+<pl-number-input answers-name="Wagent" label="$W_{\text{you}} =$" suffix="$\mu\mathrm{J}$" comparison="relabs" rtol="0.01" atol="1e-6"></pl-number-input>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(d)</b> The attractive force between the plates when the gap is $d_1$, and when it is $d_2$:</p>
+<pl-number-input answers-name="F1" label="$F(d_1) =$" suffix="$\mathrm{mN}$" comparison="relabs" rtol="0.01" atol="1e-6"></pl-number-input>
+<pl-number-input answers-name="F2" label="$F(d_2) =$" suffix="$\mathrm{mN}$" comparison="relabs" rtol="0.01" atol="1e-6"></pl-number-input>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(e)</b> Which statement describes the energy bookkeeping of this separation correctly?</p>
+<pl-multiple-choice answers-name="energy" order="fixed" hide-letter-keys="true">
+  {{#params.energy_choices}}
+  <pl-answer correct="{{correct}}" feedback="{{feedback}}">{{{text}}}</pl-answer>
+  {{/params.energy_choices}}
+</pl-multiple-choice>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(f)</b> Select <b>all</b> statements that are true for this capacitor, with the battery connected or disconnected as described above.</p>
+<pl-checkbox answers-name="facts" number-answers="5" min-correct="1" max-correct="4" partial-credit="each-answer" hide-letter-keys="true">
+  {{#params.pool}}
+  <pl-answer correct="{{correct}}" feedback="{{feedback}}">{{{text}}}</pl-answer>
+  {{/params.pool}}
+</pl-checkbox>
+</div></div>
+
+<pl-hidden-hints>
+  <pl-hint hint-name="What is held fixed?">
+    Isolated plates keep their charge $Q$; a connected battery keeps the voltage $V_0$. With $C(x) = \epsilon_0A/x$ for a gap $x$, write the stored energy
+    with the right variable held fixed: $W = Q^2x/(2\epsilon_0A)$ at fixed $Q$, or $W = \epsilon_0AV_0^2/(2x)$ at fixed $V$.
+  </pl-hint>
+  <pl-hint hint-name="Energy conservation and force" show-after-submission="1">
+    $W_{\text{you}} + W_{\text{battery}} = \Delta W_{\text{stored}}$, where the battery does work $V_0\,\Delta Q$ (none if it is disconnected).
+    The force on one plate is its charge times the field of the <em>other</em> plate alone, $\rho_s/(2\epsilon_0)$: $F = Q^2/(2\epsilon_0A)$ at any instant.
+  </pl-hint>
+</pl-hidden-hints>
+
+<pl-answer-panel>
+  <p><b>(a)</b> $C_1 = \dfrac{\epsilon_0A}{d_1} = {{params.C1_str}}\ \mathrm{pF}$ and $C_2 = \dfrac{\epsilon_0A}{d_2} = {{params.C2_str}}\ \mathrm{pF}$ — the same in both setups: $C$ depends only on the geometry.</p>
+  <p><b>(b)</b> {{{params.b_expl}}}</p>
+  <p><b>(c)</b> {{{params.c_expl}}}</p>
+  <p><b>(d)</b> {{{params.d_expl}}} Using the full gap field, $F = QE$, would give twice the correct force: a plate is not pushed by its own field.</p>
+  <p><b>(e)</b> {{{params.e_expl}}}</p>
+  <p><b>(f)</b> Decide first what is held fixed ($Q$ when isolated, $V_0$ with the battery), then follow it: $E = V/x = Q/(\epsilon_0A)$,
+    $W = \tfrac12CV^2 = Q^2/(2C)$, energy density $\tfrac12\epsilon_0E^2$, force $Q^2/(2\epsilon_0A)$. Some facts hold in both setups:
+    $C$ falls, the plates attract (so you do positive work), the force at $d_1$ is the same, and the force is $\tfrac12QE$, never $QE$.</p>
+</pl-answer-panel>

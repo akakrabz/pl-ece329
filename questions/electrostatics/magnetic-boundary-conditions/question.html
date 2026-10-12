@@ -1,0 +1,74 @@
+<pl-question-panel>
+  <p>
+    All fields in this question are static. At an interface, the two sides are called medium 1 and medium 2, and the unit normal $\hat n$ points <b>from medium 2 into medium 1</b>.
+    In parts (a) and (b) both sides of each interface are free space ($\mu = \mu_0$, so $\mathbf{B} = \mu_0\mathbf{H}$), and the surface current densities $\mathbf{J}_s$, in $\mathrm{A/m}$, flow in the plane of their interface.
+  </p>
+</pl-question-panel>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(a)</b> The plane $z = 0$ carries the surface current $\mathbf{J}_s = {{{params.Js_a_tex}}}\ \mathrm{A/m}$. Medium 1 is $z \gt 0$ and medium 2 is $z \lt 0$, so $\hat n = \hat z$.
+{{{params.a_setup}}}</p>
+<pl-number-input answers-name="Hax" label="$H_{ {{params.asked}}x } =$" suffix="$\mathrm{A/m}$" comparison="relabs" rtol="0.01" atol="0.01"></pl-number-input>
+<pl-number-input answers-name="Hay" label="$H_{ {{params.asked}}y } =$" suffix="$\mathrm{A/m}$" comparison="relabs" rtol="0.01" atol="0.01"></pl-number-input>
+<pl-number-input answers-name="Haz" label="$H_{ {{params.asked}}z } =$" suffix="$\mathrm{A/m}$" comparison="relabs" rtol="0.01" atol="0.01"></pl-number-input>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(b)</b> A different interface: the plane ${{params.u}} = 0$ separates two free-space regions and carries an unknown surface current $\mathbf{J}_s$. Just on either side of it
+$${{{params.b_fields}}}\quad\mathrm{A/m}.$$
+Find the two in-plane components of $\mathbf{J}_s$ (signed, along the positive coordinate axes):</p>
+<pl-number-input answers-name="Jb1" label="$J_{s,{{params.t1}} } =$" suffix="$\mathrm{A/m}$" comparison="relabs" rtol="0.01" atol="0.01"></pl-number-input>
+<pl-number-input answers-name="Jb2" label="$J_{s,{{params.t2}} } =$" suffix="$\mathrm{A/m}$" comparison="relabs" rtol="0.01" atol="0.01"></pl-number-input>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(c)</b> The statements below are about the static boundary conditions in general, at an interface between any two media ($\hat n$ from medium 2 into medium 1). Select <b>all</b> the true ones.</p>
+<pl-checkbox answers-name="bcs" number-answers="5" min-correct="1" max-correct="4" partial-credit="each-answer">
+  {{#params.cb}}
+  <pl-answer correct="{{correct}}" feedback="{{feedback}}">{{{text}}}</pl-answer>
+  {{/params.cb}}
+</pl-checkbox>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(d)</b> At an interface between any two media, each integral law below is applied to the shape named, which is then shrunk onto the interface. Match each law to the boundary condition it produces. (Some conditions in the list are not produced by any of the four.)</p>
+<pl-matching answers-name="laws" fixed-options-order="true">
+  {{#params.statements}}
+  <pl-statement match="{{match}}">{{{text}}}</pl-statement>
+  {{/params.statements}}
+  {{#params.options}}
+  <pl-option name="{{name}}">{{{text}}}</pl-option>
+  {{/params.options}}
+</pl-matching>
+</div></div>
+
+<pl-hidden-hints>
+  <pl-hint hint-name="Normal and tangential parts">
+    Split each field into its component along $\hat n$ and its part in the plane. With $\mathbf{B} = \mu_0\mathbf{H}$ on both sides, $\hat n\cdot(\mathbf{B}_1-\mathbf{B}_2) = 0$ makes the normal component of $\mathbf{H}$ continuous; only the in-plane part of $\mathbf{H}$ can jump at a current sheet.
+  </pl-hint>
+  <pl-hint hint-name="Getting the sign of the jump" show-after-submission="1">
+    Crossing $\hat n\times(\mathbf{H}_1-\mathbf{H}_2) = \mathbf{J}_s$ with $\hat n$ gives $\mathbf{H}_{1t}-\mathbf{H}_{2t} = \mathbf{J}_s\times\hat n$ (not $\hat n\times\mathbf{J}_s$). In (b), pick either side as medium 1 and point $\hat n$ into it: the other choice flips both $\hat n$ and $\mathbf{H}_1-\mathbf{H}_2$, so $\mathbf{J}_s$ comes out the same.
+  </pl-hint>
+</pl-hidden-hints>
+
+<pl-answer-panel>
+  <p><b>(a)</b> <em>Normal part:</em> $B_z$ is continuous and $\mathbf{B} = \mu_0\mathbf{H}$ on both sides, so $H_{1z} = H_{2z} = {{params.Hz_common}}\ \mathrm{A/m}$.
+    <em>Tangential part:</em> crossing $\hat z\times(\mathbf{H}_1-\mathbf{H}_2) = \mathbf{J}_s$ with $\hat z$ gives
+    $\mathbf{H}_{1t}-\mathbf{H}_{2t} = \mathbf{J}_s\times\hat z = ({{{params.Js_a_tex}}})\times\hat z = {{{params.jump_a_tex}}}$ A/m. Hence {{{params.a_solve}}}, and altogether
+    $$\mathbf{H}_1 = {{{params.H1_tex}}}\ \mathrm{A/m},\qquad \mathbf{H}_2 = {{{params.H2_tex}}}\ \mathrm{A/m}.$$
+    Check: $\hat z\times(\mathbf{H}_1-\mathbf{H}_2) = \hat z\times({{{params.jump_a_tex}}}) = {{{params.Js_a_tex}}} = \mathbf{J}_s$. The in-plane component of $\mathbf{H}$ along $\mathbf{J}_s$ is the same on both sides; only the in-plane component perpendicular to $\mathbf{J}_s$ jumps, by $|\mathbf{J}_s|$.</p>
+  <p><b>(b)</b> The normal component, $H_{ {{params.u}} } = {{params.Hn_b}}\ \mathrm{A/m}$, is the same on both sides, as normal-$\mathbf{B}$ continuity requires. Call ${{params.u}} \gt 0$ medium 1, so $\hat n = \hat{ {{params.u}} }$ and
+    $\mathbf{H}_1-\mathbf{H}_2 = {{{params.dH_tex}}}\ \mathrm{A/m}$. Then
+    $$\mathbf{J}_s = \hat n\times(\mathbf{H}_1-\mathbf{H}_2) = \hat{ {{params.u}} }\times({{{params.dH_tex}}}) = {{{params.Js_b_tex}}}\ \mathrm{A/m}.$$
+    (Calling ${{params.u}} \lt 0$ medium 1 instead reverses both $\hat n$ and $\mathbf{H}_1-\mathbf{H}_2$, and gives the same $\mathbf{J}_s$.)</p>
+  <p><b>(c)</b> The statements in the pool, with the reason for each:</p>
+  <ul>
+    {{#params.cb}}
+    <li>{{{text}}} <b>{{tf}}.</b> {{{why}}}</li>
+    {{/params.cb}}
+  </ul>
+  <p><b>(d)</b> Flux laws applied to a pillbox constrain <em>normal</em> components (the side wall's flux vanishes as the pillbox flattens); circulation laws applied to a thin loop constrain <em>tangential</em> components (the short edges vanish):
+    Gauss's law for $\mathbf{D}$ gives $\hat n\cdot(\mathbf{D}_1-\mathbf{D}_2) = \rho_s$; $\oint\mathbf{B}\cdot d\mathbf{S} = 0$ gives $\hat n\cdot(\mathbf{B}_1-\mathbf{B}_2) = 0$;
+    $\oint\mathbf{E}\cdot d\mathbf{l} = 0$ gives $\hat n\times(\mathbf{E}_1-\mathbf{E}_2) = 0$; Ampère's law gives $\hat n\times(\mathbf{H}_1-\mathbf{H}_2) = \mathbf{J}_s$.
+    The other three are not boundary conditions: normal $\mathbf{E}$ jumps at a charged sheet, tangential $\mathbf{D}$ jumps where $\epsilon$ changes, and normal $\mathbf{H}$ does not jump at a current sheet in free space.</p>
+</pl-answer-panel>

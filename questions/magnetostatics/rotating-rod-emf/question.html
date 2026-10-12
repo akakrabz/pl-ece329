@@ -1,0 +1,59 @@
+<pl-question-panel>
+  <p>
+    A thin copper rod of length $L = {{params.L_cm}}\ \mathrm{cm}$ lies in the ${{params.plane}}$-plane with one end on a fixed pivot at the origin.
+    It turns in that plane about the ${{params.axis}}$ axis with constant angular velocity $\boldsymbol{\omega} = {{{params.w_tex}}}\ \mathrm{rad/s}$, i.e. {{params.sense}} as seen from the $+{{params.axis}}$ side looking back toward the origin.
+    A uniform, static magnetic field $\mathbf{B} = {{{params.B_tex}}}\ \mathrm{mT}$ fills the region.
+  </p>
+  <p>
+    The rod's free end (the tip) slides on a circular conducting rail of radius $L$ in the same plane, centred on the pivot.
+    The rod, the rail and all leads have negligible resistance, and the self-inductance of any circuit they form is negligible.
+    In parts (a) and (b) nothing else is connected: the circuit is open.
+  </p>
+</pl-question-panel>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(a)</b> The magnitude of the emf generated in the rod, i.e. of the open-circuit voltage between its two ends:</p>
+<pl-number-input answers-name="emf" label="$|\mathcal{E}| =$" suffix="$\mathrm{mV}$" comparison="relabs" rtol="0.01" atol="1e-9"></pl-number-input>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(b)</b> With the circuit open, which end of the rod is at the higher electric potential?</p>
+<pl-multiple-choice answers-name="hi_end">
+  {{#params.choices}}<pl-answer correct="{{correct}}" feedback="{{feedback}}">{{{text}}}</pl-answer>
+  {{/params.choices}}
+</pl-multiple-choice>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(c)</b> A resistor $R = {{params.R}}\ \Omega$ is now connected between the pivot and a point of the rail, and $\omega$ is held constant. Find the magnitude of the current through the resistor and the mechanical power that must be supplied to keep the rod turning (there is no friction).</p>
+<pl-number-input answers-name="I" label="$I =$" suffix="$\mathrm{mA}$" comparison="relabs" rtol="0.01" atol="1e-9"></pl-number-input>
+<pl-number-input answers-name="P" label="$P =$" suffix="$\mathrm{mW}$" comparison="relabs" rtol="0.01" atol="1e-9"></pl-number-input>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(d)</b> Select all the true statements about this rod and circuit.</p>
+<pl-checkbox answers-name="facts" number-answers="5" min-correct="1" max-correct="4" partial-credit="each-answer" order="fixed">
+  {{#params.facts}}<pl-answer correct="{{correct}}" feedback="{{why}}">{{{text}}}</pl-answer>
+  {{/params.facts}}
+</pl-checkbox>
+</div></div>
+
+<pl-hidden-hints>
+  <pl-hint hint-name="Motional emf">
+    The emf of a moving conductor is $\int(\mathbf{v}\times\mathbf{B})\cdot d\mathbf{l}$ along it. Here a point at distance $s$ from the pivot moves with $\mathbf{v} = \boldsymbol\omega\times\mathbf{r}$, so the speed, and with it $\mathbf{v}\times\mathbf{B}$, grows linearly along the rod. Work out the direction of $\mathbf{v}\times\mathbf{B}$ with the cross product, not from a picture.
+  </pl-hint>
+  <pl-hint hint-name="Polarity and power" show-after-submission="1">
+    In the open rod the charges pile up until the electrostatic field cancels $\mathbf{v}\times\mathbf{B}$ inside, so the end toward which $\mathbf{v}\times\mathbf{B}$ pushes positive charge is the higher-potential end. With a load, the rod acts as a battery; the force on its current opposes the rotation, and the power you supply equals the power dissipated in $R$.
+  </pl-hint>
+</pl-hidden-hints>
+
+<pl-answer-panel>
+  <p><b>(a)</b> {{{params.a_words}}}</p>
+  <p><b>(b)</b> {{{params.b_words}}}</p>
+  <p><b>(c)</b> {{{params.c_words}}}</p>
+  <p><b>(d)</b></p>
+  <ul>
+  {{#params.facts}}<li>{{{text}}} <b>{{verdict}}.</b> {{{why}}}</li>
+  {{/params.facts}}
+  </ul>
+</pl-answer-panel>

@@ -1,0 +1,71 @@
+<pl-question-panel>
+  <p>
+    Two long, tightly wound solenoids in free space share the ${{params.axis}}$ axis; treat both as ideal (infinitely long). Use $\mu_0 = 4\pi\times10^{-7}\ \mathrm{H/m}$.
+  </p>
+  <ul>
+    <li>Outer coil: radius $a_1 = {{params.a1}}\ \mathrm{cm}$, $n_1 = {{params.n1}}$ turns/m, current $I_1 = {{params.I1}}\ \mathrm{A}$ circulating <b>{{params.sense1}}</b> as seen from the $+{{params.axis}}$ side (looking back toward the origin).</li>
+    <li>Inner coil: radius $a_2 = {{params.a2}}\ \mathrm{cm}$, $n_2 = {{params.n2}}$ turns/m, current $I_2$, counted <b>positive when it circulates in the same sense as $I_1$</b>.</li>
+  </ul>
+  <p>Report every field as its signed ${{params.axis}}$-component (positive means along $+{{{params.ax_hat}}}$); $r$ is the distance from the axis.</p>
+  <svg viewBox="0 0 220 220" width="220" style="max-width:100%;height:auto" role="img" aria-label="End view seen from the +{{params.axis}} side: the outer winding (radius a1, with the sense of I1), the inner winding (radius a2) and the dashed loop of radius r0 used in part (e)">
+    <circle cx="110" cy="110" r="{{params.r_px1}}" fill="none" stroke="currentColor" stroke-width="2"/>
+    <circle cx="110" cy="110" r="{{params.r_px2}}" fill="none" stroke="currentColor" stroke-width="1.5"/>
+    <circle cx="110" cy="110" r="{{params.r_px0}}" fill="none" stroke="currentColor" stroke-width="1" stroke-dasharray="4 3"/>
+    <polygon points="{{params.arrow}}" fill="currentColor"/>
+    <circle cx="110" cy="110" r="4" fill="none" stroke="currentColor"/>
+    <circle cx="110" cy="110" r="1.3" fill="currentColor"/>
+    <text x="110" y="216" font-size="10" text-anchor="middle">end view, +{{params.axis}} toward you</text>
+    <text x="{{params.la1x}}" y="{{params.la1y}}" font-size="11" text-anchor="middle">a<tspan baseline-shift="sub" font-size="8">1</tspan></text>
+    <text x="{{params.la2x}}" y="{{params.la2y}}" font-size="11" text-anchor="middle">a<tspan baseline-shift="sub" font-size="8">2</tspan></text>
+    <text x="{{params.lr0x}}" y="{{params.lr0y}}" font-size="11" text-anchor="middle">r<tspan baseline-shift="sub" font-size="8">0</tspan></text>
+  </svg>
+</pl-question-panel>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(a)</b> With $I_2 = {{params.I2_str}}\ \mathrm{A}$, find $H_{ {{params.axis}} }$ in the core, $r \lt a_2$.</p>
+<pl-number-input answers-name="Ha" label="$H_{ {{params.axis}} } =$" suffix="$\mathrm{kA/m}$" comparison="relabs" rtol="0.01" atol="1e-6"></pl-number-input>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(b)</b> What current $I_2$ (signed, counted in $I_1$'s sense) makes $\mathbf{H} = 0$ for $r \lt a_2$?</p>
+<pl-number-input answers-name="I2c" label="$I_2 =$" suffix="$\mathrm{A}$" comparison="relabs" rtol="0.01" atol="1e-6"></pl-number-input>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(c)</b> With the $I_2$ of part (b), find $H_{ {{params.axis}} }$ between the windings, $a_2 \lt r \lt a_1$.</p>
+<pl-number-input answers-name="Hc" label="$H_{ {{params.axis}} } =$" suffix="$\mathrm{kA/m}$" comparison="relabs" rtol="0.01" atol="1e-6"></pl-number-input>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(d)</b> The inner coil is disconnected from its supply and its two ends are joined, so it becomes a closed coil carrying no current. Then $I_1$ slowly <b>{{params.change}}</b>. What current is induced in the inner coil?</p>
+<pl-multiple-choice answers-name="lenz" order="fixed">
+  {{#params.lenz_choices}}
+  <pl-answer correct="{{correct}}" feedback="{{feedback}}">{{{text}}}</pl-answer>
+  {{/params.lenz_choices}}
+</pl-multiple-choice>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(e)</b> Now both coils are driven by current sources, with $dI_1/dt = {{params.al1}}\ \mathrm{A/s}$ and $dI_2/dt = {{params.al2}}\ \mathrm{A/s}$ ($I_2$ still counted in $I_1$'s sense). A single circular wire loop of radius $r_0 = {{params.r0}}\ \mathrm{cm}$, coaxial with the solenoids (dashed in the figure), is traversed in the same sense as $I_1$. Find the emf around the loop in that direction.</p>
+<pl-number-input answers-name="emf" label="$\mathcal{E} =$" suffix="$\mu\mathrm{V}$" comparison="relabs" rtol="0.02" atol="1e-6"></pl-number-input>
+</div></div>
+
+<pl-hidden-hints>
+  <pl-hint hint-name="Each coil on its own">
+    An ideal solenoid has $\mathbf{H} = nI$ along its axis inside its own winding (direction by the right-hand rule: fingers along the current, thumb along $\mathbf{H}$) and $\mathbf{H} = 0$ outside it. At a given radius, add only the coils whose winding encloses that radius.
+  </pl-hint>
+  <pl-hint hint-name="Flux through the loop" show-after-submission="1">
+    The flux through a coaxial loop is $\int\mathbf{B}\cdot d\mathbf{S}$ over the disk it bounds: each coil contributes $\mu_0 nI$ times the part of the disk that lies inside that coil's winding. A loop that encloses a coil links all of that coil's flux, whether or not the field reaches the wire. Then $\mathcal{E} = -d\Psi/dt$, with $d\mathbf{S}$ along the direction the right-hand rule assigns to the loop's sense of traversal.
+  </pl-hint>
+</pl-hidden-hints>
+
+<pl-answer-panel>
+  <p><b>Directions.</b> $I_1$ circulates {{params.sense1}} seen from $+{{params.axis}}$, so by the right-hand rule a positive current (in $I_1$'s sense) makes $\mathbf{H}$ along ${{{params.s1_tex}}}$ inside its winding. Each ideal coil contributes $nI$ inside its winding and nothing outside.</p>
+  <p><b>(a)</b> For $r \lt a_2$ both coils contribute: $H_{ {{params.axis}} } = {{params.s1_sign}}(n_1I_1 + n_2I_2) = {{params.s1_sign}}\big({{params.n1I1}} + ({{params.n2I2}})\big)\ \mathrm{A/m} = {{params.Ha_str}}\ \mathrm{kA/m}$.</p>
+  <p><b>(b)</b> $n_1I_1 + n_2I_2 = 0$ gives $I_2 = -n_1I_1/n_2 = -({{params.n1}})({{params.I1}})/{{params.n2}} = {{params.I2c_str}}\ \mathrm{A}$, i.e. {{{params.I2c_words}}}: the inner coil's field must point against the outer coil's.</p>
+  <p><b>(c)</b> For $a_2 \lt r \lt a_1$ only the outer coil's winding encloses the point; the inner coil's field stops at its own winding, whatever $I_2$ is. So $H_{ {{params.axis}} } = {{params.s1_sign}}n_1I_1 = {{params.Hc_str}}\ \mathrm{kA/m}$ (and $\mathbf{H} = 0$ for $r \gt a_1$).</p>
+  <p><b>(d)</b> Each turn of the inner coil links the outer coil's flux $\mu_0n_1I_1\pi a_2^2$, which is {{params.lenz_words}}. By Faraday's law each turn has an emf $-d\Psi/dt$, and by Lenz's rule the induced current produces a field that opposes the change in flux: it circulates {{{params.lenz_resp}}}. The outer coil's field is uniform over the inner coil's cross-section, but it changes in time, which is all Faraday's law needs.</p>
+  <p><b>(e)</b> Traversing the loop in $I_1$'s sense puts $d\mathbf{S}$ along ${{{params.flux_dir}}}$, the direction in which a positive $I_1$ or $I_2$ drives $\mathbf{B}$. The loop is {{{params.reg_words}}}. {{{params.psi_words}}} Hence</p>
+  <p>$${{{params.emf_line}}}.$$</p>
+  <p>A positive value drives current in $I_1$'s sense.</p>
+</pl-answer-panel>

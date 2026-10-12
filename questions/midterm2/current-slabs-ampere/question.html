@@ -1,0 +1,87 @@
+<pl-question-panel>
+  <p>
+    Two infinite slabs in free space carry steady, uniform volume currents along the ${{params.c}}$ axis. Both slabs are unbounded in ${{params.c}}$ and ${{params.h}}$; their thicknesses lie along ${{params.u}}$ (positions in millimetres):
+    $$\mathbf{J} = \begin{cases} J_1\,{{{params.chat}}}, & {{params.a1}} \lt {{params.u}} \lt {{params.b1}}\ \mathrm{mm},\\[2pt] J_2\,{{{params.chat}}}, & {{params.a2}} \lt {{params.u}} \lt {{params.b2}}\ \mathrm{mm},\\[2pt] \mathbf{0}, & \text{elsewhere},\end{cases}\qquad J_1 = {{params.J1}}\ \mathrm{kA/m^2},\quad J_2 = {{params.J2}}\ \mathrm{kA/m^2}.$$
+    In addition, the plane ${{params.u}} = 0$, midway between the slabs, carries the surface current $\mathbf{J}_s = {{params.K}}\,{{{params.chat}}}\ \mathrm{A/m}$.
+  </p>
+  <p>
+    Five field points lie on the ${{params.u}}$ axis: {{{params.point_list}}}. Give every field value as the signed ${{params.h}}$-component of $\mathbf{H}$ in A/m: positive means along $+{{{params.hhat}}}$.
+  </p>
+  <svg viewBox="0 0 400 96" width="400" style="max-width:100%;height:auto" role="img" aria-label="To-scale layout of the two slabs, the sheet and the five points along the {{params.u}} axis">
+    <rect x="{{params.x_a1}}" y="16" width="{{params.w_s1}}" height="40" fill="currentColor" fill-opacity="0.15" stroke="currentColor"/>
+    <rect x="{{params.x_a2}}" y="16" width="{{params.w_s2}}" height="40" fill="currentColor" fill-opacity="0.15" stroke="currentColor"/>
+    <line x1="{{params.x_0}}" y1="6" x2="{{params.x_0}}" y2="56" stroke="currentColor" stroke-width="2" stroke-dasharray="4 3"/>
+    <line x1="12" y1="56" x2="350" y2="56" stroke="currentColor"/>
+    <polygon points="358,56 348,52 348,60" fill="currentColor"/>
+    <text x="362" y="60" font-size="13" font-style="italic">{{params.u}}</text>
+    <text x="372" y="74" font-size="10">(mm)</text>
+    <text x="{{params.x_m1}}" y="41" font-size="12" text-anchor="middle">J<tspan baseline-shift="sub" font-size="9">1</tspan></text>
+    <text x="{{params.x_m2}}" y="41" font-size="12" text-anchor="middle">J<tspan baseline-shift="sub" font-size="9">2</tspan></text>
+    <text x="{{params.x_0}}" y="11" dx="4" font-size="11">J<tspan baseline-shift="sub" font-size="8">s</tspan></text>
+    <text x="{{params.x_a1}}" y="70" font-size="10" text-anchor="middle">{{params.a1}}</text>
+    <text x="{{params.x_b1}}" y="70" font-size="10" text-anchor="middle">{{params.b1}}</text>
+    <text x="{{params.x_0}}" y="70" font-size="10" text-anchor="middle">0</text>
+    <text x="{{params.x_a2}}" y="70" font-size="10" text-anchor="middle">{{params.a2}}</text>
+    <text x="{{params.x_b2}}" y="70" font-size="10" text-anchor="middle">{{params.b2}}</text>
+    {{#params.pts_svg}}<circle cx="{{x}}" cy="56" r="2.5" fill="currentColor"/><text x="{{x}}" y="88" font-size="10" text-anchor="middle">P<tspan baseline-shift="sub" font-size="8">{{lab}}</tspan></text>{{/params.pts_svg}}
+  </svg>
+</pl-question-panel>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(a)</b> Find ${{{params.Hh_tex}}}$ at each of the five points, with the sheet present.</p>
+<pl-number-input answers-name="H1" label="{{{params.lab1}}}" suffix="$\mathrm{A/m}$" comparison="relabs" rtol="0.01" atol="0.001"></pl-number-input>
+<pl-number-input answers-name="H2" label="{{{params.lab2}}}" suffix="$\mathrm{A/m}$" comparison="relabs" rtol="0.01" atol="0.001"></pl-number-input>
+<pl-number-input answers-name="H3" label="{{{params.lab3}}}" suffix="$\mathrm{A/m}$" comparison="relabs" rtol="0.01" atol="0.001"></pl-number-input>
+<pl-number-input answers-name="H4" label="{{{params.lab4}}}" suffix="$\mathrm{A/m}$" comparison="relabs" rtol="0.01" atol="0.001"></pl-number-input>
+<pl-number-input answers-name="H5" label="{{{params.lab5}}}" suffix="$\mathrm{A/m}$" comparison="relabs" rtol="0.01" atol="0.001"></pl-number-input>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(b)</b> Which components of $\mathbf{H}$ vanish everywhere, and why?</p>
+<pl-multiple-choice answers-name="comp" order="fixed">
+  {{#params.comp_choices}}
+  <pl-answer correct="{{correct}}" feedback="{{feedback}}">{{{text}}}</pl-answer>
+  {{/params.comp_choices}}
+</pl-multiple-choice>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(c)</b> Follow ${{{params.Hh_tex}}}$ across slab {{params.ks}} in the $+{{{params.uhat}}}$ direction, from ${{params.u}} = {{params.ks_a}}$ mm to ${{params.u}} = {{params.ks_b}}$ mm. Which description is correct?</p>
+<pl-multiple-choice answers-name="shape" order="fixed">
+  {{#params.shape_choices}}
+  <pl-answer correct="{{correct}}" feedback="{{feedback}}">{{{text}}}</pl-answer>
+  {{/params.shape_choices}}
+</pl-multiple-choice>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(d)</b> The slabs are left unchanged, but the sheet current is {{{params.d_what}}}. Find the new ${{{params.Hh_tex}}}$ at $P_{{params.kd1}}$ (${{params.u}} = {{params.Pd_u}}$ mm).</p>
+<pl-number-input answers-name="Hd" label="{{{params.Hh_tex_d}}}" suffix="$\mathrm{A/m}$" comparison="relabs" rtol="0.01" atol="0.001"></pl-number-input>
+</div></div>
+
+<pl-hidden-hints>
+  <pl-hint hint-name="Building blocks">
+    One sheet: $\mathbf{H} = \tfrac12\,\mathbf{J}_s\times\hat{n}$, with $\hat{n}$ the unit normal from the sheet toward the field point: uniform, of size $\tfrac12|J_s|$, and reversed across the sheet. A slab of thickness $w$ is a stack of thin sheets $dJ_s = J\,du'$: outside it acts like one sheet carrying $Jw$, and inside it the field changes linearly, passing through zero on the slab's centre plane.
+  </pl-hint>
+  <pl-hint hint-name="Bookkeeping" show-after-submission="1">
+    Make a table with one column per source (slab 1, slab 2, sheet) and one row per point, fix each sign with the cross product (current direction)$\,\times\,\hat{n}$ evaluated on one side, then add the columns. Only the slab that contains the point contributes a position-dependent term. kA/m² times mm is A/m.
+  </pl-hint>
+</pl-hidden-hints>
+
+<pl-answer-panel>
+  <p><b>Symmetry.</b> All currents point along ${{{params.chat}}}$ and depend only on ${{params.u}}$, so $\mathbf{H} = {{{params.Hh_tex}}}({{params.u}})\,{{{params.hhat}}}$. Since ${{{params.cross_tex}}}$, a current along $+{{{params.chat}}}$ produces $\mathbf{H}$ along ${{{params.plus_h}}}$ on its $+{{params.u}}$ side and along ${{{params.minus_h}}}$ on its $-{{params.u}}$ side.</p>
+  <p><b>Building blocks</b> (${{params.u}}$ in mm, $\mathbf{H}$ in A/m):</p>
+  <ul>
+    <li>{{{params.sheet_line}}}</li>
+    <li>{{{params.slab1_line}}}</li>
+    <li>{{{params.slab2_line}}}</li>
+  </ul>
+  <p><b>(a)</b> Superposing at each point:</p>
+  <table class="table table-sm" style="width:auto">
+    <tr><th>point</th><th>${{params.u}}$ (mm)</th><th>slab 1</th><th>slab 2</th><th>sheet</th><th>${{{params.Hh_tex}}}$ (A/m)</th></tr>
+    {{#params.rows}}<tr><td>{{{P}}}</td><td>{{u}}</td><td>{{s1}}</td><td>{{s2}}</td><td>{{sh}}</td><td><b>{{tot}}</b></td></tr>{{/params.rows}}
+  </table>
+  <p><b>(b)</b> Every filament's field circles that filament, so no component lies along the current: ${{{params.Hc_tex}}} = 0$. For any field point, pair the filament a distance $d$ to one side (in ${{params.h}}$) with its mirror image on the other side: their ${{params.u}}$-components cancel and their ${{params.h}}$-components add, so ${{{params.Hu_tex}}} = 0$ too. Only ${{{params.Hh_tex}}}({{params.u}})$ survives (a plot of ${{{params.Hc_tex}}}$ or ${{{params.Hu_tex}}}$ is flat at zero).</p>
+  <p><b>(c)</b> In point form, ${{{params.curl_tex}}} = J_{ {{params.c}} }$, so inside slab {{params.ks}} the field is a straight line with slope $d{{{params.Hh_tex}}}/d{{params.u}} = {{params.slope}}$ A/m per mm (that is, ${{params.slope}}\ \mathrm{kA/m^2}$, the current density with the sign fixed by the cross product). Outside every slab and away from the sheet the slope is zero (constant field). At the slab faces there is no surface current, so ${{{params.Hh_tex}}}$ is continuous there; the only jump in the whole profile is the step of $|J_s| = {{params.Kabs}}$ A/m at the sheet.</p>
+  <p><b>(d)</b> {{{params.d_words}}}</p>
+</pl-answer-panel>

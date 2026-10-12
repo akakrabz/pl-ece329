@@ -1,0 +1,147 @@
+{
+  "uuid": "62d6789f-1e2e-44e7-bada-6fd38172210b",
+  "type": "Homework",
+  "title": "Concept checks — one question per lecture, Lectures 1–11",
+  "set": "Practice",
+  "number": "4",
+  "comment": "Concept-focused questions (multiple choice, select-all, matching) with a few numerical parts; one per lecture.",
+  "accessControl": [
+    {
+      "dateControl": {
+        "release": {
+          "date": "2026-10-12T00:00:01"
+        },
+        "due": {
+          "date": "2026-12-20T23:59:59"
+        },
+        "afterLastDeadline": {
+          "allowSubmissions": true,
+          "credit": 0
+        }
+      }
+    }
+  ],
+  "zones": [
+    {
+      "title": "Lectures 1–2 — the Lorentz force and the velocity selector",
+      "questions": [
+        {
+          "id": "electrostatics/lorentz-force-work",
+          "autoPoints": 5,
+          "maxAutoPoints": 15,
+          "triesPerVariant": 3
+        }
+      ]
+    },
+    {
+      "title": "Lecture 2 — Coulomb's law and superposition",
+      "questions": [
+        {
+          "id": "electrostatics/coulomb-null-point",
+          "autoPoints": 5,
+          "maxAutoPoints": 15,
+          "triesPerVariant": 3
+        }
+      ]
+    },
+    {
+      "title": "Lecture 3 — Gauss's law and symmetry",
+      "questions": [
+        {
+          "id": "electrostatics/gauss-symmetry",
+          "autoPoints": 5,
+          "maxAutoPoints": 15,
+          "triesPerVariant": 3
+        }
+      ]
+    },
+    {
+      "title": "Lecture 4 — divergence, curl and continuity",
+      "questions": [
+        {
+          "id": "electrostatics/div-curl-classification",
+          "autoPoints": 5,
+          "maxAutoPoints": 15,
+          "triesPerVariant": 3
+        }
+      ]
+    },
+    {
+      "title": "Lecture 5 — potential and work",
+      "questions": [
+        {
+          "id": "electrostatics/potential-work-superposition",
+          "autoPoints": 5,
+          "maxAutoPoints": 15,
+          "triesPerVariant": 3
+        }
+      ]
+    },
+    {
+      "title": "Lecture 6 — boundary conditions",
+      "questions": [
+        {
+          "id": "electrostatics/magnetic-boundary-conditions",
+          "autoPoints": 5,
+          "maxAutoPoints": 15,
+          "triesPerVariant": 3
+        }
+      ]
+    },
+    {
+      "title": "Lecture 7 — Poisson's equation: the pn junction",
+      "questions": [
+        {
+          "id": "electrostatics/pn-junction-poisson",
+          "autoPoints": 5,
+          "maxAutoPoints": 15,
+          "triesPerVariant": 3
+        }
+      ]
+    },
+    {
+      "title": "Lecture 8 — conductors and charge relaxation",
+      "questions": [
+        {
+          "id": "electrostatics/conductor-shell-relaxation",
+          "autoPoints": 5,
+          "maxAutoPoints": 15,
+          "triesPerVariant": 3
+        }
+      ]
+    },
+    {
+      "title": "Lectures 8–9 — polarization and bound charge",
+      "questions": [
+        {
+          "id": "electrostatics/polarization-bound-charge",
+          "autoPoints": 5,
+          "maxAutoPoints": 15,
+          "triesPerVariant": 3
+        }
+      ]
+    },
+    {
+      "title": "Lecture 10 — capacitance, energy and force",
+      "questions": [
+        {
+          "id": "electrostatics/capacitor-plate-separation",
+          "autoPoints": 5,
+          "maxAutoPoints": 15,
+          "triesPerVariant": 3
+        }
+      ]
+    },
+    {
+      "title": "Lecture 11 — Drude and Lorentz models",
+      "questions": [
+        {
+          "id": "electrostatics/drude-lorentz-models",
+          "autoPoints": 5,
+          "maxAutoPoints": 15,
+          "triesPerVariant": 3
+        }
+      ]
+    }
+  ]
+}

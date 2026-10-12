@@ -1,0 +1,83 @@
+<pl-question-panel>
+  <p>
+    Two point charges sit on the $x$ axis in free space:
+    $$q_1 = {{params.q1_tex}}\ \mathrm{nC}\ \text{ at } x = 0,\qquad q_2 = {{params.q2_tex}}\ \mathrm{nC}\ \text{ at } x = d = {{params.d}}\ \mathrm{cm}.$$
+    A <em>null point</em> is a point where the total electric field is zero. Use $\epsilon_0 = 8.854\times10^{-12}\ \mathrm{F/m}$.
+  </p>
+</pl-question-panel>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(a)</b> Where on the $x$ axis is $\mathbf{E} = 0$?</p>
+<pl-multiple-choice answers-name="region" order="fixed">
+  {{#params.region_choices}}
+  <pl-answer correct="{{correct}}" feedback="{{feedback}}">{{{text}}}</pl-answer>
+  {{/params.region_choices}}
+</pl-multiple-choice>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(b)</b> The position of the null point on the $x$ axis:</p>
+<pl-number-input answers-name="x0" label="$x_0 =$" suffix="$\mathrm{cm}$" comparison="relabs" rtol="0.01" atol="1e-4"></pl-number-input>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(c)</b> The electric field at the point $P = ({{params.xp}}\ \mathrm{cm},\ {{params.yp}}\ \mathrm{cm})$ in the $xy$ plane:</p>
+<pl-number-input answers-name="Ex" label="$E_x =$" suffix="$\mathrm{kV/m}$" comparison="relabs" rtol="0.01" atol="1e-4"></pl-number-input>
+<pl-number-input answers-name="Ey" label="$E_y =$" suffix="$\mathrm{kV/m}$" comparison="relabs" rtol="0.01" atol="1e-4"></pl-number-input>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(d)</b> Suppose instead that {{{params.op_text}}}. What happens to the null point?</p>
+<pl-multiple-choice answers-name="scale" order="fixed">
+  {{#params.scale_choices}}
+  <pl-answer correct="{{correct}}" feedback="{{feedback}}">{{{text}}}</pl-answer>
+  {{/params.scale_choices}}
+</pl-multiple-choice>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(e)</b> For the original pair of charges, select <b>all</b> the statements that are true.</p>
+<pl-checkbox answers-name="facts" number-answers="5" min-correct="1" max-correct="4" partial-credit="each-answer" weight="2">
+  {{#params.facts}}
+  <pl-answer correct="{{correct}}" feedback="{{feedback}}">{{{text}}}</pl-answer>
+  {{/params.facts}}
+</pl-checkbox>
+</div></div>
+
+<pl-hidden-hints>
+  <pl-hint hint-name="Which region?">
+    Before solving anything, decide in which of the regions $x \lt 0$, $0 \lt x \lt d$ and $x \gt d$ the two fields point in
+    <em>opposite</em> directions. In an outer region, also ask whether the weaker charge is the closer one.
+  </pl-hint>
+  <pl-hint hint-name="Balance, then vectors" show-after-submission="1">
+    In the region you chose, set $|q_1|/r_1^2 = |q_2|/r_2^2$ and take the square root first ($|q_2|/|q_1|$ is a perfect square here).
+    Squaring throws away directions, so the other root of the quadratic is not a null point.
+    For (c), add the two Coulomb fields as vectors, each with $\hat{R}$ pointing from the charge to $P$.
+  </pl-hint>
+</pl-hidden-hints>
+
+<pl-answer-panel>
+  <p><b>(a)</b> {{{params.a_words}}}</p>
+  <p><b>(b)</b> {{{params.b_words}}}
+    Check: at $x_0$ the distances are $r_1 = {{params.r1null_str}}$ cm and $r_2 = {{params.r2null_str}}$ cm, and
+    $\dfrac{|q_1|}{4\pi\epsilon_0 r_1^2} = {{params.enull_str}}\ \mathrm{kV/m}$, $\dfrac{|q_2|}{4\pi\epsilon_0 r_2^2} = {{params.enull2_str}}\ \mathrm{kV/m}$,
+    equal in size and opposite in direction. The other root of the squared balance, $x = {{params.x_other_str}}$ cm, is where the magnitudes match but the fields point the same way.</p>
+  <p><b>(c)</b> Superpose the two Coulomb fields, with $\hat{R}$ from each charge to $P$ and $\dfrac{1}{4\pi\epsilon_0} = 8.988\times10^{9}\ \mathrm{m/F}$:</p>
+  <ul>
+    <li>From $q_1$: $\mathbf{R}_1 = ({{params.xp}},\ {{params.yp}})$ cm, $R_1 = {{params.r1_str}}$ cm, $\dfrac{q_1}{4\pi\epsilon_0 R_1^2} = {{params.e1_str}}\ \mathrm{kV/m}$, so
+      $\mathbf{E}_1 = {{params.e1_str}}\,\dfrac{\mathbf{R}_1}{R_1} = ({{params.E1x_str}},\ {{params.E1y_str}})\ \mathrm{kV/m}$.</li>
+    <li>From $q_2$: $\mathbf{R}_2 = ({{params.R2x}},\ {{params.yp}})$ cm, $R_2 = {{params.r2_str}}$ cm, $\dfrac{q_2}{4\pi\epsilon_0 R_2^2} = {{params.e2_str}}\ \mathrm{kV/m}$, so
+      $\mathbf{E}_2 = {{params.e2_str}}\,\dfrac{\mathbf{R}_2}{R_2} = ({{params.E2x_str}},\ {{params.E2y_str}})\ \mathrm{kV/m}$.</li>
+    <li>Total: $E_x = {{params.Ex_str}}\ \mathrm{kV/m}$, $E_y = {{params.Ey_str}}\ \mathrm{kV/m}$ (magnitude {{params.Emag_str}} kV/m).
+      A negative coefficient in front of $\mathbf{R}/R$ means the field points toward that (negative) charge.</li>
+  </ul>
+  <p><b>(d)</b> The field is linear in the charges: multiplying both by ${{params.kfac}}$ multiplies $\mathbf{E}$ by ${{params.kfac}}$ at every point.
+    A point where $\mathbf{E} = 0$ stays a point where $\mathbf{E} = 0$, and nowhere else does the field vanish, so the null point stays at $x_0 = {{params.x0_str}}$ cm.
+    Only the ratio $|q_2|/|q_1|$ (and, for the region, the relative sign) decides where it is.</p>
+  <p><b>(e)</b></p>
+  <ul>
+    {{#params.facts}}
+    <li>{{{text}}} <b>{{verdict}}</b>: {{{why}}}</li>
+    {{/params.facts}}
+  </ul>
+</pl-answer-panel>

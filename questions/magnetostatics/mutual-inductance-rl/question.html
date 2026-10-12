@@ -1,0 +1,69 @@
+<pl-question-panel>
+  <p>
+    A long solenoid of radius $a_1 = {{params.a1_cm}}\ \mathrm{cm}$ and length $\ell = {{params.ell_cm}}\ \mathrm{cm}$ is wound with $n_1 = {{params.n1}}$ turns per metre.
+    Treat it as ideal: uniform field inside, zero field outside, end effects negligible. Its self-inductance is $L_1 = \mu_0n_1^2\pi a_1^2\ell = {{params.L1_mH}}\ \mathrm{mH}$.
+    A short pick-up coil of $N_2 = {{params.N2}}$ turns and radius $a_2 = {{params.a2_cm}}\ \mathrm{cm}$ sits inside the solenoid, coaxial with it and far from its ends.
+    Everything is in free space ($\mu_0 = 4\pi\times10^{-7}\ \mathrm{H/m}$).
+  </p>
+  <p>
+    The mutual inductance $M$ is the flux linked by all $N_2$ turns of the pick-up coil per ampere of solenoid current: $M = N_2\Psi_{21}/I_1$, where $\Psi_{21}$ is the flux through one turn of the coil due to the solenoid current $I_1$.
+  </p>
+</pl-question-panel>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(a)</b> Find $M$. Then, with the pick-up coil open-circuited, the solenoid current is {{params.rate_word}} at the constant rate $|dI_1/dt| = {{params.rate}}\ \mathrm{A/s}$: find the magnitude of the emf across the coil's terminals.</p>
+<pl-number-input answers-name="M" label="$M =$" suffix="$\mu\mathrm{H}$" comparison="relabs" rtol="0.01" atol="1e-9"></pl-number-input>
+<pl-number-input answers-name="emf" label="$|\mathcal{E}_2| =$" suffix="$\mathrm{mV}$" comparison="relabs" rtol="0.01" atol="1e-9"></pl-number-input>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(b)</b> Now the roles are swapped: the solenoid is left open-circuited and a current $I_2$ is driven through the pick-up coil. The flux linked by all the turns of the solenoid, per ampere of $I_2$, is</p>
+<pl-multiple-choice answers-name="recip">
+  {{#params.rec_choices}}<pl-answer correct="{{correct}}" feedback="{{feedback}}">{{{text}}}</pl-answer>
+  {{/params.rec_choices}}
+</pl-multiple-choice>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(c)</b> The pick-up coil stays open-circuited (it carries no current). At $t = 0$ the solenoid, in series with a total resistance $R = {{params.R}}\ \Omega$ (winding included), is switched onto a battery $V_0 = {{params.V0}}\ \mathrm{V}$; before that $I_1 = 0$. Find the time constant $\tau$ of the circuit, the solenoid current at $t_1 = {{params.t1_ms}}\ \mathrm{ms}$, and the magnetic energy stored in the solenoid once the current has settled.</p>
+<pl-number-input answers-name="tau" label="$\tau =$" suffix="$\mathrm{ms}$" comparison="relabs" rtol="0.01" atol="1e-9"></pl-number-input>
+<pl-number-input answers-name="I1" label="$I_1(t_1) =$" suffix="$\mathrm{A}$" comparison="relabs" rtol="0.01" atol="1e-9"></pl-number-input>
+<pl-number-input answers-name="W" label="$W =$" suffix="$\mathrm{mJ}$" comparison="relabs" rtol="0.01" atol="1e-9"></pl-number-input>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(d)</b> Which statement correctly describes the circuit of part (c) {{{params.moment_text}}}?</p>
+<pl-multiple-choice answers-name="state">
+  {{#params.state_choices}}<pl-answer correct="{{correct}}" feedback="{{feedback}}">{{{text}}}</pl-answer>
+  {{/params.state_choices}}
+</pl-multiple-choice>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(e)</b> Select all the true statements about this solenoid, pick-up coil and circuit.</p>
+<pl-checkbox answers-name="facts" number-answers="5" min-correct="1" max-correct="4" partial-credit="each-answer" order="fixed">
+  {{#params.facts}}<pl-answer correct="{{correct}}" feedback="{{why}}">{{{text}}}</pl-answer>
+  {{/params.facts}}
+</pl-checkbox>
+</div></div>
+
+<pl-hidden-hints>
+  <pl-hint hint-name="Flux linkage">
+    Follow the chain current → $\mathbf{H}$ → $\mathbf{B}$ → flux → linkage. The solenoid's field is uniform inside, so the flux through one turn of the pick-up coil is that field times the area the turn actually encloses. For the emf use Faraday's law on all $N_2$ turns.
+  </pl-hint>
+  <pl-hint hint-name="RL switch-on" show-after-submission="1">
+    KVL: $V_0 = RI_1 + L_1\,dI_1/dt$. The current through an inductance cannot jump, so $I_1$ starts at 0 and rises toward $V_0/R$ with time constant $\tau = L_1/R$. The pick-up emf follows $dI_1/dt$, not $I_1$.
+  </pl-hint>
+</pl-hidden-hints>
+
+<pl-answer-panel>
+  <p><b>(a)</b> {{{params.a_words}}}</p>
+  <p><b>(b)</b> {{{params.b_words}}}</p>
+  <p><b>(c)</b> {{{params.c_words}}}</p>
+  <p><b>(d)</b> {{{params.d_words}}}</p>
+  <p><b>(e)</b></p>
+  <ul>
+  {{#params.facts}}<li>{{{text}}} <b>{{verdict}}.</b> {{{why}}}</li>
+  {{/params.facts}}
+  </ul>
+</pl-answer-panel>

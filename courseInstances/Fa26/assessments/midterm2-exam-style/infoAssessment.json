@@ -1,0 +1,105 @@
+{
+  "uuid": "32a65dea-6e4e-43f3-bad6-b07a1c763545",
+  "type": "Homework",
+  "title": "Midterm 2 exam-style problems (Lectures 11–19)",
+  "set": "Practice",
+  "number": "6",
+  "comment": "Multi-part problems modelled on past ECE 329 Exam 2 problem families, re-parameterized; untimed, repeatable.",
+  "accessControl": [
+    {
+      "dateControl": {
+        "release": {
+          "date": "2026-10-12T00:00:01"
+        },
+        "due": {
+          "date": "2026-12-20T23:59:59"
+        },
+        "afterLastDeadline": {
+          "allowSubmissions": true,
+          "credit": 0
+        }
+      }
+    }
+  ],
+  "zones": [
+    {
+      "title": "Quick-fire multiple choice",
+      "questions": [
+        {
+          "id": "midterm2/quickfire-mc",
+          "autoPoints": 6,
+          "maxAutoPoints": 18,
+          "triesPerVariant": 3
+        }
+      ]
+    },
+    {
+      "title": "Ampère's law, sheets and the vector potential",
+      "questions": [
+        {
+          "id": "midterm2/current-slabs-ampere",
+          "autoPoints": 5,
+          "maxAutoPoints": 15,
+          "triesPerVariant": 3
+        },
+        {
+          "id": "midterm2/vector-potential-sheet",
+          "autoPoints": 5,
+          "maxAutoPoints": 15,
+          "triesPerVariant": 3
+        },
+        {
+          "id": "midterm2/nested-solenoids-lenz",
+          "autoPoints": 5,
+          "maxAutoPoints": 15,
+          "triesPerVariant": 3
+        }
+      ]
+    },
+    {
+      "title": "Faraday's law",
+      "questions": [
+        {
+          "id": "midterm2/moving-loop-gradient",
+          "autoPoints": 5,
+          "maxAutoPoints": 15,
+          "triesPerVariant": 3
+        },
+        {
+          "id": "midterm2/voltmeters-changing-flux",
+          "autoPoints": 5,
+          "maxAutoPoints": 15,
+          "triesPerVariant": 3
+        }
+      ]
+    },
+    {
+      "title": "Inductance and magnetic media",
+      "questions": [
+        {
+          "id": "midterm2/parallel-plate-line-inductance",
+          "autoPoints": 5,
+          "maxAutoPoints": 15,
+          "triesPerVariant": 3
+        }
+      ]
+    },
+    {
+      "title": "Waves and current sheets",
+      "questions": [
+        {
+          "id": "midterm2/pulse-on-the-move",
+          "autoPoints": 5,
+          "maxAutoPoints": 15,
+          "triesPerVariant": 3
+        },
+        {
+          "id": "midterm2/sheet-launches-waves",
+          "autoPoints": 5,
+          "maxAutoPoints": 15,
+          "triesPerVariant": 3
+        }
+      ]
+    }
+  ]
+}

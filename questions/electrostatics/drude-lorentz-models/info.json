@@ -1,0 +1,18 @@
+{
+  "uuid": "bd76991d-ea9c-400e-a9fd-30f5aca823b5",
+  "title": "Drude and Lorentz models: conductivity, mobility, AC response and susceptibility",
+  "topic": "Electrostatics",
+  "tags": [
+    "lec11",
+    "midterm2",
+    "concept",
+    "MC",
+    "multianswer",
+    "numeric",
+    "drude-lorentz"
+  ],
+  "type": "v3",
+  "gradingMethod": "Internal",
+  "singleVariant": false,
+  "showCorrectAnswer": true
+}

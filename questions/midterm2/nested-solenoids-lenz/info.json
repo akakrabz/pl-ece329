@@ -1,0 +1,21 @@
+{
+  "uuid": "554d3d1d-1b5f-414f-b633-ae700c587056",
+  "title": "Nested solenoids: cancelling the core field, Lenz's rule, and the emf of a coaxial loop",
+  "topic": "Magnetostatics",
+  "tags": [
+    "lec13",
+    "lec14",
+    "midterm2",
+    "exam-style",
+    "calculate",
+    "concept",
+    "numeric",
+    "MC",
+    "ampere",
+    "faraday"
+  ],
+  "type": "v3",
+  "gradingMethod": "Internal",
+  "singleVariant": false,
+  "showCorrectAnswer": true
+}

@@ -1,0 +1,83 @@
+<pl-question-panel>
+  <p>
+    An <b>electret</b> is a dielectric whose polarization has been frozen in: its $\mathbf{P}$ stays the same whatever field acts on it.
+    A slab of electret fills $0 \lt x \lt d$ and is unbounded in $y$ and $z$, with $d = {{params.d_str}}\ \mathrm{mm}$. Its polarization is
+    $$\mathbf{P}(x) = {{{params.P_tex}}}\qquad (0 \lt x \lt d),$$
+    {{{params.P_consts}}}, and $\mathbf{P} = 0$ outside the slab.
+    There is <b>no free charge anywhere</b>, and no field is applied: far from the slab, on either side, $\mathbf{E} = 0$.
+    Use $\epsilon_0 = 8.854\times10^{-12}\ \mathrm{F/m}$.
+  </p>
+  <p>
+    Give charge densities with their signs. On each face of the slab the normal $\hat{n}$ points <b>out of</b> the slab.
+    $E_x$ is the $x$-component of $\mathbf{E}$ (positive along $+\hat{x}$).
+  </p>
+</pl-question-panel>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(a)</b> The bound volume charge density at $x_1 = {{params.x1_str}}\ \mathrm{mm}$:</p>
+<pl-number-input answers-name="rho_b" label="$\rho_b(x_1) =$" suffix="$\mathrm{mC/m^3}$" comparison="relabs" rtol="0.01" atol="1e-6"></pl-number-input>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(b)</b> The bound surface charge density on each face of the slab:</p>
+<pl-number-input answers-name="rho_s0" label="face $x = 0$: $\rho_{sb} =$" suffix="$\mu\mathrm{C/m^2}$" comparison="relabs" rtol="0.01" atol="1e-4"></pl-number-input>
+<pl-number-input answers-name="rho_sd" label="face $x = d$: $\rho_{sb} =$" suffix="$\mu\mathrm{C/m^2}$" comparison="relabs" rtol="0.01" atol="1e-4"></pl-number-input>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(c)</b> The total bound charge of the slab per unit area of its faces (volume charge plus both face charges) is</p>
+<pl-multiple-choice answers-name="total" order="fixed" hide-letter-keys="true">
+  {{#params.tot_choices}}
+  <pl-answer correct="{{correct}}" feedback="{{feedback}}">{{{text}}}</pl-answer>
+  {{/params.tot_choices}}
+</pl-multiple-choice>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(d)</b> The electric field inside the slab at $x_1 = {{params.x1_str}}\ \mathrm{mm}$:</p>
+<pl-number-input answers-name="Ex" label="$E_x(x_1) =$" suffix="$\mathrm{kV/m}$" comparison="relabs" rtol="0.01" atol="1e-6"></pl-number-input>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(e)</b> Select <b>all</b> true statements about this slab and about bound charge.</p>
+<pl-checkbox answers-name="facts" number-answers="5" min-correct="1" max-correct="4" partial-credit="each-answer" hide-letter-keys="true">
+  {{#params.pool}}
+  <pl-answer correct="{{correct}}" feedback="{{feedback}}">{{{text}}}</pl-answer>
+  {{/params.pool}}
+</pl-checkbox>
+</div></div>
+
+<pl-hidden-hints>
+  <pl-hint hint-name="Where the bound charge is">
+    Inside the slab $\rho_b = -\nabla\cdot\mathbf{P} = -dP_x/dx$; on a face with outward normal $\hat{n}$, $\rho_{sb} = \mathbf{P}\cdot\hat{n}$.
+    On the face $x = 0$ the outward normal is $-\hat{x}$. Units: $1\ \mu\mathrm{C/m^2}$ per $\mathrm{mm}$ is $1\ \mathrm{mC/m^3}$.
+  </pl-hint>
+  <pl-hint hint-name="D first" show-after-submission="1">
+    Gauss's law for $\mathbf{D}$ counts free charge only. Here there is none, and nothing depends on $y$ or $z$, so $dD_x/dx = 0$:
+    $D_x$ is one constant everywhere. Far away $\mathbf{E} = 0$ and $\mathbf{P} = 0$, so that constant is zero. Inside the slab, $\epsilon_0\mathbf{E} = \mathbf{D} - \mathbf{P}$.
+  </pl-hint>
+</pl-hidden-hints>
+
+<pl-answer-panel>
+  <p><b>(a)</b> $\rho_b(x_1) = -\dfrac{dP_x}{dx}\Big|_{x_1} = {{{params.rho_expr}}} = {{params.rho_b_str}}\ \mathrm{mC/m^3}$ (with $P_0$ in $\mu\mathrm{C/m^2}$ and lengths in mm); {{{params.rho_note}}}.</p>
+  <p><b>(b)</b> $P_x(0) = {{params.P0_at}}$ and $P_x(d) = {{params.Pd_at}}\ \mu\mathrm{C/m^2}$.
+    On the face $x = 0$, $\hat{n} = -\hat{x}$: $\rho_{sb} = -P_x(0) = {{params.rho_s0_str}}\ \mu\mathrm{C/m^2}$.
+    On the face $x = d$, $\hat{n} = +\hat{x}$: $\rho_{sb} = +P_x(d) = {{params.rho_sd_str}}\ \mu\mathrm{C/m^2}$.
+    Using $+P_x$ on both faces is the usual slip: the sign comes from the outward normal, not from the $x$ axis.</p>
+  <p><b>(c)</b> Zero. The faces carry $-P(0) + P(d) = {{params.S_str}}\ \mu\mathrm{C/m^2}$ between them, and the volume holds
+    {{{params.tot_words}}}, which is exactly the opposite amount. This holds for any profile: $\int_0^d(-dP_x/dx)\,dx = -[P(d)-P(0)]$.
+    Polarization only displaces charge that was already there, so a body that was neutral stays neutral.
+    Counting only the faces gives ${{params.S_str}}$, counting only the volume ${{params.mS_str}}\ \mu\mathrm{C/m^2}$; no permittivity is needed (an electret does not have one).</p>
+  <p><b>(d)</b> There is no free charge, so $\nabla\cdot\mathbf{D} = dD_x/dx = 0$ and $D_x$ is the same constant everywhere; far from the slab
+    $D_x = \epsilon_0E_x + P_x = 0$, so $\mathbf{D} = 0$ everywhere, inside the slab too. Then
+    $$E_x(x_1) = -\frac{P_x(x_1)}{\epsilon_0} = -\frac{({{params.P1_at}})\times10^{-6}\ \mathrm{C/m^2}}{8.854\times10^{-12}\ \mathrm{F/m}} = {{params.Ex_str}}\ \mathrm{kV/m}.$$
+    $\mathbf{E}$ points opposite to $\mathbf{P}$, and it is not zero even though $\mathbf{D}$ is.
+    Check with Gauss's law for $\epsilon_0\mathbf{E}$ (all charge), integrating from the field-free region on the left:
+    $\epsilon_0E_x(x_1) = \rho_{sb}(0) + \int_0^{x_1}\rho_b\,dx = -P(0) - [P(x_1) - P(0)] = -P(x_1)$.</p>
+  <p><b>(e)</b> What $\nabla\cdot\mathbf{P}$ tells us: where $\mathbf{P}$ changes, bound charge $\rho_b = -\nabla\cdot\mathbf{P}$ is left behind
+    (negative where $P_x$ grows with $x$), and where $\mathbf{P}$ ends, at a surface, $\rho_{sb} = \mathbf{P}\cdot\hat{n}$ appears; the two always add to zero.
+    Bound charge is a source of $\mathbf{E}$ ($\nabla\cdot\epsilon_0\mathbf{E} = \rho_f + \rho_b$) but not of $\mathbf{D}$ ($\nabla\cdot\mathbf{D} = \rho_f$).
+    $\mathbf{D} = \epsilon_0\mathbf{E} + \mathbf{P}$ is a definition valid in any material; $\mathbf{D} = \epsilon\mathbf{E}$ is a property of
+    linear media only, and it fails here ($\mathbf{D} = 0$ with $\mathbf{E} \neq 0$). Outside the slab $\mathbf{D} = \mathbf{P} = 0$, so $\mathbf{E} = 0$:
+    the slab's bound-charge layers cancel there, while across each face $\epsilon_0E_x$ jumps by that face's $\rho_{sb}$.</p>
+</pl-answer-panel>

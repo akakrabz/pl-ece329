@@ -1,0 +1,66 @@
+<pl-question-panel>
+  <p>
+    A lossless, non-magnetic ($\mu_r = 1$) dielectric fills all space. A plane-wave pulse travels through it with electric field
+    $$\mathbf{E} = {{{params.E_amp_tex}}}\; g(s)\ \ \mathrm{V/m},\qquad s = {{{params.s_tex}}},$$
+    where $t$ is in nanoseconds and ${{params.u}}$ in metres, and $g$ is {{params.g_name}}:
+    $$ {{{params.g_tex}}}. $$
+    The pulse has its peak, $g = 1$, at $s = 0$. Use $c = 1/\sqrt{\mu_0\epsilon_0} = 2.998\times10^{8}\ \mathrm{m/s}$ and $\mu_0 = 4\pi\times10^{-7}\ \mathrm{H/m}$.
+  </p>
+</pl-question-panel>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(a)</b> In which direction does the pulse travel?</p>
+<pl-multiple-choice answers-name="dir">
+  {{#params.dir_choices}}<pl-answer correct="{{correct}}" feedback="{{feedback}}">{{{text}}}</pl-answer>
+  {{/params.dir_choices}}
+</pl-multiple-choice>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(b)</b> Find the speed of the pulse and the relative permittivity of the medium.</p>
+<pl-number-input answers-name="v8" label="$v =$" suffix="$\times10^{8}\ \mathrm{m/s}$" comparison="relabs" rtol="0.01" atol="1e-6"></pl-number-input>
+<pl-number-input answers-name="epsr" label="$\epsilon_r =$" comparison="relabs" rtol="0.01" atol="1e-6"></pl-number-input>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(c)</b> Find the magnitude of the magnetic field $\mathbf{H}$ at the pulse peak, and its direction there.</p>
+<pl-number-input answers-name="Hpk" label="$\lvert\mathbf{H}\rvert =$" suffix="$\mathrm{mA/m}$" comparison="relabs" rtol="0.01" atol="1e-6"></pl-number-input>
+<pl-multiple-choice answers-name="hdir">
+  {{#params.hdir_choices}}<pl-answer correct="{{correct}}" feedback="{{feedback}}">{{{text}}}</pl-answer>
+  {{/params.hdir_choices}}
+</pl-multiple-choice>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(d)</b> At $t = {{params.t1}}\ \mathrm{ns}$ the field peaks on one plane ${{params.u}} = \text{const}$. Where is that plane?</p>
+<pl-number-input answers-name="upk" label="${{params.u}} =$" suffix="$\mathrm{m}$" comparison="relabs" rtol="0.01" atol="1e-3"></pl-number-input>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(e)</b> Select every true statement.</p>
+<pl-checkbox answers-name="facts" number-answers="6" min-correct="1" max-correct="4" partial-credit="each-answer">
+  {{#params.facts}}<pl-answer correct="{{correct}}" feedback="{{feedback}}">{{{text}}}</pl-answer>
+  {{/params.facts}}
+</pl-checkbox>
+</div></div>
+
+<pl-hidden-hints>
+  <pl-hint hint-name="Reading the argument">
+    A fixed value of $s$ (for instance the peak, $s = 0$) marks a plane that moves. Solve "numerator $= 0$" for the position as a function of $t$. Equivalently: opposite signs on the $t$ and position terms mean travel toward $+$ that axis, the same sign toward $-$, and the speed is the ratio of the two coefficients. An overall minus sign or the order of the terms changes nothing.
+  </pl-hint>
+  <pl-hint hint-name="H from E" show-after-submission="1">
+    For one travelling wave $\mathbf{H} = \dfrac{1}{\eta}\,\hat{u}\times\mathbf{E}$, with $\hat{u}$ the direction of travel and $\eta = \sqrt{\mu/\epsilon} = \eta_0/\sqrt{\epsilon_r} = \mu_0 v$ here. Then check that $\mathbf{E}\times\mathbf{H}$ points along $\hat{u}$.
+  </pl-hint>
+</pl-hidden-hints>
+
+<pl-answer-panel>
+  <p><b>(a)</b> {{{params.read_txt}}} Not "along $\mathbf{E}$": the polarization is not the travel direction; and the pulse cannot stand still, because $s$ mixes $t$ and position.</p>
+  <p><b>(b)</b> $v = {{params.v_str}}\ \mathrm{m/ns} = {{params.v8_str}}\times10^{8}\ \mathrm{m/s}$. With $\mu_r = 1$, $v = c/\sqrt{\epsilon_r}$, so $\epsilon_r = (c/v)^2 = (2.998/{{params.v8_str}})^2 = {{params.eps_str}}$.</p>
+  <p><b>(c)</b> $\eta = \eta_0/\sqrt{\epsilon_r} = \mu_0 v = {{params.eta_str}}\ \Omega$ (with $\eta_0 = {{params.eta0_str}}\ \Omega$). At the peak $\lvert\mathbf{E}\rvert = {{params.E0}}\ \mathrm{V/m}$, so $\lvert\mathbf{H}\rvert = {{params.E0}}/{{params.eta_str}} = {{params.H_str}}\ \mathrm{mA/m}$. Direction: $\mathbf{H} = \tfrac{1}{\eta}\,\hat{u}\times\mathbf{E}$ with $\hat{u} = {{{params.trav_hat}}}$ and $\mathbf{E}$ along ${{{params.E_hat}}}$ at the peak, so $\mathbf{H}$ points along $({{{params.trav_hat}}})\times({{{params.E_hat}}}) = {{{params.h_hat}}}$. Check: $({{{params.E_hat}}})\times({{{params.h_hat}}}) = {{{params.trav_hat}}}$, the direction of travel. $\mathbf{H}$ has no component along the travel or along $\mathbf{E}$, and in a single travelling wave it peaks together with $\mathbf{E}$.</p>
+  <p><b>(d)</b> {{{params.peak_txt}}}</p>
+  <p><b>(e)</b> The pool of statements (a random six are shown):</p>
+  <ul>
+    {{#params.facts}}<li>{{{text}}} <b>{{verdict}}</b>: {{{why}}}</li>
+    {{/params.facts}}
+  </ul>
+</pl-answer-panel>

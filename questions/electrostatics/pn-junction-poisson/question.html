@@ -1,0 +1,79 @@
+<pl-question-panel>
+  <p>
+    An abrupt silicon pn junction ($\epsilon = 11.7\,\epsilon_0$, with $\epsilon_0 = 8.854\times10^{-12}\ \mathrm{F/m}$) has its metallurgical junction in the plane $x = 0$; everything varies with $x$ only.
+    The p side ({{{params.p_region}}}) is doped with acceptors, $N_a = {{{params.Na_tex}}}\ \mathrm{cm^{-3}}$ $(= {{{params.Na_m_tex}}}\ \mathrm{m^{-3}})$,
+    and the n side ({{{params.n_region}}}) with donors, $N_d = {{{params.Nd_tex}}}\ \mathrm{cm^{-3}}$ $(= {{{params.Nd_m_tex}}}\ \mathrm{m^{-3}})$.
+  </p>
+  <p>
+    Use the <b>depletion approximation</b>: in equilibrium (no applied voltage) the charge density is $\rho = -eN_a$ in a p-side depletion layer of width $W_p$ next to the junction,
+    $\rho = +eN_d$ in an n-side depletion layer of width $W_n$, and $\rho = 0$ in the neutral material beyond them ($e = 1.602\times10^{-19}\ \mathrm{C}$).
+    The depletion region is found to extend ${{{params.given_tex}}}$ {{params.given_words}} from the junction.
+  </p>
+</pl-question-panel>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(a)</b> The width of the depletion layer on the other side of the junction:</p>
+<pl-number-input answers-name="W_other" label="{{params.ask_label}}" suffix="$\mathrm{nm}$" comparison="relabs" rtol="0.01" atol="1e-6"></pl-number-input>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(b)</b> The largest magnitude of the electric field in the junction, and where it occurs:</p>
+<pl-number-input answers-name="Emax" label="$|E|_{\max} =$" suffix="$\mathrm{MV/m}$" comparison="relabs" rtol="0.01" atol="1e-6"></pl-number-input>
+<pl-multiple-choice answers-name="where" order="fixed">
+  {{#params.loc}}
+  <pl-answer correct="{{correct}}" feedback="{{feedback}}">{{{text}}}</pl-answer>
+  {{/params.loc}}
+</pl-multiple-choice>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(c)</b> The built-in potential, $V_{\text{bi}} = V(\text{outer edge of the n layer}) - V(\text{outer edge of the p layer})$:</p>
+<pl-number-input answers-name="Vbi" label="$V_{\text{bi}} =$" suffix="$\mathrm{V}$" comparison="relabs" rtol="0.01" atol="1e-6"></pl-number-input>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(d)</b> Inside the depletion region, the electric field points</p>
+<pl-multiple-choice answers-name="direction" order="fixed">
+  {{#params.dirs}}
+  <pl-answer correct="{{correct}}" feedback="{{feedback}}">{{{text}}}</pl-answer>
+  {{/params.dirs}}
+</pl-multiple-choice>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(e)</b> Select <b>all</b> the true statements about this junction in the depletion approximation.</p>
+<pl-checkbox answers-name="poisson" number-answers="5" min-correct="1" max-correct="4" partial-credit="each-answer">
+  {{#params.cb}}
+  <pl-answer correct="{{correct}}" feedback="{{feedback}}">{{{text}}}</pl-answer>
+  {{/params.cb}}
+</pl-checkbox>
+</div></div>
+
+<pl-hidden-hints>
+  <pl-hint hint-name="Integrate Gauss's law across the junction">
+    In one dimension Gauss's law reads $dE_x/dx = \rho/\epsilon$. Start at the outer edge of either depletion layer, where $E_x = 0$, and integrate across both layers. For $E_x$ to come back to zero in the neutral material on the far side, the two layers must hold equal and opposite charge per unit area.
+  </pl-hint>
+  <pl-hint hint-name="From E to V" show-after-submission="1">
+    $dV/dx = -E_x$, and $E_x$ is a triangle: zero at both outer edges, peaked at $x = 0$. The potential difference across the region is the area of that triangle, $\tfrac12|E|_{\max}(W_p + W_n)$, and the n side is the higher one.
+  </pl-hint>
+</pl-hidden-hints>
+
+<pl-answer-panel>
+  <p><b>(a)</b> The field is zero in both neutral regions, so the total charge per unit area of the two layers must cancel: $eN_aW_p = eN_dW_n$. Hence
+    $${{{params.a_solve}}}.$$
+    The depletion layers are therefore {{{params.p_layer}}} nm (p side) and {{{params.n_layer}}} nm (n side); the more lightly doped side holds the wider layer.</p>
+  <p><b>(b)</b> The charge densities are $-eN_a = -{{{params.rho_p}}}\ \mathrm{C/m^3}$ and $+eN_d = {{{params.rho_n}}}\ \mathrm{C/m^3}$.
+    Integrating $dE_x/dx = \rho/\epsilon$ from the outer edge of one layer (where $E_x = 0$), $|E_x|$ grows linearly to its peak at the junction and falls linearly back to zero at the outer edge of the other layer:
+    $$|E|_{\max} = \frac{eN_aW_p}{\epsilon} = \frac{(1.602\times10^{-19})({{{params.Na_m_tex}}})({{{params.Wp_str}}}\times10^{-9})}{11.7\times8.854\times10^{-12}} = {{{params.Emax_Vm}}}\ \mathrm{V/m} = {{{params.Emax_str}}}\ \mathrm{MV/m},$$
+    the same as $eN_dW_n/\epsilon$ (neutrality). It occurs at the metallurgical junction, $x = 0$.</p>
+  <p><b>(c)</b> $V$ follows from $dV/dx = -E_x$; across the region the change is the area under the $|E_x|$ triangle:
+    $$V_{\text{bi}} = \tfrac12\,|E|_{\max}\,(W_p + W_n) = \tfrac12\,({{{params.Emax_Vm}}})({{{params.Wsum_str}}}\times10^{-9}) = {{{params.Vbi_str}}}\ \mathrm{V}.$$
+    Equivalently, the two parabolas $V'' = -\rho/\epsilon$ matched at $x = 0$ give $V_{\text{bi}} = e\,(N_aW_p^2 + N_dW_n^2)/(2\epsilon)$. The n side is the higher one, as it must be for a field pointing from n to p. Values of roughly $0.6$ to $0.9$ V are typical of silicon junctions at room temperature.</p>
+  <p><b>(d)</b> {{{params.d_words}}}. Field lines start on the positive donor ions of the n-side layer and end on the negative acceptor ions of the p-side layer; $E_x$ keeps one sign through the whole region and is continuous at $x = 0$.</p>
+  <p><b>(e)</b> The statements in the pool, with the reason for each:</p>
+  <ul>
+    {{#params.cb}}
+    <li>{{{text}}} <b>{{tf}}.</b> {{{why}}}</li>
+    {{/params.cb}}
+  </ul>
+</pl-answer-panel>

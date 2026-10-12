@@ -1,0 +1,80 @@
+<pl-question-panel>
+  <p>
+    Ampère's law reads $\oint_C\mathbf{H}\cdot d\mathbf{l} = I_{\text{enc}}$, with $I_{\text{enc}}$ counted by the right-hand rule from the sense of $C$.
+    All currents in this question are steady, and everything is in free space ($\mu = \mu_0 = 4\pi\times10^{-7}\ \mathrm{H/m}$).
+  </p>
+  <p>
+    <b>The toroid (parts b, c and e).</b> An ideal toroid is centred on the $z$ axis. Its core (free space) has a rectangular cross-section: inner radius $a = {{params.a_cm}}\ \mathrm{cm}$, outer radius $b = {{params.b_cm}}\ \mathrm{cm}$ and height $h = {{params.h_cm}}\ \mathrm{cm}$, so it occupies $a \lt r \lt b$, $-h/2 \lt z \lt h/2$.
+    It is wound with $N = {{params.N}}$ closely spaced turns carrying $I = {{params.I}}\ \mathrm{A}$; each turn is a rectangle lying in a plane through the $z$ axis.
+    The current flows along {{{params.inner_dir}}} on the inner wall ($r = a$) and along {{{params.outer_dir}}} on the outer wall ($r = b$), {{{params.faces}}}.
+    Use cylindrical coordinates $(r, \phi, z)$; $+\hat\phi$ is counterclockwise as seen from $+z$.
+  </p>
+</pl-question-panel>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(a)</b> For each current distribution, choose how the magnitude $|\mathbf{H}|$ depends on the distance named, within the region named. In the options, $r$ stands for that distance. "Ideal" means infinitely long and tightly wound for a solenoid, closely wound for a toroid. An option may be used more than once or not at all.</p>
+<pl-matching answers-name="shapes" fixed-order="true" fixed-options-order="true" counter-type="upper-alpha" partial-credit="true">
+  {{#params.match}}<pl-statement match="{{key}}">{{{text}}}</pl-statement>
+  {{/params.match}}
+  {{#params.options}}<pl-option name="{{name}}">{{{text}}}</pl-option>
+  {{/params.options}}
+</pl-matching>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(b)</b> For the toroid, find the signed component $H_\phi$ at $r = {{params.r0_cm}}\ \mathrm{cm}$, $z = 0$ (inside the core; positive along $+\hat\phi$), and the magnetic flux $\Psi$ through one turn, i.e. through the rectangle $a \lt r \lt b$, $|z| \lt h/2$ at fixed $\phi$, with its normal taken along $+\hat\phi$.</p>
+<pl-number-input answers-name="H" label="$H_\phi =$" suffix="$\mathrm{A/m}$" comparison="relabs" rtol="0.01" atol="1e-6"></pl-number-input>
+<pl-number-input answers-name="Psi" label="$\Psi =$" suffix="$\mu\mathrm{Wb}$" comparison="relabs" rtol="0.01" atol="1e-9"></pl-number-input>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(c)</b> Let P be the point {{{params.P_desc}}}. Which statement about $\mathbf{H}$ at P is correct?</p>
+<pl-multiple-choice answers-name="outside">
+  {{#params.out_choices}}<pl-answer correct="{{correct}}" feedback="{{feedback}}">{{{text}}}</pl-answer>
+  {{/params.out_choices}}
+</pl-multiple-choice>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(d)</b> In the Coulomb gauge the vector potential is $\mathbf{A}(\mathbf{r}) = \displaystyle\int\frac{\mu_0\mathbf{J}(\mathbf{r}')}{4\pi|\mathbf{r}-\mathbf{r}'|}\,dV'$.
+A long straight wire lies along the ${{params.wire_axis}}$ axis and carries a steady current $I$ in the {{{params.wire_dir}}} direction; the rest of its circuit is far away.
+At a point P close to the wire (much closer to it than to any other part of the circuit), $\mathbf{A}$ points</p>
+<pl-multiple-choice answers-name="Adir">
+  {{#params.A_choices}}<pl-answer correct="{{correct}}" feedback="{{feedback}}">{{{text}}}</pl-answer>
+  {{/params.A_choices}}
+</pl-multiple-choice>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(e)</b> Select all the true statements. ("This toroid" is the one of part (b).)</p>
+<pl-checkbox answers-name="facts" number-answers="5" min-correct="1" max-correct="4" partial-credit="each-answer" order="fixed">
+  {{#params.facts}}<pl-answer correct="{{correct}}" feedback="{{why}}">{{{text}}}</pl-answer>
+  {{/params.facts}}
+</pl-checkbox>
+</div></div>
+
+<pl-hidden-hints>
+  <pl-hint hint-name="Ampère's law with symmetry">
+    Pick a path on which symmetry makes $\mathbf{H}$ tangent and constant in size; then $|\mathbf{H}|\times(\text{path length}) = I_{\text{enc}}$. For the toroid, take a circle of radius $r$ about the $z$ axis and count, with signs, the wires that pierce the flat disk it bounds; the answer depends on whether the circle is inside the core, in the hole, beyond the outer wall, or above the core.
+  </pl-hint>
+  <pl-hint hint-name="Flux, and the vector potential" show-after-submission="1">
+    The flux through one turn is $\int_a^b\!\int_{-h/2}^{h/2}\mu_0H_\phi\,dz\,dr$, and the $1/r$ profile integrates to a logarithm. For $\mathbf{A}$, read the integral: each current element contributes $\mu_0I\,d\mathbf{l}/(4\pi R)$ along its own direction, with a positive weight.
+  </pl-hint>
+</pl-hidden-hints>
+
+<pl-answer-panel>
+  <p><b>(a)</b></p>
+  <ul>
+  {{#params.match}}<li>{{{text}}}: <b>{{{answer}}}</b>. {{{why}}}</li>
+  {{/params.match}}
+  </ul>
+  <p>None of the listed distributions gives $1/r^2$, the point-charge law of electrostatics: there is no magnetic charge, and a small current loop's field falls off faster, as $1/r^3$.</p>
+  <p><b>(b)</b> {{{params.b_words}}}</p>
+  <p><b>(c)</b> {{{params.c_words}}}</p>
+  <p><b>(d)</b> {{{params.d_words}}}</p>
+  <p><b>(e)</b></p>
+  <ul>
+  {{#params.facts}}<li>{{{text}}} <b>{{verdict}}.</b> {{{why}}}</li>
+  {{/params.facts}}
+  </ul>
+</pl-answer-panel>

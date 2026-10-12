@@ -1,0 +1,84 @@
+<pl-question-panel>
+  <p>
+    This question is about using Gauss's law, $\oint_S\mathbf{D}\cdot d\mathbf{S} = Q_{\text{enc}}$ with $d\mathbf{S}$ outward, together with symmetry.
+    Everything is in free space ($\mathbf{D} = \epsilon_0\mathbf{E}$, $\epsilon_0 = 8.854\times10^{-12}\ \mathrm{F/m}$).
+    "Infinite" objects are truly infinite, "thin" objects have negligible thickness, and every stated charge density is uniform unless a dependence is given.
+  </p>
+</pl-question-panel>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(a)</b> For each charge distribution, the field point moves within the stated region while the charges stay fixed.
+  Match each one with how the magnitude of the field depends on the distance $s$ defined in that statement.</p>
+<pl-matching answers-name="dep" number-statements="5" fixed-options-order="true" partial-credit="true" weight="2">
+  {{#params.match_st}}
+  <pl-statement match="{{key}}">{{{text}}}</pl-statement>
+  {{/params.match_st}}
+  <pl-option name="inv2">$|\mathbf{E}|\propto 1/s^2$</pl-option>
+  <pl-option name="inv1">$|\mathbf{E}|\propto 1/s$</pl-option>
+  <pl-option name="const">$|\mathbf{E}|$ is nonzero and independent of $s$</pl-option>
+  <pl-option name="lin">$|\mathbf{E}|\propto s$</pl-option>
+  <pl-option name="zero">$\mathbf{E} = 0$</pl-option>
+</pl-matching>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(b)</b> For which <b>one</b> of these charge distributions is Gauss's law, applied with a single Gaussian surface chosen using symmetry, <b>not</b> enough to find $\mathbf{E}$?</p>
+<pl-multiple-choice answers-name="nogauss" order="fixed">
+  {{#params.gauss_choices}}
+  <pl-answer correct="{{correct}}" feedback="{{feedback}}">{{{text}}}</pl-answer>
+  {{/params.gauss_choices}}
+</pl-multiple-choice>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(c)</b> A non-conducting solid ball of radius $a = {{params.a}}\ \mathrm{cm}$ carries charge $Q_b = {{params.Qb_tex}}\ \mathrm{nC}$ spread uniformly through its volume (take $\epsilon = \epsilon_0$ inside it).
+  It is surrounded by a concentric thin spherical shell of radius $b = {{params.b}}\ \mathrm{cm}$ carrying charge $Q_s = {{params.Qs_tex}}\ \mathrm{nC}$ spread uniformly over its surface.
+  Find the radial field component $E_r$ (positive when $\mathbf{E}$ points away from the centre) at these distances from the centre:</p>
+<pl-number-input answers-name="E1" label="$E_r$ at $r_1 = {{params.r1}}\ \mathrm{cm}$:" suffix="$\mathrm{kV/m}$" comparison="relabs" rtol="0.01" atol="1e-3"></pl-number-input>
+<pl-number-input answers-name="E2" label="$E_r$ at $r_2 = {{params.r2}}\ \mathrm{cm}$:" suffix="$\mathrm{kV/m}$" comparison="relabs" rtol="0.01" atol="1e-3"></pl-number-input>
+<pl-number-input answers-name="E3" label="$E_r$ at $r_3 = {{params.r3}}\ \mathrm{cm}$:" suffix="$\mathrm{kV/m}$" comparison="relabs" rtol="0.01" atol="1e-3"></pl-number-input>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(d)</b> For the ball and shell of part (c), select <b>all</b> the statements that are true.</p>
+<pl-checkbox answers-name="facts" number-answers="5" min-correct="1" max-correct="4" partial-credit="each-answer" weight="2">
+  {{#params.facts}}
+  <pl-answer correct="{{correct}}" feedback="{{feedback}}">{{{text}}}</pl-answer>
+  {{/params.facts}}
+</pl-checkbox>
+</div></div>
+
+<pl-hidden-hints>
+  <pl-hint hint-name="When Gauss's law gives E">
+    The law is always true; it gives $\mathbf{E}$ only when symmetry lets you pick a closed surface made of pieces on which $\mathbf{E}$ is either
+    normal with constant magnitude or tangential: a concentric sphere, a coaxial cylinder (end caps carry no flux) or a pillbox (sides carry no flux; both caps count).
+  </pl-hint>
+  <pl-hint hint-name="Enclosed charge" show-after-submission="1">
+    On a concentric sphere of radius $r$, $\epsilon_0 E_r\,4\pi r^2 = Q_{\text{enc}}(r)$. Inside a uniform ball only the fraction $(r/a)^3$ of its charge is enclosed;
+    a uniform shell contributes only to spheres that enclose it.
+  </pl-hint>
+</pl-hidden-hints>
+
+<pl-answer-panel>
+  <p><b>(a)</b></p>
+  <ul>
+    {{#params.match_st}}
+    <li>{{{text}}} <b>{{{answer}}}</b>: {{{why}}}</li>
+    {{/params.match_st}}
+  </ul>
+  <p><b>(b)</b> The answer is {{{params.gauss_answer}}}. {{{params.gauss_why}}}
+    Each of the other listed distributions is spherically, cylindrically or planarly symmetric (a density that varies only with the distance from the centre, axis or mid-plane keeps the symmetry), so a sphere, coaxial cylinder or pillbox turns $\oint\mathbf{D}\cdot d\mathbf{S}$ into $D\times$area.
+    "Gauss's law holds for every surface" is true, but holding is not the same as being solvable for $\mathbf{E}$.</p>
+  <p><b>(c)</b> By symmetry $\mathbf{E} = E_r(r)\,\hat{r}$, so a concentric Gaussian sphere of radius $r$ gives $E_r = \dfrac{Q_{\text{enc}}(r)}{4\pi\epsilon_0 r^2}$, with $\dfrac{1}{4\pi\epsilon_0} = 8.988\times10^{9}\ \mathrm{m/F}$:</p>
+  <ul>
+    <li>$r_1 = {{params.r1}}$ cm (inside the ball): $Q_{\text{enc}} = Q_b\,(r_1/a)^3 = ({{params.Qb}})({{params.frac1_str}}) = {{params.Qenc1_str}}\ \mathrm{nC}$, so $E_r = {{params.E1_str}}\ \mathrm{kV/m}$. (Equivalently $E_r = Q_b r_1/(4\pi\epsilon_0 a^3)$.)</li>
+    <li>$r_2 = {{params.r2}}$ cm (between the ball and the shell): $Q_{\text{enc}} = Q_b = {{params.Qb}}\ \mathrm{nC}$, so $E_r = {{params.E2_str}}\ \mathrm{kV/m}$.</li>
+    <li>$r_3 = {{params.r3}}$ cm (outside the shell): $Q_{\text{enc}} = Q_b + Q_s = {{params.Qout_str}}\ \mathrm{nC}$, so $E_r = {{params.E3_str}}\ \mathrm{kV/m}$.</li>
+  </ul>
+  <p><b>(d)</b></p>
+  <ul>
+    {{#params.facts}}
+    <li>{{{text}}} <b>{{verdict}}</b>: {{{why}}}</li>
+    {{/params.facts}}
+  </ul>
+</pl-answer-panel>

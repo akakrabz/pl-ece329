@@ -1,0 +1,78 @@
+<pl-question-panel>
+  <p>
+    A thick conducting spherical shell, centred on the origin, has inner radius $a = {{params.a}}\ \mathrm{cm}$ and outer radius $b = {{params.b}}\ \mathrm{cm}$.
+    It is isolated in free space and {{{params.shell_words}}}.
+    A point charge $q = {{params.q_s}}\ \mathrm{nC}$ is fixed at the centre of the cavity; the cavity and the region outside are vacuum.
+    The system is in electrostatic equilibrium. Use $\epsilon_0 = 8.854\times10^{-12}\ \mathrm{F/m}$.
+  </p>
+</pl-question-panel>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(a)</b> The total charge on the inner surface ($r = a$) and on the outer surface ($r = b$) of the shell:</p>
+<pl-number-input answers-name="Q_in" label="$Q_{\text{inner}} =$" suffix="$\mathrm{nC}$" comparison="relabs" rtol="0.01" atol="1e-6"></pl-number-input>
+<pl-number-input answers-name="Q_out" label="$Q_{\text{outer}} =$" suffix="$\mathrm{nC}$" comparison="relabs" rtol="0.01" atol="1e-6"></pl-number-input>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(b)</b> The radial component of the electric field at $r = {{params.r_out}}\ \mathrm{cm}$ (positive if $\mathbf{E}$ points outward):</p>
+<pl-number-input answers-name="E_out" label="$E_r =$" suffix="$\mathrm{kV/m}$" comparison="relabs" rtol="0.01" atol="1e-6"></pl-number-input>
+<p>At $r = {{params.r_mid}}\ \mathrm{cm}$, which is inside the metal, the electric field is</p>
+<pl-multiple-choice answers-name="metal" order="fixed">
+  {{#params.metal}}
+  <pl-answer correct="{{correct}}" feedback="{{feedback}}">{{{text}}}</pl-answer>
+  {{/params.metal}}
+</pl-multiple-choice>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(c)</b> The charge $q$ is now moved off centre (it stays inside the cavity without touching the wall), and equilibrium is re-established. What changes?</p>
+<pl-multiple-choice answers-name="move" order="fixed">
+  {{#params.move}}
+  <pl-answer correct="{{correct}}" feedback="{{feedback}}">{{{text}}}</pl-answer>
+  {{/params.move}}
+</pl-multiple-choice>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(d)</b> Reaching equilibrium takes time. At $t = 0$ a uniform excess charge density $\rho_0$ is placed inside a large block of {{{params.mat}}}, with conductivity $\sigma = {{{params.sigma_tex}}}\ \mathrm{S/m}$ and permittivity $\epsilon = {{params.er}}\,\epsilon_0$.
+Find the relaxation time $\tau$ of the material and the time $t_f$ at which the charge density inside the block has fallen to {{params.f_txt}} of $\rho_0$:</p>
+<pl-number-input answers-name="tau" label="$\tau =$" suffix="${{{params.unit_tex}}}$" comparison="relabs" rtol="0.01" atol="1e-9"></pl-number-input>
+<pl-number-input answers-name="t_f" label="$t_f =$" suffix="${{{params.unit_tex}}}$" comparison="relabs" rtol="0.01" atol="1e-9"></pl-number-input>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(e)</b> Select <b>all</b> the true statements (electrostatic equilibrium unless a statement says otherwise).</p>
+<pl-checkbox answers-name="conductors" number-answers="5" min-correct="1" max-correct="4" partial-credit="each-answer">
+  {{#params.cb}}
+  <pl-answer correct="{{correct}}" feedback="{{feedback}}">{{{text}}}</pl-answer>
+  {{/params.cb}}
+</pl-checkbox>
+</div></div>
+
+<pl-hidden-hints>
+  <pl-hint hint-name="A Gaussian sphere in the metal">
+    Draw a Gaussian sphere with $a \lt r \lt b$, entirely inside the metal. In equilibrium $\mathbf{E} = 0$ on it, so the net charge it encloses is zero. Then use the fact that the shell's own charge is conserved.
+  </pl-hint>
+  <pl-hint hint-name="Relaxation" show-after-submission="1">
+    Continuity $\partial\rho/\partial t + \nabla\cdot\mathbf{J} = 0$, Ohm's law $\mathbf{J} = \sigma\mathbf{E}$ and Gauss's law $\nabla\cdot\mathbf{E} = \rho/\epsilon$ combine into $\partial\rho/\partial t = -(\sigma/\epsilon)\,\rho$, so $\rho(t) = \rho_0e^{-t/\tau}$ with $\tau = \epsilon/\sigma$. Solve $e^{-t_f/\tau} = $ the given fraction.
+  </pl-hint>
+</pl-hidden-hints>
+
+<pl-answer-panel>
+  <p><b>(a)</b> A Gaussian sphere with $a \lt r \lt b$ lies in the metal, where $\mathbf{E} = 0$, so it encloses no net charge: $q + Q_{\text{inner}} = 0$, i.e. $Q_{\text{inner}} = -q = {{params.Q_in}}\ \mathrm{nC}$.
+    The rest of the shell's charge is on its outer surface: $Q_{\text{outer}} = Q_s - Q_{\text{inner}} = Q_s + q = {{params.Q_out}}\ \mathrm{nC}$.</p>
+  <p><b>(b)</b> With $q$ at the centre everything is spherically symmetric. A Gaussian sphere of radius $r \gt b$ encloses $q + Q_{\text{inner}} + Q_{\text{outer}} = q + Q_s$, so
+    $$E_r = \frac{q + Q_s}{4\pi\epsilon_0r^2} = \frac{(8.988\times10^{9})({{params.Q_out}}\times10^{-9})}{({{params.r_out}}\times10^{-2})^2} = {{{params.E_out_Vm}}}\ \mathrm{V/m} = {{{params.E_out_str}}}\ \mathrm{kV/m}.$$
+    {{{params.e_dir}}} Inside the metal ($r = {{params.r_mid}}$ cm) $\mathbf{E} = 0$: the field of $q$ is cancelled there by the inner-surface charge $-q$, which is exactly why that charge is induced.</p>
+  <p><b>(c)</b> Only the distribution of the inner-surface charge changes: it crowds toward $q$, keeping the total $-q$, so that $q$ plus the inner layer still produce zero field in the metal and beyond.
+    The outer surface therefore feels nothing from inside and keeps its uniform charge $Q_s + q$; the field outside the shell, and the potential of the shell, are unchanged. The metal screens the cavity from the outside world.</p>
+  <p><b>(d)</b> $\tau = \dfrac{\epsilon}{\sigma} = \dfrac{ {{params.er}}\times8.854\times10^{-12} }{ {{{params.sigma_tex}}} } = {{{params.tau_s}}}\ \mathrm{s} = {{{params.tau_str}}}\ {{{params.unit_tex}}}$.
+    From $\rho_0e^{-t_f/\tau} = {{params.f}}\,\rho_0$: $t_f = \tau\ln {{{params.inv_f}}} = {{{params.ln_f}}}\,\tau = {{{params.tf_str}}}\ {{{params.unit_tex}}}$.
+    The charge is not destroyed: it moves to the surface of the block.</p>
+  <p><b>(e)</b> The statements in the pool, with the reason for each:</p>
+  <ul>
+    {{#params.cb}}
+    <li>{{{text}}} <b>{{tf}}.</b> {{{why}}}</li>
+    {{/params.cb}}
+  </ul>
+</pl-answer-panel>

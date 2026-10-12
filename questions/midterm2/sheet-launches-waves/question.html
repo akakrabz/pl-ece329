@@ -1,0 +1,65 @@
+<pl-question-panel>
+  <p>
+    An infinitely thin sheet in the plane ${{params.n}} = 0$ carries the surface current
+    $$\mathbf{J}_s(t) = {{params.J_sign}}J_0\,g(t)\,{{params.a_vec}},\qquad J_0 = {{params.J0}}\ \mathrm{mA/m}.$$
+    The waveform $g(t)$ (figure) is zero for $t \lt 0$. It rises linearly to $1$ at $t = {{params.tr}}\ \mathrm{ns}$, {{{params.flat_desc}}}falls linearly back to $0$ at $t = {{params.T}}\ \mathrm{ns}$, and stays zero afterwards.
+    All space on both sides of the sheet is filled with {{{params.medium}}}; the medium is lossless and non-magnetic ($\mu = \mu_0$).
+    Use $c = 3.00\times10^{8}\ \mathrm{m/s}$ and $\eta_0 = 120\pi\ \Omega$. Positions are in metres and times in nanoseconds.
+  </p>
+  <div class="text-center">{{{params.svg}}}</div>
+</pl-question-panel>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(a)</b> Wherever the radiated fields are nonzero, they point along:</p>
+<pl-multiple-choice answers-name="dirs" hide-letter-keys="true">
+  {{#params.dir_choices}}
+  <pl-answer correct="{{correct}}" feedback="{{feedback}}">{{{text}}}</pl-answer>
+  {{/params.dir_choices}}
+</pl-multiple-choice>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(b)</b> The fields at ${{params.n}} = {{params.n1}}\ \mathrm{m}$ at time $t = {{params.t1}}\ \mathrm{ns}$, as signed components:</p>
+<pl-number-input answers-name="E1" label="$E_{ {{params.a}} } =$" suffix="$\mathrm{V/m}$" comparison="relabs" rtol="0.01" atol="1e-6"></pl-number-input>
+<pl-number-input answers-name="H1" label="$H_{ {{params.h}} } =$" suffix="$\mathrm{mA/m}$" comparison="relabs" rtol="0.01" atol="1e-6"></pl-number-input>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(c)</b> The same components at the same instant, $t = {{params.t1}}\ \mathrm{ns}$, but on the other side of the sheet, at ${{params.n}} = {{params.n2}}\ \mathrm{m}$:</p>
+<pl-number-input answers-name="E2" label="$E_{ {{params.a}} } =$" suffix="$\mathrm{V/m}$" comparison="relabs" rtol="0.01" atol="1e-6"></pl-number-input>
+<pl-number-input answers-name="H2" label="$H_{ {{params.h}} } =$" suffix="$\mathrm{mA/m}$" comparison="relabs" rtol="0.01" atol="1e-6"></pl-number-input>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(d)</b> A probe at ${{params.n}} = {{params.nq}}\ \mathrm{m}$ records the fields. They are nonzero only during the interval $t_{\text{on}} \lt t \lt t_{\text{off}}$. Find its ends:</p>
+<pl-number-input answers-name="t_on" label="$t_{\text{on}} =$" suffix="$\mathrm{ns}$" comparison="relabs" rtol="0.01" atol="1e-6"></pl-number-input>
+<pl-number-input answers-name="t_off" label="$t_{\text{off}} =$" suffix="$\mathrm{ns}$" comparison="relabs" rtol="0.01" atol="1e-6"></pl-number-input>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(e)</b> Which description of the fields at the instant $t = {{params.t1}}\ \mathrm{ns}$ (a snapshot against ${{params.n}}$) is correct?</p>
+<pl-multiple-choice answers-name="sketch" hide-letter-keys="true">
+  {{#params.sketch_choices}}
+  <pl-answer correct="{{correct}}" feedback="{{feedback}}">{{{text}}}</pl-answer>
+  {{/params.sketch_choices}}
+</pl-multiple-choice>
+</div></div>
+
+<pl-hidden-hints>
+  <pl-hint hint-name="The sheet formulas">
+    Each face of the sheet launches a wave travelling away from it. With $\hat{n}$ the unit normal pointing from the sheet toward the field point and $d$ the distance from the sheet,
+    $\mathbf{E} = -\tfrac{\eta}{2}\mathbf{J}_s(t - d/v)$ and $\mathbf{H} = \tfrac12\mathbf{J}_s(t - d/v)\times\hat{n}$, where $v = c/\sqrt{\epsilon_r}$ and $\eta = \eta_0/\sqrt{\epsilon_r}$.
+  </pl-hint>
+  <pl-hint hint-name="Records and snapshots" show-after-submission="1">
+    What a point at distance $d$ sees at time $t$ left the sheet at $t - d/v$. In a snapshot at time $t_1$, a feature emitted at time $t'$ sits at distance $v(t_1 - t')$ from the sheet, so the start of the pulse has travelled farthest.
+  </pl-hint>
+</pl-hidden-hints>
+
+<pl-answer-panel>
+  <p>Medium: $v = c/\sqrt{\epsilon_r} = {{params.v}}\ \mathrm{m/ns}$ and $\eta = \eta_0/\sqrt{\epsilon_r} = {{params.eta_tex}} = {{params.eta}}\ \Omega$, so $\eta/2 = {{params.eta_half}}\ \Omega$.</p>
+  <p><b>(a)</b> While $g \gt 0$ the current flows along ${{params.J_dir}}$. $\mathbf{E} = -\tfrac{\eta}{2}\mathbf{J}_s$ points opposite to it, along ${{params.Ea_dir}}$, on both sides: tangential $\mathbf{E}$ is continuous. For $\mathbf{H} = \tfrac12\mathbf{J}_s\times\hat{n}$, use $\hat{n} = {{params.np_vec}}$ on the side ${{params.n}} \gt 0$, which gives ${{params.Hp_dir}}$, and $\hat{n} = {{params.nm_vec}}$ on the side ${{params.n}} \lt 0$, which gives ${{params.Hm_dir}}$. $\mathbf{H}$ reverses, and its tangential jump equals $J_s$. Check: $\mathbf{E}\times\mathbf{H}$ points along ${{params.S_plus}}$ for ${{params.n}} \gt 0$ and along ${{params.S_minus}}$ for ${{params.n}} \lt 0$, away from the sheet on both sides.</p>
+  <p><b>(b)</b> {{{params.panel1}}}</p>
+  <p><b>(c)</b> {{{params.panel2}}} For equal values of $g$, $\mathbf{E}$ would be identical on the two sides and $\mathbf{H}$ would have opposite signs.</p>
+  <p><b>(d)</b> A point at distance $d = {{params.dq}}\ \mathrm{m}$ sees the source waveform delayed by $d/v = {{params.dq}}/{{params.v}} = {{params.t_on}}\ \mathrm{ns}$, on either side of the sheet. So the fields are nonzero for ${{params.t_on}}\ \mathrm{ns} \lt t \lt {{params.t_on}} + {{params.T}} = {{params.t_off}}\ \mathrm{ns}$. A record keeps the waveform's time order: it rises first.</p>
+  <p><b>(e)</b> At $t_1 = {{params.t1}}$ ns, the start of the pulse, emitted at $t' = 0$, has reached $v t_1 = {{params.front}}$ m from the sheet. Its end, emitted at $t' = {{params.T}}$ ns, is at $v(t_1 - {{params.T}}) = {{params.back}}$ m. The same happens on both sides. A feature emitted at $t'$ sits at $v(t_1 - t')$, so the snapshot is the waveform mirrored, with the leading edge outermost. The correct description is: {{{params.sketch_ok}}}. The fields do not vanish when the current stops; they keep travelling outward.</p>
+</pl-answer-panel>

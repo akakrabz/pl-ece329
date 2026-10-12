@@ -1,0 +1,77 @@
+<pl-question-panel>
+  <p>
+    A vector field that does not change in time is given by
+    $$\mathbf{F} = {{{params.F_tex}}}\ \ \mathrm{V/m},$$
+    with $x$, $y$, $z$ in metres. Equivalently, $\mathbf{F} = M\mathbf{r}$ with $\mathbf{r} = (x, y, z)$ and the constant matrix
+    $$M = {{{params.M_tex}}}\ \mathrm{V/m^2}.$$
+  </p>
+</pl-question-panel>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(a)</b> The divergence of $\mathbf{F}$:</p>
+<pl-number-input answers-name="div" label="$\nabla\cdot\mathbf{F} =$" suffix="$\mathrm{V/m^2}$" comparison="relabs" rtol="0.01" atol="1e-6"></pl-number-input>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(b)</b> The curl of $\mathbf{F}$, component by component:</p>
+<pl-number-input answers-name="curlx" label="$(\nabla\times\mathbf{F})_x =$" suffix="$\mathrm{V/m^2}$" comparison="relabs" rtol="0.01" atol="1e-6"></pl-number-input>
+<pl-number-input answers-name="curly" label="$(\nabla\times\mathbf{F})_y =$" suffix="$\mathrm{V/m^2}$" comparison="relabs" rtol="0.01" atol="1e-6"></pl-number-input>
+<pl-number-input answers-name="curlz" label="$(\nabla\times\mathbf{F})_z =$" suffix="$\mathrm{V/m^2}$" comparison="relabs" rtol="0.01" atol="1e-6"></pl-number-input>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(c)</b> $C$ is the circle of radius $R = {{params.R}}\ \mathrm{m}$ centred on the origin in the plane ${{params.k_ax}} = 0$, traversed counterclockwise as seen from the $+{{params.k_ax}}$ side. The circulation $\Gamma = \oint_C\mathbf{F}\cdot d\mathbf{l}$ is</p>
+<pl-multiple-choice answers-name="circ" order="fixed">
+  {{#params.circ_choices}}
+  <pl-answer correct="{{correct}}" feedback="{{feedback}}">{{{text}}}</pl-answer>
+  {{/params.circ_choices}}
+</pl-multiple-choice>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(d)</b> Select <b>all</b> the statements that are true for this $\mathbf{F}$ (all statements refer to the whole of space).</p>
+<pl-checkbox answers-name="facts" number-answers="5" min-correct="1" max-correct="4" partial-credit="each-answer" weight="2">
+  {{#params.facts}}
+  <pl-answer correct="{{correct}}" feedback="{{feedback}}">{{{text}}}</pl-answer>
+  {{/params.facts}}
+</pl-checkbox>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(e)</b> Suppose instead that the same expression describes a current density $\mathbf{J} = M\mathbf{r}$ in $\mathrm{A/m^2}$ (so $M$ is now in $\mathrm{A/m^3}$). At what rate is the charge density changing at any point?</p>
+<pl-number-input answers-name="drho" label="$\partial\rho/\partial t =$" suffix="$\mathrm{C/(m^3\,s)}$" comparison="relabs" rtol="0.01" atol="1e-6"></pl-number-input>
+</div></div>
+
+<pl-hidden-hints>
+  <pl-hint hint-name="Read the derivatives off">
+    For a field that is linear in $x$, $y$, $z$, every partial derivative $\partial F_i/\partial x_j$ is a constant: the coefficient of $x_j$ in $F_i$.
+    The divergence uses the three derivatives of each component along its own direction; the curl uses differences of the cross derivatives,
+    for example $(\nabla\times\mathbf{F})_z = \partial F_y/\partial x - \partial F_x/\partial y$.
+  </pl-hint>
+  <pl-hint hint-name="What divergence and curl allow" show-after-submission="1">
+    Curl-free means conservative: zero circulation, path-independent line integrals, a potential with $\mathbf{F} = -\nabla V$, and a possible electrostatic field.
+    Divergence-free means zero net flux out of every closed surface and a possible $\mathbf{B}$. With a uniform curl, Stokes' theorem gives
+    $\oint_C\mathbf{F}\cdot d\mathbf{l} = (\text{area})\,(\nabla\times\mathbf{F})\cdot\hat{n}$, with $\hat{n}$ tied to the sense of $C$ by the right-hand rule.
+  </pl-hint>
+</pl-hidden-hints>
+
+<pl-answer-panel>
+  <p>For $\mathbf{F} = M\mathbf{r}$, $\partial F_i/\partial x_j = M_{ij}$ everywhere.</p>
+  <p><b>(a)</b> $\nabla\cdot\mathbf{F} = \dfrac{\partial F_x}{\partial x} + \dfrac{\partial F_y}{\partial y} + \dfrac{\partial F_z}{\partial z} = M_{11} + M_{22} + M_{33} = ({{params.M11}}) + ({{params.M22}}) + ({{params.M33}}) = {{params.div}}\ \mathrm{V/m^2}$, the trace of $M$.</p>
+  <p><b>(b)</b> $(\nabla\times\mathbf{F})_x = \dfrac{\partial F_z}{\partial y} - \dfrac{\partial F_y}{\partial z} = M_{32} - M_{23} = ({{params.M32}}) - ({{params.M23}}) = {{params.curlx}}$,
+    $(\nabla\times\mathbf{F})_y = \dfrac{\partial F_x}{\partial z} - \dfrac{\partial F_z}{\partial x} = M_{13} - M_{31} = ({{params.M13}}) - ({{params.M31}}) = {{params.curly}}$,
+    $(\nabla\times\mathbf{F})_z = \dfrac{\partial F_y}{\partial x} - \dfrac{\partial F_x}{\partial y} = M_{21} - M_{12} = ({{params.M21}}) - ({{params.M12}}) = {{params.curlz}}$, all in $\mathrm{V/m^2}$.
+    The curl of a linear field vanishes exactly when $M$ is symmetric, and its divergence vanishes exactly when the trace is zero.
+    So this $\mathbf{F}$ is {{{params.kind_words}}}.</p>
+  <p><b>(c)</b> The curl is the same everywhere, so Stokes' theorem gives $\Gamma = \int_S(\nabla\times\mathbf{F})\cdot d\mathbf{S} = \pi R^2\,(\nabla\times\mathbf{F})_{ {{params.k_ax}} }$,
+    with $d\mathbf{S}$ along $+\hat{ {{params.k_ax}} }$ because $C$ runs counterclockwise seen from $+{{params.k_ax}}$:
+    $\Gamma = \pi({{params.R2}}\ \mathrm{m^2})({{params.ck}}\ \mathrm{V/m^2}) = {{{params.circ_tex}}}$.</p>
+  <p><b>(d)</b></p>
+  <ul>
+    {{#params.facts}}
+    <li>{{{text}}} <b>{{verdict}}</b>: {{{why}}}</li>
+    {{/params.facts}}
+  </ul>
+  <p><b>(e)</b> Continuity, $\nabla\cdot\mathbf{J} = -\partial\rho/\partial t$, so $\partial\rho/\partial t = -\nabla\cdot\mathbf{J} = -({{params.div}}) = {{params.negdiv}}\ \mathrm{C/(m^3\,s)}$ at every point
+    (a positive divergence means current flowing out of each point, draining its charge).</p>
+</pl-answer-panel>

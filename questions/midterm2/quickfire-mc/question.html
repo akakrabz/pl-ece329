@@ -1,0 +1,30 @@
+<pl-question-panel>
+  <p>
+    Six independent quick-fire items covering Lectures 11–19. Each has exactly one correct choice.
+    Use $\mu_0 = 4\pi\times10^{-7}\ \mathrm{H/m}$, $\epsilon_0 = 8.854\times10^{-12}\ \mathrm{F/m}$, $c = 1/\sqrt{\mu_0\epsilon_0} = 2.998\times10^{8}\ \mathrm{m/s}$ and $\eta_0 = \sqrt{\mu_0/\epsilon_0} = 376.7\ \Omega$. Numerical choices are rounded to three significant figures.
+  </p>
+</pl-question-panel>
+
+{{#params.items}}
+<div class="card my-3"><div class="card-body">
+<p><b>({{num}})</b> {{{stem}}}</p>
+<pl-multiple-choice answers-name="{{name}}" number-answers="4">
+  {{#choices}}<pl-answer correct="{{correct}}" feedback="{{feedback}}">{{{text}}}</pl-answer>
+  {{/choices}}
+</pl-multiple-choice>
+</div></div>
+{{/params.items}}
+
+<pl-hidden-hints>
+  <pl-hint hint-name="Strategy">
+    Each item needs one law. Write the vector rule out explicitly before choosing: cross products in the stated order, normals pointing the stated way, and units carried through.
+  </pl-hint>
+  <pl-hint hint-name="The laws involved" show-after-submission="1">
+    $F/\ell = \mu_0I_1I_2/(2\pi d)$ (parallel currents attract); $\mathcal{E} = -d\Psi/dt$ with only the normal component of $\mathbf{B}$ in $\Psi$; Lenz opposes the change of flux; $\partial(\nabla\cdot\mathbf{D})/\partial t = -\nabla\cdot\mathbf{J}$; $\mathbf{E} = -\nabla\Phi-\partial\mathbf{A}/\partial t$, $\mathbf{B} = \nabla\times\mathbf{A}$; $\hat{n}\times(\mathbf{H}_1-\mathbf{H}_2) = \mathbf{J}_s$; $\omega = \partial\phi/\partial t$, $\beta = \lvert\partial\phi/\partial z\rvert$, $\lambda = 2\pi/\beta = v/f$; $\sigma = Nq^2\tau/m$; $\mathbf{J}_{sM} = \mathbf{M}\times\hat{n}$; $\lvert\partial\mathbf{D}/\partial t\rvert = \omega\epsilon E_0$; $\eta = \eta_0\sqrt{\mu_r/\epsilon_r}$, $v = c/\sqrt{\mu_r\epsilon_r}$; the wave travels along $\mathbf{E}\times\mathbf{H}$.
+  </pl-hint>
+</pl-hidden-hints>
+
+<pl-answer-panel>
+  {{#params.items}}<p><b>({{num}})</b> {{{solution}}}</p>
+  {{/params.items}}
+</pl-answer-panel>

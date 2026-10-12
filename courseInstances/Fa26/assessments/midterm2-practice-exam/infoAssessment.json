@@ -1,0 +1,126 @@
+{
+  "uuid": "41425b5f-b3b2-4cb6-9712-66d4b48ee99c",
+  "type": "Exam",
+  "title": "Midterm 2 practice exam (timed, Lectures 11–19)",
+  "set": "Practice Exam",
+  "number": "1",
+  "comment": "Repeatable timed practice exam; each instance draws one problem per zone, with fresh random variants.",
+  "multipleInstance": true,
+  "requireHonorCode": false,
+  "accessControl": [
+    {
+      "dateControl": {
+        "release": {
+          "date": "2026-10-12T00:00:01"
+        },
+        "due": {
+          "date": "2026-12-20T23:59:59"
+        },
+        "durationMinutes": 75
+      }
+    }
+  ],
+  "zones": [
+    {
+      "title": "Short answers",
+      "questions": [
+        {
+          "id": "midterm2/quickfire-mc",
+          "autoPoints": [
+            20,
+            14,
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Ampère's law and the vector potential",
+      "questions": [
+        {
+          "numberChoose": 1,
+          "autoPoints": [
+            20,
+            14,
+            8
+          ],
+          "alternatives": [
+            {
+              "id": "midterm2/current-slabs-ampere"
+            },
+            {
+              "id": "midterm2/vector-potential-sheet"
+            },
+            {
+              "id": "midterm2/nested-solenoids-lenz"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Faraday's law",
+      "questions": [
+        {
+          "numberChoose": 1,
+          "autoPoints": [
+            20,
+            14,
+            8
+          ],
+          "alternatives": [
+            {
+              "id": "midterm2/moving-loop-gradient"
+            },
+            {
+              "id": "midterm2/voltmeters-changing-flux"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Inductance",
+      "questions": [
+        {
+          "numberChoose": 1,
+          "autoPoints": [
+            20,
+            14,
+            8
+          ],
+          "alternatives": [
+            {
+              "id": "midterm2/parallel-plate-line-inductance"
+            },
+            {
+              "id": "magnetostatics/mutual-inductance-rl"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Waves",
+      "questions": [
+        {
+          "numberChoose": 1,
+          "autoPoints": [
+            20,
+            14,
+            8
+          ],
+          "alternatives": [
+            {
+              "id": "midterm2/pulse-on-the-move"
+            },
+            {
+              "id": "midterm2/sheet-launches-waves"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "text": "<p><strong>Timed practice: 75 minutes, 5 problems, 100 points.</strong> Each problem allows three submissions, worth 20, 14 and 8 points. Every new instance draws different problems and fresh numbers, so you can take it as often as you like. Assumed scope: Lectures 11–19.</p>"
+}

@@ -1,0 +1,70 @@
+<pl-question-panel>
+  <p>
+    An infinite sheet in the plane ${{params.w}} = 0$ carries the surface current
+    $$\mathbf{J}_s(t) = {{{params.J_tex}}}\ \ \mathrm{A/m},\qquad f = \frac{\omega}{2\pi} = {{params.f_MHz}}\ \mathrm{MHz},$$
+    and all space is filled with {{{params.medium}}} ($\mu_r = 1$). The current has been flowing for a long time, so the sheet radiates steady sinusoidal plane waves into both half-spaces. Use $c = 3\times10^{8}\ \mathrm{m/s}$ and $\eta_0 = 120\pi\ \Omega$. All fields are real functions of time (no phasors).
+  </p>
+</pl-question-panel>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(a)</b> Find the phase velocity, the phase constant and the wavelength of the radiated waves.</p>
+<pl-number-input answers-name="vp8" label="$v_p =$" suffix="$\times10^{8}\ \mathrm{m/s}$" comparison="relabs" rtol="0.01" atol="1e-6"></pl-number-input>
+<pl-number-input answers-name="beta" label="$\beta =$" suffix="$\mathrm{rad/m}$" comparison="relabs" rtol="0.01" atol="1e-6"></pl-number-input>
+<pl-number-input answers-name="lam" label="$\lambda =$" suffix="$\mathrm{m}$" comparison="relabs" rtol="0.01" atol="1e-6"></pl-number-input>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(b)</b> At the point ${{params.w}} = {{params.w1_str}}\ \mathrm{m}$ (any position in the other two coordinates) and the instant $t = {{params.t1_str}}\ \mathrm{ns}$, the electric field has only {{params.art_a}} ${{params.a}}$ component and the magnetic field only {{params.art_b}} ${{params.b}}$ component. Find both, signed.</p>
+<pl-number-input answers-name="Ea" label="$E_{ {{params.a}} } =$" suffix="$\mathrm{V/m}$" comparison="relabs" rtol="0.01" atol="1e-6"></pl-number-input>
+<pl-number-input answers-name="Hb" label="$H_{ {{params.b}} } =$" suffix="$\mathrm{A/m}$" comparison="relabs" rtol="0.01" atol="1e-6"></pl-number-input>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(c)</b> Find the instantaneous Poynting vector $\mathbf{S} = \mathbf{E}\times\mathbf{H}$ at that point and instant. Give its ${{params.w}}$ component (its only one), signed.</p>
+<pl-number-input answers-name="Sw" label="$S_{ {{params.w}} } =$" suffix="$\mathrm{W/m^2}$" comparison="relabs" rtol="0.01" atol="1e-6"></pl-number-input>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(d)</b> At the mirror point ${{params.w}} = {{params.mw1_str}}\ \mathrm{m}$ on the other side of the sheet, at the same instant, $\mathbf{S}$ points</p>
+<pl-multiple-choice answers-name="Sother">
+  {{#params.s_choices}}<pl-answer correct="{{correct}}" feedback="{{feedback}}">{{{text}}}</pl-answer>
+  {{/params.s_choices}}
+</pl-multiple-choice>
+<p>Comparing the fields at the two mirror points ${{params.w}} = \pm{{params.absw1_str}}\ \mathrm{m}$ at the same instant:</p>
+<pl-multiple-choice answers-name="parity">
+  {{#params.parity}}<pl-answer correct="{{correct}}" feedback="{{feedback}}">{{{text}}}</pl-answer>
+  {{/params.parity}}
+</pl-multiple-choice>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(e)</b> Select every true statement about this sheet and its waves.</p>
+<pl-checkbox answers-name="facts" number-answers="6" min-correct="1" max-correct="4" partial-credit="each-answer">
+  {{#params.facts}}<pl-answer correct="{{correct}}" feedback="{{feedback}}">{{{text}}}</pl-answer>
+  {{/params.facts}}
+</pl-checkbox>
+</div></div>
+
+<pl-hidden-hints>
+  <pl-hint hint-name="The sheet's fields">
+    At distance $d$ from the sheet, with $\hat{n}$ the unit normal pointing from the sheet toward the field point: $\mathbf{E} = -\tfrac{\eta}{2}\,\mathbf{J}_s(t-d/v_p)$ and $\mathbf{H} = \tfrac12\,\mathbf{J}_s(t-d/v_p)\times\hat{n}$, with $\eta = \eta_0/\sqrt{\epsilon_r}$ and $v_p = c/\sqrt{\epsilon_r}$. For a cosine current, $\cos\big(\omega(t-d/v_p)\big) = \cos(\omega t-\beta d)$ with $\beta = \omega/v_p$.
+  </pl-hint>
+  <pl-hint hint-name="Signs" show-after-submission="1">
+    Write $\mathbf{J}_s$ as a vector with its sign, evaluate the cosine at the point and instant, and do the cross product with the $\hat{n}$ of that side. Check: $\mathbf{E}\times\mathbf{H}$ must point away from the sheet.
+  </pl-hint>
+</pl-hidden-hints>
+
+<pl-answer-panel>
+  <p><b>(a)</b> $v_p = c/\sqrt{\epsilon_r} = (3\times10^{8})/{{params.n_str}} = {{params.vp8_str}}\times10^{8}\ \mathrm{m/s}$; $\lambda = v_p/f = {{params.lam_str}}\ \mathrm{m}$; $\beta = \omega/v_p = 2\pi/\lambda = {{params.beta_str}}\ \mathrm{rad/m}$.</p>
+  <p><b>(b)</b> The point is on the side ${{{params.side_tex}}}$, at distance $d = {{params.absw1_str}}\ \mathrm{m}$, where $\hat{n} = {{{params.nhat}}}$. The phase there is $\omega t-\beta d = {{params.wt_str}} - {{params.bw_str}}\ \mathrm{rad}$, which is ${{{params.ph_tex}}}$ modulo $2\pi$, so $\cos(\omega t-\beta d) = {{params.cph_str}}$ and $\mathbf{J}_s(t-d/v_p) = {{params.Js_now_str}}\,\hat{ {{params.a}} }\ \mathrm{A/m}$. With $\eta = \eta_0/\sqrt{\epsilon_r} = {{params.eta_str}}\ \Omega$:
+  $$E_{ {{params.a}} } = -\frac{\eta}{2}\,({{params.Js_now_str}}) = {{params.Ea_str}}\ \mathrm{V/m},\qquad
+  \mathbf{H} = \tfrac12\,({{params.Js_now_str}})\,\hat{ {{params.a}} }\times({{{params.nhat}}}),\quad \hat{ {{params.a}} }\times\hat{ {{params.w}} } = {{{params.aw_cross}}},\quad H_{ {{params.b}} } = {{params.Hb_str}}\ \mathrm{A/m}.$$
+  $\mathbf{E}$ opposes the sheet current at the retarded time; $\lvert\mathbf{E}\rvert/\lvert\mathbf{H}\rvert = \eta$.</p>
+  <p><b>(c)</b> $\mathbf{S} = \mathbf{E}\times\mathbf{H}$ gives $S_{ {{params.w}} } = {{params.Sw_str}}\ \mathrm{W/m^2}$, which equals $\tfrac{\eta}{4}J_0^2\cos^2(\omega t-\beta d)$ along $\hat{n} = {{{params.nhat}}}$: away from the sheet, as it must be for an outgoing wave.</p>
+  <p><b>(d)</b> At ${{params.w}} = {{params.mw1_str}}\ \mathrm{m}$ the distance and hence the phase are the same, $\mathbf{E}$ is identical, and $\mathbf{H}$ is reversed because $\hat{n} = {{{params.nhat_other}}}$ there. So $\mathbf{S}$ has the same magnitude and points along ${{{params.nhat_other}}}$, again away from the sheet. $\mathbf{E}$ is even across the sheet (tangential $\mathbf{E}$ is continuous) and $\mathbf{H}$ is odd (its tangential jump is the sheet current). $\mathbf{S}$ is never zero by cancellation: each half-space has only its own outgoing wave. And $\mathbf{S}\perp\mathbf{E}\parallel\mathbf{J}_s$.</p>
+  <p><b>(e)</b> The pool of statements (a random six are shown):</p>
+  <ul>
+    {{#params.facts}}<li>{{{text}}} <b>{{verdict}}</b>: {{{why}}}</li>
+    {{/params.facts}}
+  </ul>
+</pl-answer-panel>

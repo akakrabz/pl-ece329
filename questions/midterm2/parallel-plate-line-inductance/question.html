@@ -1,0 +1,74 @@
+<pl-question-panel>
+  <p>
+    A shorted parallel-plate line is made of two thin, perfectly conducting plates of width $w = {{params.w_cm}}\ \mathrm{cm}$ and length $\ell = {{params.ell}}\ \mathrm{m}$, on the planes ${{params.u}} = 0$ and ${{params.u}} = d$, with gap $d = {{params.d_mm}}\ \mathrm{mm}$.
+    The line runs along $z$. A source at $z = 0$ drives a steady current $I = {{params.I}}\ \mathrm{A}$ into the plate at ${{params.u}} = {{params.out_plate}}$. The current flows along that plate to a short at $z = \ell$ and returns along the plate at ${{params.u}} = {{params.ret_plate}}$.
+    Since $d \ll w, \ell$, neglect fringing and treat each plate as a uniform, infinitely thin current sheet.
+  </p>
+  <p>
+    The gap is completely filled with {{{params.mat}}} of relative permeability $\mu_r = {{params.mur}}$. Treat it as linear: the fields here stay well below saturation. Everything outside the plates is air ($\mu_0$). Use $\mu_0 = 4\pi\times10^{-7}\ \mathrm{H/m}$.
+  </p>
+  <div class="text-center">{{{params.svg}}}</div>
+</pl-question-panel>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(a)</b> The surface current density on each plate, as signed $z$-components (positive along $+\hat{z}$):</p>
+<pl-number-input answers-name="Js_d" label="plate at ${{params.u}} = d$: $J_{s,z} =$" suffix="$\mathrm{A/m}$" comparison="relabs" rtol="0.01" atol="1e-6"></pl-number-input>
+<pl-number-input answers-name="Js_0" label="plate at ${{params.u}} = 0$: $J_{s,z} =$" suffix="$\mathrm{A/m}$" comparison="relabs" rtol="0.01" atol="1e-6"></pl-number-input>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(b)</b> Between the plates, the magnetic field $\mathbf{B}$ points along</p>
+<pl-multiple-choice answers-name="Bdir" hide-letter-keys="true">
+  {{#params.dir_choices}}
+  <pl-answer correct="{{correct}}" feedback="{{feedback}}">{{{text}}}</pl-answer>
+  {{/params.dir_choices}}
+</pl-multiple-choice>
+<p>and its magnitude, with that of $\mathbf{H}$, is</p>
+<pl-number-input answers-name="H" label="$|\mathbf{H}| =$" suffix="$\mathrm{A/m}$" comparison="relabs" rtol="0.01" atol="1e-6"></pl-number-input>
+<pl-number-input answers-name="B" label="$|\mathbf{B}| =$" suffix="$\mathrm{mT}$" comparison="relabs" rtol="0.01" atol="1e-6"></pl-number-input>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(c)</b> The magnetic flux linked by the current path, and the inductance of the line:</p>
+<pl-number-input answers-name="Psi" label="$\Psi =$" suffix="$\mu\mathrm{Wb}$" comparison="relabs" rtol="0.01" atol="1e-6"></pl-number-input>
+<pl-number-input answers-name="L" label="$L =$" suffix="$\mu\mathrm{H}$" comparison="relabs" rtol="0.01" atol="1e-6"></pl-number-input>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(d)</b> The stored magnetic energy, computed from the field: the energy density in the gap, and the total energy (which should agree with $\tfrac12LI^2$):</p>
+<pl-number-input answers-name="wm" label="$w_m =$" suffix="$\mathrm{J/m^3}$" comparison="relabs" rtol="0.01" atol="1e-6"></pl-number-input>
+<pl-number-input answers-name="W" label="$W =$" suffix="$\mu\mathrm{J}$" comparison="relabs" rtol="0.01" atol="1e-6"></pl-number-input>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(e)</b> The filling is magnetized. Find the magnetization (bound) surface current density on the face of the filling that touches the plate at ${{params.u}} = d$, as a signed $z$-component:</p>
+<pl-number-input answers-name="JsM" label="$J_{sM,z} =$" suffix="$\mathrm{kA/m}$" comparison="relabs" rtol="0.01" atol="1e-6"></pl-number-input>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(f)</b> The line is rebuilt with gap ${{params.kd_tex}}\,d$, still completely filled with the same material and still with gap $\ll w$, and is driven with current ${{params.kI_tex}}\,I$. Compared with the original line, by what factors do the field $B$ between the plates, the linked flux $\Psi$ and the inductance $L$ change?</p>
+<pl-multiple-choice answers-name="scale" hide-letter-keys="true">
+  {{#params.scale_choices}}
+  <pl-answer correct="{{correct}}" feedback="{{feedback}}">{{{text}}}</pl-answer>
+  {{/params.scale_choices}}
+</pl-multiple-choice>
+</div></div>
+
+<pl-hidden-hints>
+  <pl-hint hint-name="Each plate is a current sheet">
+    The current spreads uniformly across the width, so $|\mathbf{J}_s| = I/w$. A sheet's field is $\mathbf{H} = \tfrac12\mathbf{J}_s\times\hat{n}$, with $\hat{n}$ the unit normal pointing from the sheet toward the field point. Superpose the two plates, between them and outside them. Ampère's law counts free current only, and here the filling occupies the whole gap, so $\mathbf{H}$ does not depend on $\mu_r$; then $\mathbf{B} = \mu_r\mu_0\mathbf{H}$.
+  </pl-hint>
+  <pl-hint hint-name="Flux, energy and magnetization" show-after-submission="1">
+    The current path bounds a $d\times\ell$ rectangle in the $(z, {{params.u}})$ plane, so $\Psi = Bd\ell$ and $L = \Psi/I$. The energy density is $\tfrac12\mu H^2 = \tfrac12BH$, and it fills the volume $wd\ell$. For the magnetization, $\mathbf{M} = \chi_m\mathbf{H} = (\mu_r - 1)\mathbf{H}$, and the bound surface current is $\mathbf{J}_{sM} = \mathbf{M}\times\hat{n}$ with $\hat{n}$ the outward normal of the magnetized body.
+  </pl-hint>
+</pl-hidden-hints>
+
+<pl-answer-panel>
+  <p><b>(a)</b> The current $I$ spreads uniformly across the width, so each plate carries $|\mathbf{J}_s| = I/w = {{params.I}}\ \mathrm{A}/{{params.w_m}}\ \mathrm{m} = {{params.H_str}}\ \mathrm{A/m}$. The plate at ${{params.u}} = d$ is the {{params.plate_d_word}} plate, so its current flows along ${{params.Js_top_vec}}$: $J_{s,z} = {{params.Jstop_str}}\ \mathrm{A/m}$. The plate at ${{params.u}} = 0$ is the {{params.plate_0_word}} plate, along ${{params.Js_bot_vec}}$: $J_{s,z} = {{params.Jsbot_str}}\ \mathrm{A/m}$.</p>
+  <p><b>(b)</b> Use $\tfrac12\mathbf{J}_s\times\hat{n}$ for each plate at a point in the gap. For the plate at ${{params.u}} = d$ the gap lies on its ${{params.u}} \lt d$ side, so $\hat{n} = {{params.nd_vec}}$, and $\tfrac12({{params.Jstop_str}}\,\hat{z})\times({{params.nd_vec}})$ points along ${{params.H_vec}}$. For the plate at ${{params.u}} = 0$ the gap lies on its ${{params.u}} \gt 0$ side, so $\hat{n} = {{params.n0_vec}}$, and $\tfrac12({{params.Jsbot_str}}\,\hat{z})\times({{params.n0_vec}})$ also points along ${{params.H_vec}}$. The two halves add, so $\mathbf{H} = \dfrac{I}{w}\,({{params.H_vec}}) = {{params.H_str}}\ \mathrm{A/m}$ along ${{params.H_vec}}$. Outside the line the two contributions are equal and opposite, so $\mathbf{H} = 0$ there.
+    The filling carries no free current and Ampère's law counts free current only (around one plate, $Hw = I$), so $H$ is the same as for an empty gap. The material sets $B = \mu_r\mu_0H = {{params.mur}}\times4\pi\times10^{-7}\times{{params.H_str}} = {{params.B_str}}\ \mathrm{mT}$, along ${{params.H_vec}}$ like $\mathbf{H}$.</p>
+  <p><b>(c)</b> The current path (out along one plate, through the short, back along the other plate, through the source) bounds a rectangle of area $d\ell$ in the $(z, {{params.u}})$ plane, and $\mathbf{B}$ crosses it at right angles. So $\Psi = Bd\ell = ({{params.B_str}}\times10^{-3}\ \mathrm{T})({{params.d_m}}\ \mathrm{m})({{params.ell}}\ \mathrm{m}) = {{params.Psi_str}}\ \mu\mathrm{Wb}$, and $L = \Psi/I = \mu_r\mu_0\,d\ell/w = {{params.L_str}}\ \mu\mathrm{H}$. The filling multiplies the air-gap value by $\mu_r = {{params.mur}}$.</p>
+  <p><b>(d)</b> $w_m = \tfrac12\mu H^2 = \tfrac12BH = \tfrac12({{params.B_str}}\times10^{-3})({{params.H_str}}) = {{params.wm_str}}\ \mathrm{J/m^3}$. The field fills only the gap, of volume $wd\ell = {{params.vol_str}}\ \mathrm{m^3}$, so $W = w_m\,wd\ell = {{params.W_str}}\ \mu\mathrm{J}$. Check: $\tfrac12LI^2 = \tfrac12({{params.L_str}}\ \mu\mathrm{H})({{params.I}}\ \mathrm{A})^2 = {{params.W_str}}\ \mu\mathrm{J}$.</p>
+  <p><b>(e)</b> $\mathbf{M} = \chi_m\mathbf{H} = (\mu_r - 1)\mathbf{H} = {{params.chi}}\times{{params.H_str}} = {{params.M_str}}\ \mathrm{A/m}$ along ${{params.M_vec}}$. At the face ${{params.u}} = d$ the outward normal of the filling is $\hat{n} = {{params.u_vec}}$, so $\mathbf{J}_{sM} = \mathbf{M}\times\hat{n}$ gives $J_{sM,z} = {{params.JsM_str}}\ \mathrm{kA/m}$. It flows in the same sense as the free current in the adjacent plate. Check: free plus bound current on that face is $\mu_r I/w = {{params.Jtot_str}}\ \mathrm{A/m}$ in magnitude, and the vacuum sheet formula applied to these total currents gives $B = \mu_0\mu_r I/w$, the same as in (b).</p>
+  <p><b>(f)</b> $B = \mu I/w$ does not involve the gap, so it scales with the current: $\times{{params.kI_tex}}$. $\Psi = Bd\ell$ scales with both, by ${{params.kI_tex}}\times{{params.kd_tex}} = {{params.kIkd_tex}}$. $L = \mu d\ell/w$ is fixed by the geometry and $\mu$, so it changes only with the gap: $\times{{params.kd_tex}}$. Two traps: $B$ is not like a capacitor's $E = V/d$, and $L$ does not scale like $C\propto1/d$.</p>
+</pl-answer-panel>

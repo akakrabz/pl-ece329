@@ -1,0 +1,88 @@
+<pl-question-panel>
+  <p>
+    A static magnetic field fills the region around the ${{params.g}}$ axis (coordinates in metres):
+    $$\mathbf{B} = {{{params.B_tex}}},\qquad B_0 = {{params.B0}}\ \mu\mathrm{T},\quad L = {{params.L}}\ \mathrm{m}.$$
+    This field has zero divergence and zero curl (the ${{{params.ghat}}}$ term is what makes the curl vanish), so it can exist in empty space with no currents; on the plane ${{params.b}} = 0$ that term is zero and $\mathbf{B} = {{{params.Bplane_tex}}}$.
+  </p>
+  <p>
+    A rigid square wire loop of side $s = {{params.s}}\ \mathrm{m}$ and total resistance $R = {{params.R}}\ \Omega$ moves with constant velocity $\mathbf{v} = {{{params.vtex}}}\ \mathrm{m/s}$ (the "given $\mathbf{v}$"). Its centre starts on the ${{params.g}}$ axis, at ${{params.g}} = {{params.g0}}\ \mathrm{m}$ at $t = 0$. The loop stays well inside the region where this formula for $\mathbf{B}$ holds, and its self-inductance is negligible.
+  </p>
+  <svg viewBox="0 0 300 200" width="300" style="max-width:100%;height:auto" role="img" aria-label="View from +{{params.b}}: the square loop in the plane {{params.b}} = 0 with its circulation C, its velocity, and field markers growing toward +{{params.g}}">
+    {{#params.marks}}<circle cx="{{x}}" cy="{{y}}" r="{{r}}" fill="none" stroke="currentColor"/>{{#dot}}<circle cx="{{x}}" cy="{{y}}" r="1.5" fill="currentColor"/>{{/dot}}{{#cross}}<path d="{{cross}}" stroke="currentColor"/>{{/cross}}{{/params.marks}}
+    <line x1="12" y1="100" x2="278" y2="100" stroke="currentColor" stroke-dasharray="6 3 1 3"/>
+    <polygon points="288,100 278,96 278,104" fill="currentColor"/>
+    <text x="284" y="92" font-size="12" font-style="italic">{{params.g}}</text>
+    <rect x="110" y="60" width="80" height="80" fill="none" stroke="currentColor" stroke-width="2.5"/>
+    <polygon points="{{params.c_arrow}}" fill="currentColor"/>
+    <text x="172" y="54" font-size="12" font-style="italic">C</text>
+    <line x1="{{params.v_x1}}" y1="80" x2="{{params.v_x2}}" y2="80" stroke="currentColor" stroke-width="1.5"/>
+    <polygon points="{{params.v_head}}" fill="currentColor"/>
+    <text x="{{params.v_lx}}" y="73" font-size="12" font-weight="bold">v</text>
+    <line x1="20" y1="{{params.t_y1}}" x2="20" y2="{{params.t_y2}}" stroke="currentColor"/>
+    <polygon points="{{params.t_head}}" fill="currentColor"/>
+    <text x="27" y="{{params.t_ly}}" font-size="12" font-style="italic">{{params.t}}</text>
+    <text x="150" y="196" font-size="10" text-anchor="middle">{{params.view_caption}}</text>
+  </svg>
+</pl-question-panel>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(a)</b> First consider several ways of mounting and moving the loop (in every case its centre starts on the ${{params.g}}$ axis, at ${{params.g}} = {{params.g0}}$ m). Select <b>every</b> case in which <b>no</b> current is induced.</p>
+<pl-checkbox answers-name="orient" number-answers="5" min-correct="1" max-correct="{{params.k_true}}" partial-credit="each-answer" order="fixed">
+  {{#params.orient}}
+  <pl-answer correct="{{correct}}" feedback="{{feedback}}">{{{text}}}</pl-answer>
+  {{/params.orient}}
+</pl-checkbox>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(b)</b> From now on the loop lies in the plane ${{params.b}} = 0$ (normal along ${{{params.bhat}}}$), with its edges parallel to ${{{params.ghat}}}$ and ${{{params.that}}}$, and moves with the given $\mathbf{v}$, as in the figure. Its circulation $C$ is <b>{{params.Ccw}}</b> as seen from $+{{params.b}}$, so $d\mathbf{S} = {{{params.dS_tex}}}\,dS$. Find the flux through the loop at $t_1 = {{params.t1}}\ \mathrm{s}$.</p>
+<pl-number-input answers-name="Psi" label="$\Psi(t_1) =$" suffix="$\mu\mathrm{Wb}$" comparison="relabs" rtol="0.01" atol="1e-6"></pl-number-input>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(c)</b> Find the emf around $C$ (signed: a positive emf drives current along $C$), and the direction in which the induced current circulates.</p>
+<pl-number-input answers-name="emf" label="$\mathcal{E} =$" suffix="$\mu\mathrm{V}$" comparison="relabs" rtol="0.01" atol="1e-6"></pl-number-input>
+<p>The induced current circulates</p>
+<pl-multiple-choice answers-name="sense" order="fixed">
+  {{#params.sense_choices}}
+  <pl-answer correct="{{correct}}" feedback="{{feedback}}">{{{text}}}</pl-answer>
+  {{/params.sense_choices}}
+</pl-multiple-choice>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(d)</b> While the loop moves through this field, how does the emf depend on time?</p>
+<pl-multiple-choice answers-name="timedep" order="fixed">
+  {{#params.time_choices}}
+  <pl-answer correct="{{correct}}" feedback="{{feedback}}">{{{text}}}</pl-answer>
+  {{/params.time_choices}}
+</pl-multiple-choice>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(e)</b> Find the current in the loop, counted positive along $C$.</p>
+<pl-number-input answers-name="I" label="$I =$" suffix="$\mu\mathrm{A}$" comparison="relabs" rtol="0.01" atol="1e-6"></pl-number-input>
+</div></div>
+
+<pl-hidden-hints>
+  <pl-hint hint-name="Flux through a loop in a linear field">
+    When $\mathbf{B}$ varies linearly with position, its average over any flat loop equals its value at the loop's centre, so $\Psi = A\,\hat{n}\cdot\mathbf{B}(\text{centre})$ exactly. A current needs this to change in time: ask how $\hat{n}\cdot\mathbf{B}$ at the centre changes as the centre moves.
+  </pl-hint>
+  <pl-hint hint-name="Signs" show-after-submission="1">
+    $\mathcal{E} = -d\Psi/dt$, with $\Psi$ computed using the $d\mathbf{S}$ that the right-hand rule ties to $C$. Check the direction with Lenz's rule (the induced current's own field opposes the change in flux), or with $\oint(\mathbf{v}\times\mathbf{B})\cdot d\mathbf{l}$, which here picks up only the two edges perpendicular to $\mathbf{v}$.
+  </pl-hint>
+</pl-hidden-hints>
+
+<pl-answer-panel>
+  <p><b>(a)</b> Because $\mathbf{B}$ is linear in position, $\Psi = A\,\hat{n}\cdot\mathbf{B}(\text{centre})$ for any flat loop of area $A$. On the ${{params.g}}$ axis (${{params.b}} = 0$) the field is $\mathbf{B} = {{{params.Bplane_tex}}}$, so the flux changes only if $\hat{n}$ has a nonzero ${{params.b}}$-component <em>and</em> the centre moves along ${{params.g}}$. The largest current comes with $\hat{n} = \pm{{{params.bhat}}}$ and motion along ${{{params.ghat}}}$. For the five cases shown:</p>
+  <ul>
+    {{#params.orient}}<li>{{{text}}} <b>{{verdict}}</b>: {{{feedback}}}</li>{{/params.orient}}
+  </ul>
+  <p><b>(b)</b> The centre is at ${{params.g}}_c(t_1) = {{params.g0}} + ({{params.v}})({{params.t1}}) = {{params.gc_str}}$ m. {{{params.flux_sign_words}}}</p>
+  <p>$${{{params.flux_line}}}.$$</p>
+  <p><b>(c)</b> ${{params.g}}_c$ changes at the rate $v_{ {{params.g}} } = {{params.v}}$ m/s, so</p>
+  <p>$${{{params.emf_line}}}.$$</p>
+  <p>{{{params.lenz_words}}} {{{params.edge_words}}}</p>
+  <p><b>(d)</b> $\Psi(t)$ is a linear function of $t$ (the field is linear in ${{params.g}}$ and the centre moves at constant speed), so $\mathcal{E}$ is the same at every instant. It depends on the gradient $B_0/L$, not on the field at the loop.</p>
+  <p><b>(e)</b> $I = \mathcal{E}/R = {{params.emf_str}}\ \mu\mathrm{V}/{{params.R}}\ \Omega = {{params.I_str}}\ \mu\mathrm{A}$ along $C$.</p>
+</pl-answer-panel>

@@ -1,0 +1,74 @@
+<pl-question-panel>
+  <p>
+    In a region of free space ($\mu_0 = 4\pi\times10^{-7}\ \mathrm{H/m}$) the magnetic vector potential is
+    $$\mathbf{A} = {{{params.A_tex}}}\ \ \mathrm{mWb/m}\qquad(\text{coordinates in metres}),$$
+    that is, $\mathbf{A} = k\,{{{params.f_tex}}}\,{{{params.ahat}}}$ with $k = {{params.k_str}}\ {{{params.k_unit}}}$. It is static except in part (e).
+    Two field points: $P_1 = {{{params.P1_tex}}}\ \mathrm{m}$ and $P_2 = {{{params.P2_tex}}}\ \mathrm{m}$.
+  </p>
+</pl-question-panel>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(a)</b> What is $\nabla\cdot\mathbf{A}$?</p>
+<pl-multiple-choice answers-name="div" order="fixed">
+  {{#params.div_choices}}
+  <pl-answer correct="{{correct}}" feedback="{{feedback}}">{{{text}}}</pl-answer>
+  {{/params.div_choices}}
+</pl-multiple-choice>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(b)</b> Find $\mathbf{B} = \nabla\times\mathbf{A}$ at $P_1$ and at $P_2$, component by component, in mT.</p>
+<p>At $P_1$:</p>
+<pl-number-input answers-name="B1x" label="$B_x =$" suffix="$\mathrm{mT}$" comparison="relabs" rtol="0.01" atol="0.0001"></pl-number-input>
+<pl-number-input answers-name="B1y" label="$B_y =$" suffix="$\mathrm{mT}$" comparison="relabs" rtol="0.01" atol="0.0001"></pl-number-input>
+<pl-number-input answers-name="B1z" label="$B_z =$" suffix="$\mathrm{mT}$" comparison="relabs" rtol="0.01" atol="0.0001"></pl-number-input>
+<p>At $P_2$:</p>
+<pl-number-input answers-name="B2x" label="$B_x =$" suffix="$\mathrm{mT}$" comparison="relabs" rtol="0.01" atol="0.0001"></pl-number-input>
+<pl-number-input answers-name="B2y" label="$B_y =$" suffix="$\mathrm{mT}$" comparison="relabs" rtol="0.01" atol="0.0001"></pl-number-input>
+<pl-number-input answers-name="B2z" label="$B_z =$" suffix="$\mathrm{mT}$" comparison="relabs" rtol="0.01" atol="0.0001"></pl-number-input>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+{{#params.is_abs}}
+<p><b>(c)</b> This $\mathbf{B}$ is produced by a surface current on the plane ${{params.u}} = 0$. Use the jump in $\mathbf{H} = \mathbf{B}/\mu_0$ across that plane to find the magnitude of the surface current density.</p>
+{{/params.is_abs}}
+{{#params.is_sq}}
+<p><b>(c)</b> This $\mathbf{B}$ is produced by a volume current density $\mathbf{J}$. Use $\nabla\times\mathbf{H} = \mathbf{J}$ (with $\mathbf{H} = \mathbf{B}/\mu_0$) to find its magnitude.</p>
+{{/params.is_sq}}
+<pl-number-input answers-name="Jmag" label="{{{params.J_label}}}" suffix="{{{params.J_suffix}}}" comparison="relabs" rtol="0.01" atol="1e-6"></pl-number-input>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(d)</b> In which direction does that current flow?</p>
+<pl-multiple-choice answers-name="dir" order="fixed">
+  {{#params.dir_choices}}
+  <pl-answer correct="{{correct}}" feedback="{{feedback}}">{{{text}}}</pl-answer>
+  {{/params.dir_choices}}
+</pl-multiple-choice>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(e)</b> Now let the strength of the potential ramp steadily in time, $\mathbf{A}(t) = {{{params.A_t_tex}}}$ mWb/m ($t$ in seconds), that is $dk/dt = {{params.beta_str}}\ {{{params.beta_unit}}}$, with scalar potential $\Phi = 0$. Find the component of $\mathbf{E}$ along ${{{params.ahat}}}$ at $P_1$.</p>
+<pl-number-input answers-name="E1" label="$E_{ {{params.a}} }(P_1) =$" suffix="$\mathrm{mV/m}$" comparison="relabs" rtol="0.01" atol="1e-6"></pl-number-input>
+</div></div>
+
+<pl-hidden-hints>
+  <pl-hint hint-name="Only one component, one variable">
+    $\mathbf{A}$ has a single component, $A_{ {{params.a}} }$, which depends only on ${{params.u}}$. In the divergence that component is differentiated with respect to ${{params.a}}$; in the curl it is differentiated with respect to ${{params.u}}$. Write out the component of $\nabla\times\mathbf{A}$ along the third axis, ${{params.cax}}$, keeping its sign.
+  </pl-hint>
+  <pl-hint hint-name="Currents and time variation" show-after-submission="1">
+    A jump in tangential $\mathbf{H}$ is a surface current, $\mathbf{J}_s = \hat{n}\times(\mathbf{H}_1 - \mathbf{H}_2)$ with $\hat{n}$ pointing from region 2 into region 1; a smooth $\mathbf{H}$ gives $\mathbf{J} = \nabla\times\mathbf{H}$. Either way, $\nabla^2\mathbf{A} = -\mu_0\mathbf{J}$ is a cross-check (mind the minus sign). With time variation, $\mathbf{E} = -\nabla\Phi - \partial\mathbf{A}/\partial t$.
+  </pl-hint>
+</pl-hidden-hints>
+
+<pl-answer-panel>
+  <p><b>(a)</b> $\nabla\cdot\mathbf{A} = \partial A_{ {{params.a}} }/\partial {{params.a}} = 0$: the only component, $A_{ {{params.a}} } = {{params.k_str}}\,{{{params.f_tex}}}$, does not depend on ${{params.a}}$. So this $\mathbf{A}$ satisfies the Coulomb gauge everywhere. (The derivative with respect to ${{params.u}}$ belongs in the curl; the second derivative belongs in $\nabla^2\mathbf{A}$.)</p>
+  <p><b>(b)</b> With only $A_{ {{params.a}} }({{params.u}})$ present, the curl has a single component, ${{{params.curlB_line}}}$; the other two components contain derivatives of $A_{ {{params.a}} }$ with respect to ${{params.a}}$ or ${{params.cax}}$, or components of $\mathbf{A}$ that are zero, so {{{params.zero_comps}}} vanish. Hence ${{{params.B_formula}}}$, and</p>
+  <ul>
+    <li>at $P_1$ (${{params.u}} = {{params.u1}}$ m): ${{{params.Bc_tex}}} = {{params.B1c}}$ mT, the other components zero;</li>
+    <li>at $P_2$ (${{params.u}} = {{params.u2}}$ m): ${{{params.Bc_tex}}} = {{params.B2c}}$ mT, the other components zero.</li>
+  </ul>
+  <p><b>(c)</b> {{{params.c_words}}}</p>
+  <p><b>(d)</b> The current flows along {{{params.dir_correct_text}}}. Compare $\nabla^2V = -\rho/\epsilon_0$, which makes $V$ curve downward (a peak) where $\rho \gt 0$: in the same way $\nabla^2A_{ {{params.a}} } = -\mu_0J_{ {{params.a}} }$ makes $A_{ {{params.a}} }$ curve downward where $J_{ {{params.a}} } \gt 0$ and upward where $J_{ {{params.a}} } \lt 0$. Here $A_{ {{params.a}} } = {{params.k_str}}\,{{{params.f_tex}}}$ {{params.curv_words}}, so $\nabla^2 A_{ {{params.a}} }$ has the sign of $k$ and $J_{ {{params.a}} }$ the opposite sign. The current is perpendicular to $\mathbf{B}$, and it has no ${{params.u}}$-component because $\mathbf{H}$ depends on ${{params.u}}$ only.</p>
+  <p><b>(e)</b> {{{params.e_words}}}</p>
+</pl-answer-panel>

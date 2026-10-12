@@ -1,0 +1,86 @@
+<pl-question-panel>
+  <p>Magnetized matter (Lecture 17). Use $\mu_0 = 4\pi\times10^{-7}\ \mathrm{H/m}$.</p>
+  <p>
+    <b>Parts (a) and (b): a rod magnet.</b> A long cylindrical {{params.mat}} magnet of radius $a = {{params.a_mm}}\ \mathrm{mm}$ and length $\ell = {{params.L_cm}}\ \mathrm{cm}$ lies along the ${{params.u}}$ axis, centred on the origin. It is uniformly magnetized,
+    $$\mathbf{M} = {{{params.M_tex}}}\ \ \mathrm{kA/m},$$
+    and there is no free current anywhere. Let $\hat{r}$ be the unit vector pointing radially away from the rod's axis, and $\hat{\phi}$ the azimuthal unit vector, which circulates counterclockwise when seen from the $+{{params.u}}$ side (so that $\hat{r}\times\hat{\phi} = \hat{ {{params.u}} }$).
+  </p>
+</pl-question-panel>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(a)</b> Give the magnitude of the magnetization (bound) surface current density on the rod's curved side wall, and the current $I$ that a long air-core solenoid of the same size with $n = {{params.n_turns}}$ turns per metre would have to carry to produce the same $\mathbf{B}$ inside.</p>
+<pl-number-input answers-name="JsM" label="$\lvert\mathbf{J}_{sM}\rvert =$" suffix="$\mathrm{kA/m}$" comparison="relabs" rtol="0.01" atol="1e-6"></pl-number-input>
+<pl-number-input answers-name="Ieq" label="$I =$" suffix="$\mathrm{A}$" comparison="relabs" rtol="0.01" atol="1e-6"></pl-number-input>
+<p>Where, and in which direction, does the rod's magnetization current flow?</p>
+<pl-multiple-choice answers-name="jdir">
+  {{#params.jdir_choices}}<pl-answer correct="{{correct}}" feedback="{{feedback}}">{{{text}}}</pl-answer>
+  {{/params.jdir_choices}}
+</pl-multiple-choice>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(b)</b> On the axis, far from both ends, give the ${{params.u}}$ component of $\mathbf{B}$ inside the rod (signed: positive along $+\hat{ {{params.u}} }$), and choose the description of the fields there that is correct.</p>
+<pl-number-input answers-name="Bin" label="$B_{ {{params.u}} } =$" suffix="$\mathrm{mT}$" comparison="relabs" rtol="0.01" atol="1e-6"></pl-number-input>
+<pl-multiple-choice answers-name="inside">
+  {{#params.inside_choices}}<pl-answer correct="{{correct}}" feedback="{{feedback}}">{{{text}}}</pl-answer>
+  {{/params.inside_choices}}
+</pl-multiple-choice>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(c)</b> Classify each material from its susceptibility $\chi_m$ or its relative permeability $\mu_r = 1+\chi_m$ (handbook values; for ferromagnets, a typical small-field value, since their $B$ is not proportional to $H$).</p>
+<pl-matching answers-name="cls" number-statements="5" fixed-options-order="true" counter-type="full-text" partial-credit="true">
+  {{#params.cls_items}}<pl-statement match="{{key}}">{{{text}}}</pl-statement>
+  {{/params.cls_items}}
+  <pl-option name="dia">diamagnetic</pl-option>
+  <pl-option name="para">paramagnetic</pl-option>
+  <pl-option name="ferro">ferromagnetic</pl-option>
+</pl-matching>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(d)</b> Two linear, isotropic magnetic media meet at the plane ${{params.w}} = 0$: medium 1, with $\mu_{r1} = {{params.mr1}}$, fills ${{params.w}} \gt 0$, and medium 2, with $\mu_{r2} = {{params.mr2}}$, fills ${{params.w}} \lt 0$. The interface carries no free surface current. Just inside medium 1 the flux density is
+$$\mathbf{B}_1 = {{{params.B1_tex}}}\ \ \mathrm{mT}.$$
+Find $\mathbf{B}_2$ just inside medium 2, and the ${{params.w}}$ component of the magnetization $\mathbf{M}_2$ there (signed).</p>
+<pl-number-input answers-name="B2x" label="$B_{2x} =$" suffix="$\mathrm{mT}$" comparison="relabs" rtol="0.01" atol="1e-6"></pl-number-input>
+<pl-number-input answers-name="B2y" label="$B_{2y} =$" suffix="$\mathrm{mT}$" comparison="relabs" rtol="0.01" atol="1e-6"></pl-number-input>
+<pl-number-input answers-name="B2z" label="$B_{2z} =$" suffix="$\mathrm{mT}$" comparison="relabs" rtol="0.01" atol="1e-6"></pl-number-input>
+<pl-number-input answers-name="M2n" label="$M_{2 {{params.w}} } =$" suffix="$\mathrm{kA/m}$" comparison="relabs" rtol="0.01" atol="1e-6"></pl-number-input>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(e)</b> Select every true statement.</p>
+<pl-checkbox answers-name="facts" number-answers="6" min-correct="1" max-correct="4" partial-credit="each-answer">
+  {{#params.facts}}<pl-answer correct="{{correct}}" feedback="{{feedback}}">{{{text}}}</pl-answer>
+  {{/params.facts}}
+</pl-checkbox>
+</div></div>
+
+<pl-hidden-hints>
+  <pl-hint hint-name="Bound current and the solenoid picture">
+    The magnetization current is $\nabla\times\mathbf{M}$ in the volume and $\mathbf{J}_{sM} = \mathbf{M}\times\hat{n}$ on a surface, with $\hat{n}$ the <em>outward</em> normal. A uniformly magnetized rod is therefore a solenoid with $nI$ replaced by $M$. Then use $\mathbf{H} = \mathbf{B}/\mu_0-\mathbf{M}$.
+  </pl-hint>
+  <pl-hint hint-name="The interface" show-after-submission="1">
+    $B_n$ is continuous ($\nabla\cdot\mathbf{B} = 0$). With no free surface current tangential $\mathbf{H} = \mathbf{B}/\mu$ is continuous, so tangential $\mathbf{B}$ is multiplied by $\mu_2/\mu_1$. In a linear medium $\mathbf{M} = \chi_m\mathbf{H}$ with $\chi_m = \mu_r-1$, and no $\mu_0$.
+  </pl-hint>
+</pl-hidden-hints>
+
+<pl-answer-panel>
+  <p><b>(a)</b> Inside the rod $\mathbf{M}$ is uniform, so $\nabla\times\mathbf{M} = \mathbf{0}$: there is no volume current. On the end faces the outward normal is $\pm\hat{ {{params.u}} }$, parallel to $\mathbf{M}$, so $\mathbf{M}\times\hat{n} = \mathbf{0}$. On the curved wall $\hat{n} = \hat{r}$, and since $\hat{ {{params.u}} }\times\hat{r} = \hat{\phi}$,
+  $$\mathbf{J}_{sM} = \mathbf{M}\times\hat{r} = {{{params.sgn}}}{{params.M0}}\,\hat{ {{params.u}} }\times\hat{r} = {{{params.sgn}}}{{params.M0}}\,\hat{\phi}\ \ \mathrm{kA/m},$$
+  of magnitude $M_0 = {{params.M0}}\ \mathrm{kA/m}$. The current circulates around the side wall exactly like the winding of a solenoid, with $nI$ replaced by $M_0$. An air-core solenoid with the same $\mathbf{B}$ needs $nI = M_0$, so $I = M_0/n = ({{params.M0}}\times10^{3}\ \mathrm{A/m})/({{params.n_turns}}\ \mathrm{m^{-1}}) = {{params.Ieq_str}}\ \mathrm{A}$. This shows how strong a permanent magnet is. The tempting wrong answers: $-\hat{\phi}$ comes from writing $\hat{n}\times\mathbf{M}$; "nowhere" forgets that $\mathbf{M}$ ends at the wall; the end faces carry nothing because $\mathbf{M}\parallel\hat{n}$ there.</p>
+  <p><b>(b)</b> Far from the ends the equivalent solenoid looks infinite: $\mathbf{B}\approx\mu_0\mathbf{M}$ inside and $\mathbf{B}\approx\mathbf{0}$ just outside the side wall. So $B_{ {{params.u}} } = \mu_0 M_{ {{params.u}} } = (4\pi\times10^{-7})({{{params.sgn}}}{{params.M0}}\times10^{3})\ \mathrm{T} = {{params.Bin_str}}\ \mathrm{mT}$ (the rod is $\ell/a\ge 40$ radii long, so the end correction is below 0.2&nbsp;%). Then $\mathbf{H} = \mathbf{B}/\mu_0-\mathbf{M}\approx\mathbf{M}-\mathbf{M} = \mathbf{0}$: a permanent magnet sitting at its remanence. "$\mathbf{H}\approx\mathbf{M}$" uses the vacuum relation inside matter. "$\tfrac12\mu_0\mathbf{M}$, $-\tfrac12\mathbf{M}$" are the values at the centre of an end face. "$\mathbf{B}\approx\mathbf{0}$, $\mathbf{H}\approx-\mathbf{M}$" describes a thin plate magnetized through its thickness. And a closed cylindrical current sheet confines its field inside, unlike a flat sheet.</p>
+  <p><b>(c)</b> The sign of $\chi_m = \mu_r-1$ decides between dia- and paramagnetic; $\chi_m\gg1$ means ferromagnetic.</p>
+  <ul>
+    {{#params.cls_items}}<li>{{{text}}}: {{{reason}}}, so <b>{{cls_name}}</b> (this is {{name}}).</li>
+    {{/params.cls_items}}
+  </ul>
+  <p><b>(d)</b> The normal is $\hat{ {{params.w}} }$. Normal $\mathbf{B}$ is continuous: $B_{2 {{params.w}} } = B_{1 {{params.w}} } = {{params.B1n}}\ \mathrm{mT}$. With no free surface current tangential $\mathbf{H}$ is continuous, $\mathbf{B}_{2t}/\mu_2 = \mathbf{B}_{1t}/\mu_1$, so the tangential components are multiplied by $\mu_{r2}/\mu_{r1} = {{params.mr2}}/{{params.mr1}} = {{params.ratio_str}}$:
+  $$\mathbf{B}_2 = {{{params.B2_tex}}}\ \ \mathrm{mT}.$$
+  For the magnetization, $H_{2 {{params.w}} } = B_{2 {{params.w}} }/(\mu_{r2}\mu_0) = {{params.H2n_str}}\ \mathrm{A/m}$ and $M_{2 {{params.w}} } = \chi_{m2}H_{2 {{params.w}} } = ({{params.chi2}})({{params.H2n_str}}\ \mathrm{A/m}) = {{params.M2n_str}}\ \mathrm{kA/m}$. (Check: $B_{2 {{params.w}} } = \mu_0(H_{2 {{params.w}} }+M_{2 {{params.w}} })$.) Note that $H_n$ is <em>not</em> continuous: $H_{1 {{params.w}} } = {{params.H1n_str}}\ \mathrm{A/m}$.</p>
+  <p><b>(e)</b> The pool of statements (a random six are shown):</p>
+  <ul>
+    {{#params.facts}}<li>{{{text}}} <b>{{verdict}}</b>: {{{why}}}</li>
+    {{/params.facts}}
+  </ul>
+</pl-answer-panel>

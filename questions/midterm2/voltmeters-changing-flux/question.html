@@ -1,0 +1,90 @@
+<pl-question-panel>
+  <p>
+    A square circuit ABCD of side $s = {{params.s_cm}}\ \mathrm{cm}$ lies in the plane $z = 0$, with corners
+    A $= (0, 0)$, B $= (s, 0)$, C $= (s, s)$ and D $= (0, s)$; $x$ points to the right and $y$ up the page, so $\hat{z}$ points out of the page.
+    {{{params.res_sentence}}} All other wiring is ideal (perfectly conducting), and the magnetic field of the circuit's own current is negligible.
+    A spatially uniform magnetic field
+    $$\mathbf{B}(t) = \left({{params.B0}} {{params.beta_signed}}\,t\right)\hat{z}\ \ \mathrm{T}\qquad(t\ \text{in seconds})$$
+    fills the whole plane, inside the circuit and around it.
+  </p>
+  <p>
+    Three ideal voltmeters (infinite internal resistance, so they draw no current) each have their $+$ (red) lead on corner {{params.X}} and their $-$ (black) lead on corner {{params.Y}}. Their leads (dashed in the figure) are routed as follows:
+  </p>
+  <ul>
+    <li>$V_1$: alongside sides {{params.side_names_1}}, around the outside of corner {{params.W1}};</li>
+    <li>$V_2$: alongside sides {{params.side_names_2}}, around the outside of corner {{params.W2}};</li>
+    <li>$V_3$: straight across the square along the diagonal {{params.X}}{{params.Y}}, with the meter at the centre.</li>
+  </ul>
+  <p>
+    The leads of $V_1$ and $V_2$ run as close to the circuit as possible, so the area between them and the sides they follow is negligible.
+    A voltmeter displays the voltage of its own path: $\int\mathbf{E}\cdot d\mathbf{l}$ from its $+$ lead to its $-$ lead, taken along its leads and through the meter.
+    Use the reference circulation A$\to$B$\to$C$\to$D$\to$A (counterclockwise seen from $+z$), so that $d\mathbf{S} = \hat{z}\,dS$ on the square.
+  </p>
+  <div class="text-center">{{{params.svg}}}</div>
+</pl-question-panel>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(a)</b> The magnetic flux through the circuit at $t = {{params.t1}}\ \mathrm{s}$ (with $d\mathbf{S} = \hat{z}\,dS$):</p>
+<pl-number-input answers-name="Psi" label="$\Psi =$" suffix="$\mathrm{mWb}$" comparison="relabs" rtol="0.01" atol="1e-6"></pl-number-input>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(b)</b> The emf around the circuit in the reference direction A$\to$B$\to$C$\to$D (signed):</p>
+<pl-number-input answers-name="emf" label="$\mathcal{E} =$" suffix="$\mathrm{mV}$" comparison="relabs" rtol="0.01" atol="1e-6"></pl-number-input>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(c)</b> The current in the circuit, counted positive when it flows A$\to$B$\to$C$\to$D:</p>
+<pl-number-input answers-name="I" label="$I =$" suffix="$\mathrm{mA}$" comparison="relabs" rtol="0.01" atol="1e-6"></pl-number-input>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(d)</b> The three readings, with the signs defined above ($+$ lead on {{params.X}}, $-$ lead on {{params.Y}}):</p>
+<pl-number-input answers-name="V1" label="$V_1 =$" suffix="$\mathrm{mV}$" comparison="relabs" rtol="0.01" atol="1e-6"></pl-number-input>
+<pl-number-input answers-name="V2" label="$V_2 =$" suffix="$\mathrm{mV}$" comparison="relabs" rtol="0.01" atol="1e-6"></pl-number-input>
+<pl-number-input answers-name="V3" label="$V_3 =$" suffix="$\mathrm{mV}$" comparison="relabs" rtol="0.01" atol="{{params.V3_atol}}"></pl-number-input>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(e)</b> $V_1$ and $V_2$ touch the same two corners, yet they read different values. Why?</p>
+<pl-multiple-choice answers-name="why" hide-letter-keys="true">
+  <pl-answer correct="true">Together, the two meters' leads form a closed loop around the changing flux (the square itself). Since $\oint\mathbf{E}\cdot d\mathbf{l} = -d\Psi/dt \neq 0$ around that loop, $\int\mathbf{E}\cdot d\mathbf{l}$ from {{params.X}} to {{params.Y}} depends on the path, and $V_1 - V_2$ equals the emf of the loop.</pl-answer>
+  <pl-answer correct="false" feedback="Ideal meters draw no current, so they do not load the circuit at all; the readings would differ even with no circuit current.">The meters draw different currents from the circuit, so they load it differently.</pl-answer>
+  <pl-answer correct="false" feedback="There is a single loop: every resistor carries the same current $I$. The two paths simply contain different resistors and enclose different flux.">The resistors along $V_1$'s route carry a different current from those along $V_2$'s route.</pl-answer>
+  <pl-answer correct="false" feedback="Inside a perfect conductor the total $\mathbf{E}$ is zero: charge on the wire surfaces cancels the induced field there, so the wires and leads contribute nothing to either reading.">The changing field induces an $\mathbf{E}$ along the ideal wires, and it adds to one reading but not to the other.</pl-answer>
+  <pl-answer correct="false" feedback="Both meters have their $+$ lead on the same corner. A reversed meter would show the opposite sign, not a difference equal to the emf.">One of the two meters is effectively connected with reversed polarity.</pl-answer>
+</pl-multiple-choice>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(f)</b> Now replace the uniform field by a long, thin solenoid, perpendicular to the plane, that pierces the square inside triangle {{params.sol_tri}}; there is no magnetic field anywhere else in the plane. Its flux changes at exactly the rate the flux through the square changed before, so the circuit's emf and current are unchanged, and the meters and their leads stay where they are. What does $V_3$ read now?</p>
+<pl-multiple-choice answers-name="solenoid" hide-letter-keys="true">
+  {{#params.f_choices}}
+  <pl-answer correct="{{correct}}" feedback="{{feedback}}">{{{text}}}</pl-answer>
+  {{/params.f_choices}}
+</pl-multiple-choice>
+</div></div>
+
+<pl-hidden-hints>
+  <pl-hint hint-name="Faraday's law around the circuit">
+    $\oint_C\mathbf{E}\cdot d\mathbf{l} = -\dfrac{d}{dt}\displaystyle\int_S\mathbf{B}\cdot d\mathbf{S}$, with $d\mathbf{S}$ tied to the direction of $C$ by the right-hand rule. Along an ideal wire or lead, $\int\mathbf{E}\cdot d\mathbf{l} = 0$; across a resistor it is $IR$ taken in the direction of the current. So around the circuit, $I\,(R_{\text{total}}) = \mathcal{E}$.
+  </pl-hint>
+  <pl-hint hint-name="What a meter reads" show-after-submission="1">
+    Close each meter's path with a branch of the circuit that joins the same two corners, and apply Faraday's law to that closed loop. If the loop encloses no area, the reading equals the sum of the $IR$ drops along the branch. If it encloses area, the reading and the branch's drops differ by that loop's emf, $-\dfrac{dB_z}{dt}\times(\text{signed area})$.
+  </pl-hint>
+</pl-hidden-hints>
+
+<pl-answer-panel>
+  <p><b>(a)</b> The field is uniform, so $\Psi(t) = B_z(t)\,s^2$. At $t = {{params.t1}}$ s, $B_z = {{params.B0}} {{params.beta_signed}}\times{{params.t1}} = {{params.Bt1_str}}\ \mathrm{T}$, and $\Psi = ({{params.Bt1_str}}\ \mathrm{T})({{params.area_str}}\ \mathrm{m^2}) = {{params.Psi_str}}\ \mathrm{mWb}$.</p>
+  <p><b>(b)</b> $\mathcal{E} = -\dfrac{d\Psi}{dt} = -s^2\dfrac{dB_z}{dt} = -({{params.area_str}}\ \mathrm{m^2})({{params.beta_str}}\ \mathrm{T/s}) = {{params.emf_str}}\ \mathrm{mV}$, constant in time. The sign is {{{params.sense_words}}}</p>
+  <p><b>(c)</b> The meters draw no current, so the circuit is a single loop and $I = \dfrac{\mathcal{E}}{ {{params.Rtot_sym}} } = \dfrac{ {{params.emf_str}}\ \mathrm{mV} }{ {{params.Rtot}}\ \Omega } = {{params.I_str}}\ \mathrm{mA}$.</p>
+  <p><b>(d)</b> Each reading is $\int\mathbf{E}\cdot d\mathbf{l}$ along the meter's leads from {{params.X}} to {{params.Y}}. Close that path with a branch of the circuit and use Faraday's law for the closed loop; $\mathbf{E}\cdot d\mathbf{l}$ is nonzero only across resistors (and inside the meter).</p>
+  <ul>
+    <li>$V_1$: the loop formed by $V_1$'s leads and sides {{params.side_names_1}} encloses no area, so $V_1$ equals $\int\mathbf{E}\cdot d\mathbf{l}$ along the circuit from {{params.X}} through {{params.W1}} to {{params.Y}}. That route follows the reference direction, so each resistor on it contributes $+IR$: $V_1 = {{params.v1_sym}} = ({{params.I_str}}\ \mathrm{mA})({{params.Rp1}}\ \Omega) = {{params.V1_str}}\ \mathrm{mV}$.</li>
+    <li>$V_2$: likewise $V_2$ equals the drop along the circuit from {{params.X}} through {{params.W2}} to {{params.Y}}. That route runs against the reference direction, so each resistor contributes $-IR$: $V_2 = {{params.v2_sym}} = -({{params.I_str}}\ \mathrm{mA})({{params.Rp2}}\ \Omega) = {{params.V2_str}}\ \mathrm{mV}$.</li>
+    <li>Check: $V_1 - V_2 = I\,R_{\text{total}} = \mathcal{E} = {{params.diff_str}}\ \mathrm{mV}$. The two sets of leads together enclose the whole square.</li>
+    <li>$V_3$: apply Faraday's law to the triangle {{params.X}}$\to${{params.W1}}$\to${{params.Y}}$\to${{params.X}}. It is traversed counterclockwise (seen from $+z$) and has area $s^2/2$, so $\oint\mathbf{E}\cdot d\mathbf{l} = -\dfrac{dB_z}{dt}\dfrac{s^2}{2} = \dfrac{\mathcal{E}}{2} = {{params.half_emf_str}}\ \mathrm{mV}$. Going round, the circuit part contributes $V_1$ and the diagonal, walked from {{params.Y}} back to {{params.X}}, contributes $-V_3$. So $V_1 - V_3 = \mathcal{E}/2$, and $V_3 = {{params.V1_str}} - ({{params.half_emf_str}}) = {{params.V3_str}}\ \mathrm{mV}$, which is $\tfrac12(V_1 + V_2)$ because the diagonal splits the flux in half.</li>
+  </ul>
+  <p><b>(e)</b> The leads of $V_1$ and $V_2$ together make the closed path {{params.X}}$\to${{params.W1}}$\to${{params.Y}}$\to${{params.W2}}$\to${{params.X}}, which is the square traversed counterclockwise. Around it, $\oint\mathbf{E}\cdot d\mathbf{l} = V_1 - V_2 = \mathcal{E} \neq 0$. With $\partial\mathbf{B}/\partial t \neq 0$ the field $\mathbf{E}$ has a curl, so there is no single "voltage between {{params.X}} and {{params.Y}}": each meter shows the voltage of its own path. The distractors fail for these reasons. Ideal meters draw no current. All the resistors carry the same $I$. $\mathbf{E} = 0$ inside the perfect conductors, because surface charge cancels the induced field there. And both meters have $+$ on {{params.X}}.</p>
+  <p><b>(f)</b> {{{params.f_words}}}</p>
+</pl-answer-panel>

@@ -14,7 +14,14 @@ import numpy as np
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 QDIR = os.path.join(ROOT, "questions")
-N = int(sys.argv[1]) if len(sys.argv) > 1 else 300
+import argparse
+_ap = argparse.ArgumentParser(description="Offline checks for the ECE 329 PrairieLearn questions")
+_ap.add_argument("n", nargs="?", type=int, default=300, help="seeds per question (default 300)")
+_ap.add_argument("--only", default="", help="comma-separated question names (directory names) to test")
+_ap.add_argument("--katex", default="", help="path to katex.min.js: also compile every $...$ with KaTeX (needs node)")
+_ap.add_argument("--katex-seeds", type=int, default=3, help="seeds per question for the KaTeX pass (default 3)")
+ARGS = _ap.parse_args()
+N = ARGS.n
 EPS0 = 8.8541878128e-12
 
 
@@ -251,32 +258,337 @@ PHYS = {"conservative-field-analysis": phys_conservative, "nonuniform-slab": phy
         "ampere-coax-fields": phys_ampere_coax, "current-sheets-superposition": phys_sheets,
         "solenoid-inductance-energy": phys_solenoid, "faraday-loop-emf": phys_faraday}
 
+
+# ====================================================================== generic checks (all questions)
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from mustache_lite import render as mustache_render  # noqa: E402
+import html as _html  # noqa: E402
+import subprocess  # noqa: E402
+
+TOOLS = os.path.dirname(os.path.abspath(__file__))
+CHECKS_DIR = os.path.join(TOOLS, "checks")
+STANDARD_TAGS = {"numeric", "symbolic", "drawing", "MC", "code", "multianswer", "graph", "concept", "calculate",
+                 "compute", "software", "estimation", "secret", "nontest"}
+STANDARD_SETS = {"Homework", "Machine Problem", "Quiz", "Practice Quiz", "Exam", "Practice Exam", "Prep", "Worksheet"}
+ALLOWED_IMPORTS = {"random", "math", "cmath", "fractions", "itertools", "json", "numpy", "io", "matplotlib",
+                   "matplotlib.pyplot", "collections", "functools"}
+
+# Attribute whitelists, from docs.prairielearn.com element pages (checked October 2026).
+_MC = {"all-of-the-above", "all-of-the-above-feedback", "allow-blank", "answers-name", "aria-label", "builtin-grading",
+       "display", "hide-letter-keys", "hide-score-badge", "none-of-the-above", "none-of-the-above-feedback",
+       "number-answers", "order", "placeholder", "size", "weight"}
+_CB = {"allow-blank", "answers-name", "detailed-help-text", "display", "hide-help-text", "hide-letter-keys",
+       "hide-score-badge", "max-correct", "max-select", "min-correct", "min-select", "number-answers", "order",
+       "partial-credit", "show-number-correct", "weight"}
+ATTRS = {
+    "pl-question-panel": set(), "pl-answer-panel": set(), "pl-submission-panel": set(), "pl-hidden-hints": set(),
+    "pl-hint": {"hint-name", "show-after-submission"},
+    "pl-multiple-choice": _MC, "pl-checkbox": _CB, "pl-answer": {"correct", "feedback", "score"},
+    "pl-matching": {"allow-blank", "answers-name", "blank", "counter-type", "fixed-options-order", "fixed-order",
+                    "hide-score-badge", "none-of-the-above", "number-options", "number-statements",
+                    "options-placement", "partial-credit", "weight"},
+    "pl-statement": {"match"}, "pl-option": {"name"},
+    "pl-number-input": {"answers-name", "weight", "correct-answer", "label", "aria-label", "suffix", "display",
+                        "comparison", "rtol", "atol", "digits", "allow-complex", "allow-blank", "blank-value",
+                        "allow-fractions", "size", "show-help-text", "placeholder", "custom-format", "show-score"},
+    "pl-integer-input": {"allow-blank", "answers-name", "aria-label", "base", "blank-value", "correct-answer",
+                         "display", "initial-value", "label", "placeholder", "show-help-text", "show-score", "size",
+                         "suffix", "weight"},
+    "pl-symbolic-input": {"additional-simplifications", "allow-blank", "allow-complex", "allow-sets",
+                          "allow-trig-functions", "answers-name", "aria-label", "blank-value", "correct-answer",
+                          "custom-functions", "display", "display-log-as-ln", "display-simplified-expression",
+                          "formula-editor", "imaginary-unit-for-display", "initial-value", "label", "placeholder",
+                          "show-help-text", "show-score", "size", "suffix", "variables", "weight"},
+    "pl-figure": {"alt", "directory", "display", "file-name", "type", "width"},
+}
+_ATTR_RE = r"(?:\s+[\w:-]+(?:\s*=\s*(?:\"[^\"]*\"|'[^']*'|[^\s\"'>]+))?)*"
+_TAG_RE = re.compile(r"<(pl-[a-z-]+)(" + _ATTR_RE + r")\s*/?>")
+_ONE_ATTR = re.compile(r"([\w:-]+)(?:\s*=\s*(?:\"([^\"]*)\"|'([^']*)'|([^\s\"'>]+)))?")
+
+
+def attrs_of(s):
+    out = {}
+    for m in _ONE_ATTR.finditer(s):
+        out[m.group(1)] = next((g for g in m.group(2, 3, 4) if g is not None), "")
+    return out
+
+
+def blocks(h, tag):
+    rx = re.compile(r"<" + tag + r"(" + _ATTR_RE + r")\s*>(.*?)</" + tag + r">", re.S)
+    return [(attrs_of(m.group(1)), m.group(2)) for m in rx.finditer(h)]
+
+
+def _norm(t):
+    return re.sub(r"\s+", " ", t).strip()
+
+
+def _true(v):
+    return str(v).strip().lower() == "true"
+
+
+def lint_raw_html(q, raw):
+    for m in _TAG_RE.finditer(raw):
+        tag, a = m.group(1), attrs_of(m.group(2))
+        if tag not in ATTRS:
+            check(False, f"{q}: element <{tag}> is not on the checked list (typo, or add it to ATTRS after reading its docs)")
+            continue
+        bad = set(a) - ATTRS[tag]
+        check(not bad, f"{q}: <{tag}> has unknown/deprecated attributes {sorted(bad)}")
+    check("<pl-answer-panel>" in raw, f"{q}: no <pl-answer-panel> (every question explains its solution)")
+    names = re.findall(r'answers-name="([^"]+)"', raw)
+    check(len(names) == len(set(names)), f"{q}: duplicate answers-name {sorted(n for n in set(names) if names.count(n) > 1)}")
+
+
+def lint_rendered(q, h, d, seed):
+    """Checks on one rendered variant: choice blocks, matching, numeric answers."""
+    ca = d["correct_answers"]
+    for a, inner in blocks(h, "pl-multiple-choice"):
+        ans = blocks(inner, "pl-answer")
+        texts = [_norm(t) for _, t in ans]
+        ncor = sum(_true(x.get("correct", "false")) for x, _ in ans)
+        special = any(a.get(k, "false") not in ("false", "") for k in ("all-of-the-above", "none-of-the-above"))
+        n_ans = int(a["number-answers"]) if a.get("number-answers") else None
+        if not special:
+            if n_ans is None:
+                check(ncor == 1, f"{q} seed {seed}: multiple-choice {a.get('answers-name')} has {ncor} correct answers (need exactly 1)")
+            else:
+                check(ncor >= 1 and len(ans) - ncor >= n_ans - 1,
+                      f"{q} seed {seed}: multiple-choice {a.get('answers-name')} cannot fill number-answers={n_ans}")
+        check(len(set(texts)) == len(texts), f"{q} seed {seed}: multiple-choice {a.get('answers-name')} has duplicate choices")
+        check(all(t for t in texts), f"{q} seed {seed}: multiple-choice {a.get('answers-name')} has an empty choice")
+        for x, _ in ans:
+            if "score" in x:
+                check(0.0 <= float(x["score"]) <= 1.0, f"{q}: pl-answer score outside [0, 1]")
+    for a, inner in blocks(h, "pl-checkbox"):
+        ans = blocks(inner, "pl-answer")
+        check(not any("score" in x for x, _ in ans), f"{q}: pl-answer inside pl-checkbox cannot have score=")
+        texts = [_norm(t) for _, t in ans]
+        ncor = sum(_true(x.get("correct", "false")) for x, _ in ans)
+        ninc = len(ans) - ncor
+        n_ans = int(a.get("number-answers") or len(ans))
+        min_c = int(a.get("min-correct") or (ncor if "number-answers" not in a else 1))
+        max_c = int(a.get("max-correct") or ncor)
+        check(ncor >= max(1, min_c), f"{q} seed {seed}: checkbox {a.get('answers-name')} has {ncor} correct, needs >= {max(1, min_c)}")
+        check(n_ans <= len(ans) and ninc >= n_ans - min(max_c, ncor),
+              f"{q} seed {seed}: checkbox {a.get('answers-name')} cannot fill number-answers={n_ans} (correct {ncor}, incorrect {ninc})")
+        check(len(set(texts)) == len(texts), f"{q} seed {seed}: checkbox {a.get('answers-name')} has duplicate choices")
+    for a, inner in blocks(h, "pl-matching"):
+        st = blocks(inner, "pl-statement")
+        op = blocks(inner, "pl-option")
+        check(len(st) >= 2, f"{q}: matching {a.get('answers-name')} has fewer than 2 statements")
+        check(all(x.get("match") for x, _ in st), f"{q}: matching {a.get('answers-name')}: every pl-statement needs match=")
+        stexts = [_norm(t) for _, t in st]
+        check(len(set(stexts)) == len(stexts), f"{q} seed {seed}: matching {a.get('answers-name')} has duplicate statements")
+        keys = [x.get("name") or _norm(t) for x, t in op]
+        check(len(set(keys)) == len(keys), f"{q} seed {seed}: matching {a.get('answers-name')} has duplicate option names")
+        if a.get("number-statements"):
+            check(int(a["number-statements"]) <= len(st), f"{q}: matching number-statements > statements")
+    for a in [attrs_of(m.group(1)) for m in re.finditer(r"<pl-number-input(" + _ATTR_RE + r")\s*/?>", h)]:
+        nm = a.get("answers-name")
+        if "correct-answer" in a or _true(a.get("allow-complex", "false")):
+            continue
+        v = ca.get(nm)
+        check(isinstance(v, (int, float)) and not isinstance(v, bool) and math.isfinite(v),
+              f"{q} seed {seed}: number-input {nm} correct answer {v!r} is not a finite real number")
+    for a in [attrs_of(m.group(1)) for m in re.finditer(r"<pl-integer-input(" + _ATTR_RE + r")\s*/?>", h)]:
+        v = ca.get(a.get("answers-name"))
+        check(isinstance(v, int) and not isinstance(v, bool), f"{q} seed {seed}: integer-input {a.get('answers-name')} correct answer {v!r} is not an int")
+
+
+def math_segments(h):
+    segs = []
+    h = re.sub(r"<script.*?</script>", " ", h, flags=re.S)
+    for m in re.finditer(r"\$\$(.+?)\$\$", h, re.S):
+        segs.append((m.group(1), True))
+    h2 = re.sub(r"\$\$(.+?)\$\$", " ", h, flags=re.S).replace("\\$", " ")
+    for m in re.finditer(r"\$(.+?)\$", h2, re.S):
+        segs.append((m.group(1), False))
+    for m in re.finditer(r"\\\((.+?)\\\)", h2, re.S):
+        segs.append((m.group(1), False))
+    for m in re.finditer(r"\\\[(.+?)\\\]", h2, re.S):
+        segs.append((m.group(1), True))
+    return [(_html.unescape(x), disp) for x, disp in segs]
+
+
+def katex_check(items):
+    """items: list of (question, expr, display). Returns list of (question, expr, error)."""
+    js = os.path.join(TOOLS, "katex_check.js")
+    payload = json.dumps([{"q": q, "e": e, "d": d} for q, e, d in items])
+    r = subprocess.run(["node", js, ARGS.katex], input=payload, capture_output=True, text=True, timeout=600)
+    if r.returncode != 0:
+        return [("(katex)", "", r.stderr.strip()[:500])]
+    return [(x["q"], x["e"], x["err"]) for x in json.loads(r.stdout)]
+
+
+def check_server_imports(q, src):
+    mods = []
+    for m in re.finditer(r"^\s*import\s+([\w., ]+)", src, re.M):
+        mods += [x.strip().split(" as ")[0].strip() for x in m.group(1).split(",")]
+    mods += re.findall(r"^\s*from\s+([\w.]+)\s+import", src, re.M)
+    for mod in mods:
+        check(mod in ALLOWED_IMPORTS or mod.split(".")[0] in {"numpy", "matplotlib"},
+              f"{q}: server.py imports {mod} (keep questions dependency-free: random, math, fractions, numpy, matplotlib)")
+
+
+def load_check_module(q):
+    path = os.path.join(CHECKS_DIR, q + ".py")
+    if not os.path.exists(path):
+        return None
+    spec = importlib.util.spec_from_file_location("check_" + q.replace("-", "_"), path)
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    return mod.phys
+
+
+# ---------------------------------------------------------------- course-level checks
+course = json.load(open(os.path.join(ROOT, "infoCourse.json")))
+TOPICS = {t["name"] for t in course.get("topics", [])}
+TAGS = {t["name"] for t in course.get("tags", [])} | STANDARD_TAGS
+SETS = {s["name"] for s in course.get("assessmentSets", [])} | STANDARD_SETS
+check(len({t["name"] for t in course.get("tags", [])}) == len(course.get("tags", [])), "infoCourse: duplicate tag names")
+uuids = {}
+
+ONLY = {x.strip() for x in ARGS.only.split(",") if x.strip()}
+qids = []
+katex_items = []
 for topic in sorted(os.listdir(QDIR)):
     for q in sorted(os.listdir(os.path.join(QDIR, topic))):
         qpath = os.path.join(QDIR, topic, q)
-        info = json.load(open(os.path.join(qpath, "info.json")))
-        check(info.get("type") == "v3" and "uuid" in info and "topic" in info, f"{q}: info.json")
-        html = open(os.path.join(qpath, "question.html")).read()
-        stripped = re.sub(r"\{\{\{\s*[A-Za-z0-9_.]+\s*\}\}\}|\{\{[#/^]?\s*[A-Za-z0-9_.]+\s*\}\}", "", html)
+        if not os.path.isdir(qpath):
+            continue
+        qids.append(f"{topic}/{q}")
+        if ONLY and q not in ONLY:          # other questions (maybe half-written): only remember their uuid
+            try:
+                uuids.setdefault(json.load(open(os.path.join(qpath, "info.json"))).get("uuid", "").lower(), q)
+            except Exception:  # noqa: BLE001
+                pass
+            continue
+        try:
+            info = json.load(open(os.path.join(qpath, "info.json")))
+        except Exception as e:  # noqa: BLE001
+            check(False, f"{q}: info.json unreadable: {e}")
+            continue
+        check(info.get("type") == "v3" and "uuid" in info and info.get("title"), f"{q}: info.json needs type v3, uuid, title")
+        u = info.get("uuid", "").lower()
+        check(u not in uuids, f"{q}: uuid duplicates {uuids.get(u)}")
+        uuids[u] = q
+        check(info.get("topic") in TOPICS, f"{q}: topic {info.get('topic')!r} not declared in infoCourse.json")
+        for t in info.get("tags", []):
+            check(t in TAGS, f"{q}: tag {t!r} not declared in infoCourse.json")
+        raw = open(os.path.join(qpath, "question.html")).read()
+        lint_raw_html(q, raw)
+        stripped = re.sub(r"\{\{\{\s*[A-Za-z0-9_.]+\s*\}\}\}|\{\{[#/^]?\s*[A-Za-z0-9_.]+\s*\}\}", "", raw)
         check("{{" not in stripped, f"{q}: stray Mustache braces after removing valid tags (LaTeX brace collision?)")
-        for block in re.findall(r"<pl-multiple-choice.*?</pl-multiple-choice>", html, re.S):
-            if "{{#params" not in block:      # static choices: exactly one must be marked correct
+        for block in re.findall(r"<pl-multiple-choice.*?</pl-multiple-choice>", raw, re.S):
+            if "{{" not in block and "number-answers" not in block:      # fully static choices: exactly one correct
                 check(block.count('correct="true"') == 1, f"{q}: static multiple-choice block needs exactly one correct answer")
-        refs, loops, names, choice_names = mustache_refs(html)
-        mod = load(qpath)
+        src = open(os.path.join(qpath, "server.py")).read()
+        check_server_imports(q, src)
+        refs, loops, names, choice_names = mustache_refs(raw)
+        try:
+            mod = load(qpath)
+        except Exception as e:   # noqa: BLE001 - report and move on
+            check(False, f"{q}: server.py failed to import: {e!r}")
+            print(f"{q:36s} IMPORT ERROR")
+            continue
+        physfn = PHYS.get(q) or load_check_module(q)
+        check(physfn is not None, f"{q}: no physics check (add tools/checks/{q}.py with phys(d, check))")
+        dyn_figs = [attrs_of(m.group(1)) for m in re.finditer(r"<pl-figure(" + _ATTR_RE + r")\s*/?>", raw)]
+        dyn_figs = [a for a in dyn_figs if a.get("type") == "dynamic"]
         variants = set()
+        nerr0 = len(errors)
         for seed in range(1, N + 1):
             d = run(mod, seed)
             for r in refs | loops:
                 check(r in d["params"], f"{q}: question.html references params.{r} which generate() did not set (seed {seed})")
             for nme in names:
-                if nme not in choice_names:
+                if nme not in choice_names and not re.search(r'<pl-matching[^>]*answers-name="' + re.escape(nme) + '"', raw):
                     check(nme in d["correct_answers"], f"{q}: answers-name {nme} has no correct_answers entry")
-            PHYS[q](d)
+            try:
+                h, missing = mustache_render(raw, d)
+            except ValueError as e:
+                check(False, f"{q}: {e}"); break
+            check(not missing, f"{q} seed {seed}: template names not set by generate(): {sorted(missing)}")
+            lint_rendered(q, h, d, seed)
+            if ARGS.katex and seed <= ARGS.katex_seeds:
+                katex_items += [(q, e, disp) for e, disp in math_segments(h)]
+            if dyn_figs and seed <= 2 and hasattr(mod, "file"):
+                for a in dyn_figs:
+                    fname = mustache_render(a.get("file-name", ""), d)[0]
+                    try:
+                        out = mod.file(dict(d, filename=fname))
+                        if hasattr(out, "getvalue"):
+                            out = out.getvalue()
+                        check(out is not None and len(out) > 100, f"{q}: file({fname}) returned nothing useful")
+                    except ImportError as e:
+                        print(f"  note: {q}: dynamic figure not tested ({e})")
+            if physfn:
+                physfn(d) if physfn in PHYS.values() else physfn(d, check)
             variants.add(json.dumps(d["params"], sort_keys=True))
-            if errors and len(errors) > 20: break
-        print(f"{q:32s} {N} seeds, {len(variants)} distinct variants, {'OK' if not errors else 'ERRORS'}")
+            if len(errors) > nerr0 + 20:
+                break
+        print(f"{q:36s} {N} seeds, {len(variants)} distinct variants, {'OK' if len(errors) == nerr0 else 'ERRORS'}")
+
+# ---------------------------------------------------------------- assessments (skipped with --only)
+for dirpath, _, files in ([] if ONLY else os.walk(os.path.join(ROOT, "courseInstances"))):
+    for fn in files:
+        if fn not in ("infoAssessment.json", "infoCourseInstance.json"):
+            continue
+        a = json.load(open(os.path.join(dirpath, fn)))
+        u = a.get("uuid", "").lower()
+        rel = os.path.relpath(os.path.join(dirpath, fn), ROOT)
+        check(u and u not in uuids, f"{rel}: missing or duplicate uuid")
+        uuids[u] = rel
+        if fn != "infoAssessment.json":
+            continue
+        check(a.get("set") in SETS, f"{rel}: assessment set {a.get('set')!r} not declared")
+        exam = a.get("type") == "Exam"
+        for z in a.get("zones", []):
+            for qq in z.get("questions", []):
+                ids = [qq["id"]] if "id" in qq else [x["id"] for x in qq.get("alternatives", [])]
+                for i in ids:
+                    check(i in qids, f"{rel}: question id {i!r} does not exist")
+                ap = qq.get("autoPoints")
+                if exam:
+                    check(isinstance(ap, (int, float)) or (isinstance(ap, list) and all(isinstance(x, (int, float)) for x in ap)),
+                          f"{rel}: Exam autoPoints must be a number or list")
+                    check("maxAutoPoints" not in qq and "triesPerVariant" not in qq, f"{rel}: maxAutoPoints/triesPerVariant are Homework-only")
+                else:
+                    check(isinstance(ap, (int, float)), f"{rel}: Homework autoPoints must be a number")
+                    if "maxAutoPoints" in qq:
+                        check(qq["maxAutoPoints"] >= ap, f"{rel}: maxAutoPoints < autoPoints")
+
+# ---------------------------------------------------------------- JSON schemas (PrairieLearn's own, vendored in tools/schemas)
+try:
+    import jsonschema
+    _S = {k: json.load(open(os.path.join(TOOLS, "schemas", k + ".json")))
+          for k in ("infoQuestion", "infoAssessment", "infoCourse", "infoCourseInstance")}
+    def _val(kind, path):
+        try:
+            jsonschema.validate(json.load(open(path)), _S[kind])
+        except jsonschema.ValidationError as e:
+            errors.append(f"{os.path.relpath(path, ROOT)}: schema: {e.message[:200]} at {list(e.absolute_path)}")
+    _val("infoCourse", os.path.join(ROOT, "infoCourse.json"))
+    for dirpath, _, files in os.walk(ROOT):
+        if os.path.relpath(dirpath, ROOT).split(os.sep)[0] not in ("questions", "courseInstances"):
+            continue
+        for fn in files:
+            kind = {"info.json": "infoQuestion", "infoAssessment.json": "infoAssessment",
+                    "infoCourseInstance.json": "infoCourseInstance"}.get(fn)
+            if kind and (fn != "info.json" or os.path.relpath(dirpath, ROOT).startswith("questions")):
+                if ONLY and (kind != "infoQuestion" or os.path.basename(dirpath) not in ONLY):
+                    continue
+                _val(kind, os.path.join(dirpath, fn))
+    print("JSON schemas: checked against PrairieLearn's schemas (tools/schemas)")
+except ImportError:
+    print("note: pip install jsonschema to validate the JSON files against PrairieLearn's schemas")
+
+if ARGS.katex and katex_items:
+    bad = katex_check(katex_items)
+    print(f"KaTeX: {len(katex_items)} expressions compiled, {len(bad)} failed")
+    for q, e, err in bad[:40]:
+        errors.append(f"{q}: KaTeX cannot compile ${e[:80]}$ -> {err[:160]}")
 
 if errors:
-    print("\n".join(errors[:30])); sys.exit(1)
+    print("\n".join(errors[:60])); sys.exit(1)
 print("all checks passed")

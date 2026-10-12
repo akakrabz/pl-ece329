@@ -1,0 +1,79 @@
+<pl-question-panel>
+  <p>
+    A long {{params.metal}} wire lies along the $x$ axis. Model its conduction electrons with the Drude model:
+    density $N = {{params.N_str}}\times10^{28}\ \mathrm{m^{-3}}$, mean collision time $\tau = {{params.tau_str}}\ \mathrm{fs}$,
+    charge $q = -e$ and the free-electron mass $m_e$.
+    Use $e = 1.602\times10^{-19}\ \mathrm{C}$, $m_e = 9.109\times10^{-31}\ \mathrm{kg}$, $\epsilon_0 = 8.854\times10^{-12}\ \mathrm{F/m}$.
+  </p>
+  <p>
+    For sinusoidal fields, phasors are defined by $\mathbf{E}(t) = \mathrm{Re}\{\tilde{\mathbf{E}}e^{j\omega t}\}$, and $\tilde{\mathbf{J}} = \sigma(\omega)\tilde{\mathbf{E}}$.
+  </p>
+</pl-question-panel>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(a)</b> The DC conductivity of the wire predicted by the model:</p>
+<pl-number-input answers-name="sigma" label="$\sigma_{\text{DC}} =$" suffix="$\mathrm{MS/m}$" comparison="relabs" rtol="0.01" atol="1e-6"></pl-number-input>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(b)</b> The electron mobility $|q|\tau/m_e$, and the electrons' drift speed when {{{params.drive_text}}} ($1\ \mathrm{cm^2/(V\,s)} = 10^{-4}\ \mathrm{m^2/(V\,s)}$):</p>
+<pl-number-input answers-name="mob" label="mobility $=$" suffix="$\mathrm{cm^2/(V\,s)}$" comparison="relabs" rtol="0.01" atol="1e-6"></pl-number-input>
+<pl-number-input answers-name="v" label="$|\mathbf{v}| =$" suffix="$\mathrm{mm/s}$" comparison="relabs" rtol="0.01" atol="1e-6"></pl-number-input>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(c)</b> Now the field oscillates at the infrared frequency $f = {{params.f_str}}\ \mathrm{THz}$. Find the magnitude of the AC conductivity relative to its DC value,
+and the phase angle of $\sigma(\omega)$ in degrees (negative if $\mathbf{J}$ lags $\mathbf{E}$):</p>
+<pl-number-input answers-name="ratio" label="$|\sigma(\omega)|/\sigma_{\text{DC}} =$" comparison="relabs" rtol="0.01" atol="1e-6"></pl-number-input>
+<pl-number-input answers-name="phase" label="$\angle\sigma(\omega) =$" suffix="degrees" comparison="relabs" rtol="0.01" atol="1e-6"></pl-number-input>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(d)</b> A dielectric is described by the Lorentz model: its bound electrons have the natural frequency $\omega_0 = {{{params.w0_tex}}}\ \mathrm{rad/s}$,
+and its static susceptibility is $\chi_e(0) = {{params.chi0_str}}$. Neglect damping ($\alpha = 0$). It is driven by a field of angular frequency
+$\omega = {{{params.w_tex}}}\ \mathrm{rad/s}$. Which statement about its susceptibility $\chi_e$ at this frequency is correct?</p>
+<pl-multiple-choice answers-name="chi" order="fixed" hide-letter-keys="true">
+  {{#params.chi_choices}}
+  <pl-answer correct="{{correct}}" feedback="{{feedback}}">{{{text}}}</pl-answer>
+  {{/params.chi_choices}}
+</pl-multiple-choice>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(e)</b> Select <b>all</b> true statements about the Drude and Lorentz models.</p>
+<pl-checkbox answers-name="facts" number-answers="5" min-correct="1" max-correct="4" partial-credit="each-answer" hide-letter-keys="true">
+  {{#params.pool}}
+  <pl-answer correct="{{correct}}" feedback="{{feedback}}">{{{text}}}</pl-answer>
+  {{/params.pool}}
+</pl-checkbox>
+</div></div>
+
+<pl-hidden-hints>
+  <pl-hint hint-name="Drude in steady state">
+    Set $d\mathbf{v}/dt = 0$ in $m\,d\mathbf{v}/dt = q\mathbf{E} - m\mathbf{v}/\tau$: $\mathbf{v} = (q\tau/m)\mathbf{E}$. With $\mathbf{J} = Nq\mathbf{v}$ this is
+    $\mathbf{J} = \sigma\mathbf{E}$ with $\sigma = Nq^2\tau/m$. A current density and the drift speed are tied by $J = N|q|v$.
+  </pl-hint>
+  <pl-hint hint-name="Sinusoidal fields" show-after-submission="1">
+    With phasors $d/dt \to j\omega$: $\sigma(\omega) = \dfrac{\sigma_{\text{DC}}}{1 + j\omega/\nu}$ with $\nu = 1/\tau$, so
+    $|\sigma|/\sigma_{\text{DC}} = 1/\sqrt{1 + (\omega\tau)^2}$ and $\angle\sigma = -\arctan(\omega\tau)$.
+    Lorentz model without damping: $\chi_e(\omega) = \dfrac{N_de^2/(m\epsilon_0)}{\omega_0^2 - \omega^2} = \dfrac{\chi_e(0)}{1 - \omega^2/\omega_0^2}$.
+  </pl-hint>
+</pl-hidden-hints>
+
+<pl-answer-panel>
+  <p><b>(a)</b> $\sigma_{\text{DC}} = \dfrac{Ne^2\tau}{m_e} = \dfrac{({{params.N_str}}\times10^{28})(1.602\times10^{-19})^2({{params.tau_str}}\times10^{-15})}{9.109\times10^{-31}}
+    = {{params.sigma_str}}\ \mathrm{MS/m}$, close to the measured room-temperature value for {{params.metal}}, about ${{params.sig_meas_str}}\ \mathrm{MS/m}$.
+    The charge enters squared, so the sign of the carriers does not matter.</p>
+  <p><b>(b)</b> Mobility $= e\tau/m_e = {{params.mob_si}}\ \mathrm{m^2/(V\,s)} = {{params.mob_str}}\ \mathrm{cm^2/(V\,s)}$. {{{params.b2}}}
+    The drift is tiny compared with the electrons' random thermal speeds ($\sim10^5\ \mathrm{m/s}$), which average to zero and carry no current.</p>
+  <p><b>(c)</b> $\omega\tau = 2\pi f\tau = 2\pi({{params.f_str}}\times10^{12})({{params.tau_str}}\times10^{-15}) = {{params.wt_str}}$. Then
+    $\dfrac{|\sigma(\omega)|}{\sigma_{\text{DC}}} = \dfrac{1}{\sqrt{1 + (\omega\tau)^2}} = {{params.ratio_str}}$ and
+    $\angle\sigma(\omega) = -\arctan(\omega\tau) = {{params.phase_str}}^\circ$: the current lags the field, because the electrons' inertia keeps them from following
+    a field that reverses within a few collision times. At radio and microwave frequencies $\omega\tau \ll 1$ and $\sigma(\omega) \approx \sigma_{\text{DC}}$.</p>
+  <p><b>(d)</b> {{{params.d_expl}}}</p>
+  <p><b>(e)</b> Drude: $\tau$ is the mean time between collisions, $\sigma = Nq^2\tau/m$ is a property of the material (independent of $\mathbf{E}$), carriers of
+    either sign conduct along $\mathbf{E}$, and with $\mathbf{E}$ removed the drift dies out as $e^{-t/\tau}$. The collision time is not the charge-relaxation
+    time $\epsilon/\sigma$. Lorentz: the electron is displaced against $\mathbf{E}$, so $\mathbf{p} = -e\mathbf{r}$ points along $\mathbf{E}$, and
+    $\chi_e(0) = N_de^2/(m\epsilon_0\omega_0^2)$. A changing $\mathbf{P}$ is a real current, $\mathbf{J}_p = \partial\mathbf{P}/\partial t$, which leads a sinusoidal
+    $\mathbf{E}$ by $90^\circ$ and vanishes in a static field.</p>
+</pl-answer-panel>

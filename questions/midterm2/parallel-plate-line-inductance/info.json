@@ -1,0 +1,22 @@
+{
+  "uuid": "297d1f37-2e2d-4103-8ef4-3fd277ecdc1f",
+  "title": "Inductance and energy of a magnetically filled parallel-plate line",
+  "topic": "Magnetostatics",
+  "tags": [
+    "lec13",
+    "lec15",
+    "lec17",
+    "midterm2",
+    "exam-style",
+    "calculate",
+    "concept",
+    "numeric",
+    "MC",
+    "inductance",
+    "magnetization"
+  ],
+  "type": "v3",
+  "gradingMethod": "Internal",
+  "singleVariant": false,
+  "showCorrectAnswer": true
+}
