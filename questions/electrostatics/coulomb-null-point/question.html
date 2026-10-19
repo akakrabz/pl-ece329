@@ -8,7 +8,7 @@
 
 <div class="card my-3"><div class="card-body">
 <p><b>(a)</b> Where on the $x$ axis is $\mathbf{E} = 0$?</p>
-<pl-multiple-choice answers-name="region" order="fixed">
+<pl-multiple-choice answers-name="region_ans" order="fixed">
   {{#params.region_choices}}
   <pl-answer correct="{{correct}}" feedback="{{feedback}}">{{{text}}}</pl-answer>
   {{/params.region_choices}}
@@ -37,7 +37,7 @@
 
 <div class="card my-3"><div class="card-body">
 <p><b>(e)</b> For the original pair of charges, select <b>all</b> the statements that are true.</p>
-<pl-checkbox answers-name="facts" number-answers="5" min-correct="1" max-correct="4" partial-credit="each-answer" weight="2">
+<pl-checkbox answers-name="facts_ans" number-answers="5" min-correct="1" max-correct="4" partial-credit="each-answer" weight="2">
   {{#params.facts}}
   <pl-answer correct="{{correct}}" feedback="{{feedback}}">{{{text}}}</pl-answer>
   {{/params.facts}}

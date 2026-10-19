@@ -31,7 +31,7 @@
   {{/params.s_choices}}
 </pl-multiple-choice>
 <p>Comparing the fields at the two mirror points ${{params.w}} = \pm{{params.absw1_str}}\ \mathrm{m}$ at the same instant:</p>
-<pl-multiple-choice answers-name="parity">
+<pl-multiple-choice answers-name="parity_ans">
   {{#params.parity}}<pl-answer correct="{{correct}}" feedback="{{feedback}}">{{{text}}}</pl-answer>
   {{/params.parity}}
 </pl-multiple-choice>
@@ -39,7 +39,7 @@
 
 <div class="card my-3"><div class="card-body">
 <p><b>(e)</b> Select every true statement about this sheet and its waves.</p>
-<pl-checkbox answers-name="facts" number-answers="6" min-correct="1" max-correct="4" partial-credit="each-answer">
+<pl-checkbox answers-name="facts_ans" number-answers="6" min-correct="1" max-correct="4" partial-credit="each-answer">
   {{#params.facts}}<pl-answer correct="{{correct}}" feedback="{{feedback}}">{{{text}}}</pl-answer>
   {{/params.facts}}
 </pl-checkbox>

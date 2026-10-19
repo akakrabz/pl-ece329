@@ -26,7 +26,7 @@
 <p><b>(c)</b> Let $C$ be the circle of radius ${{params.Rc_cm}}\ \mathrm{cm}$ centred on the axis in the plane $z = -{{params.zc_mm}}\ \mathrm{mm}$ (around the lower lead, below the bottom plate), traversed counterclockwise as seen from $+z$.
 $S_1$ is the flat disk bounded by $C$. $S_2$ is a cup-shaped surface bounded by $C$ whose bottom lies inside the gap, so that $S_1$ and $S_2$ together enclose the bottom plate; $S_2$ touches neither the plates nor the leads.
 Which statement is correct?</p>
-<pl-multiple-choice answers-name="paradox">
+<pl-multiple-choice answers-name="paradox_ans">
   {{#params.paradox}}<pl-answer correct="{{correct}}" feedback="{{feedback}}">{{{text}}}</pl-answer>
   {{/params.paradox}}
 </pl-multiple-choice>
@@ -43,7 +43,7 @@ Find the surface current density $\mathbf{J}_s$ at that point. (Medium 1 is the 
 
 <div class="card my-3"><div class="card-body">
 <p><b>(e)</b> Select all the true statements.</p>
-<pl-checkbox answers-name="facts" number-answers="5" min-correct="1" max-correct="4" partial-credit="each-answer" order="fixed">
+<pl-checkbox answers-name="facts_ans" number-answers="5" min-correct="1" max-correct="4" partial-credit="each-answer" order="fixed">
   {{#params.facts}}<pl-answer correct="{{correct}}" feedback="{{why}}">{{{text}}}</pl-answer>
   {{/params.facts}}
 </pl-checkbox>

@@ -502,6 +502,10 @@ for topic in sorted(os.listdir(QDIR)):
             for r in refs | loops:
                 check(r in d["params"], f"{q}: question.html references params.{r} which generate() did not set (seed {seed})")
             for nme in names:
+                # pl-multiple-choice / pl-checkbox / pl-matching write data["params"][answers-name] themselves and
+                # raise "duplicate params variable name" if generate() already set that key.
+                if nme in choice_names or re.search(r'<pl-matching[^>]*answers-name="' + re.escape(nme) + '"', raw):
+                    check(nme not in d["params"], f"{q}: params['{nme}'] collides with a choice element's answers-name (PrairieLearn raises 'duplicate params variable name')")
                 if nme not in choice_names and not re.search(r'<pl-matching[^>]*answers-name="' + re.escape(nme) + '"', raw):
                     check(nme in d["correct_answers"], f"{q}: answers-name {nme} has no correct_answers entry")
             try:

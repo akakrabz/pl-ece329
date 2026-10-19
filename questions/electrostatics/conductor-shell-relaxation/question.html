@@ -17,7 +17,7 @@
 <p><b>(b)</b> The radial component of the electric field at $r = {{params.r_out}}\ \mathrm{cm}$ (positive if $\mathbf{E}$ points outward):</p>
 <pl-number-input answers-name="E_out" label="$E_r =$" suffix="$\mathrm{kV/m}$" comparison="relabs" rtol="0.01" atol="1e-6"></pl-number-input>
 <p>At $r = {{params.r_mid}}\ \mathrm{cm}$, which is inside the metal, the electric field is</p>
-<pl-multiple-choice answers-name="metal" order="fixed">
+<pl-multiple-choice answers-name="metal_ans" order="fixed">
   {{#params.metal}}
   <pl-answer correct="{{correct}}" feedback="{{feedback}}">{{{text}}}</pl-answer>
   {{/params.metal}}
@@ -26,7 +26,7 @@
 
 <div class="card my-3"><div class="card-body">
 <p><b>(c)</b> The charge $q$ is now moved off centre (it stays inside the cavity without touching the wall), and equilibrium is re-established. What changes?</p>
-<pl-multiple-choice answers-name="move" order="fixed">
+<pl-multiple-choice answers-name="move_ans" order="fixed">
   {{#params.move}}
   <pl-answer correct="{{correct}}" feedback="{{feedback}}">{{{text}}}</pl-answer>
   {{/params.move}}
