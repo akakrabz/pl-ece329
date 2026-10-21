@@ -1,0 +1,87 @@
+<pl-question-panel>
+  <p>
+    Every field below is a uniform plane wave in a lossless medium, with $\omega \gt 0$ and $\beta \gt 0$. Phasors follow the course convention $\mathbf{E}(\mathbf{r},t) = \text{Re}\{\tilde{\mathbf{E}}(\mathbf{r})\,e^{j\omega t}\}$, so a sine carries a factor $-j$.
+  </p>
+  <p>
+    <b>Handedness</b> (Lecture 24): point your thumb along the direction of travel. If the fingers of your <b>right</b> hand curl the way $\mathbf{E}$ rotates at a fixed point, the wave is right-handed; if those of your <b>left</b> hand do, it is left-handed. A circular or elliptical wave is named right- or left-circular, right- or left-handed elliptical.
+  </p>
+  <p>
+    Constants: $c = 3\times10^{8}\ \mathrm{m/s}$, $\eta_0 = 120\pi\ \Omega$, $e = 1.602\times10^{-19}\ \mathrm{C}$, $m_e = 9.109\times10^{-31}\ \mathrm{kg}$, $\epsilon_0 = 8.854\times10^{-12}\ \mathrm{F/m}$.
+  </p>
+</pl-question-panel>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(a)</b> Match each field to its polarization.</p>
+<pl-matching answers-name="pol" fixed-order="true" fixed-options-order="true" counter-type="full-text" partial-credit="true" weight="2">
+  {{#params.match_items}}<pl-statement match="{{key}}">{{{text}}}</pl-statement>
+  {{/params.match_items}}
+  <pl-option name="lin">linear</pl-option>
+  <pl-option name="rc">right-circular</pl-option>
+  <pl-option name="lc">left-circular</pl-option>
+  <pl-option name="re">right-handed elliptical</pl-option>
+  <pl-option name="le">left-handed elliptical</pl-option>
+</pl-matching>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(b)</b> A circularly polarized plane wave in {{{params.medium_b}}} has
+$${{{params.wave_tex}}}\ \ \mathrm{V/m},\qquad \beta = \omega\sqrt{\mu_0\epsilon}.$$
+Find the ${{params.ub}}$ component of the time-average Poynting vector $\langle\mathbf{S}\rangle$ (signed: positive means along $+\hat{ {{params.ub}} }$), and the magnitude of $\mathbf{H}$ at a fixed point at any instant.</p>
+<pl-number-input answers-name="S_avg" label="$\langle S_{ {{params.ub}} }\rangle =$" suffix="$\mathrm{mW/m^2}$" comparison="relabs" rtol="0.01" atol="1e-6"></pl-number-input>
+<pl-number-input answers-name="H_mag" label="$\lvert\mathbf{H}\rvert =$" suffix="$\mathrm{mA/m}$" comparison="relabs" rtol="0.01" atol="1e-6"></pl-number-input>
+<p>At a fixed point, the instantaneous Poynting vector $\mathbf{S} = \mathbf{E}\times\mathbf{H}$ of this wave</p>
+<pl-multiple-choice answers-name="s_inst_ans">
+  {{#params.s_inst}}<pl-answer correct="{{correct}}" feedback="{{feedback}}">{{{text}}}</pl-answer>
+  {{/params.s_inst}}
+</pl-multiple-choice>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(c)</b> A layer of the ionosphere is a collisionless electron plasma with $N = {{{params.N_tex}}}$ electrons/m³ (ions immobile). A narrowband AM signal on a carrier of frequency $f = {{params.f_str}}\ \mathrm{MHz}$ crosses a slab of it $L = {{params.L_km}}\ \mathrm{km}$ thick at normal incidence. Find the plasma frequency, the phase and group velocities at the carrier, and the time the message takes to cross the slab.</p>
+<pl-number-input answers-name="fp" label="$f_p =$" suffix="$\mathrm{MHz}$" comparison="relabs" rtol="0.01" atol="1e-6"></pl-number-input>
+<pl-number-input answers-name="vp8" label="$v_p =$" suffix="$\times10^{8}\ \mathrm{m/s}$" comparison="relabs" rtol="0.02" atol="1e-6"></pl-number-input>
+<pl-number-input answers-name="vg8" label="$v_g =$" suffix="$\times10^{8}\ \mathrm{m/s}$" comparison="relabs" rtol="0.02" atol="1e-6"></pl-number-input>
+<pl-number-input answers-name="delay" label="crossing time $=$" suffix="$\mathrm{ms}$" comparison="relabs" rtol="0.02" atol="1e-6"></pl-number-input>
+<p>Which speed does the message (the envelope) travel at?</p>
+<pl-multiple-choice answers-name="sig_ans">
+  {{#params.sig}}<pl-answer correct="{{correct}}" feedback="{{feedback}}">{{{text}}}</pl-answer>
+  {{/params.sig}}
+</pl-multiple-choice>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(d)</b> Select every true statement.</p>
+<pl-checkbox answers-name="facts_ans" number-answers="6" min-correct="1" max-correct="4" partial-credit="each-answer">
+  {{#params.facts}}<pl-answer correct="{{correct}}" feedback="{{feedback}}">{{{text}}}</pl-answer>
+  {{/params.facts}}
+</pl-checkbox>
+</div></div>
+
+<pl-hidden-hints>
+  <pl-hint hint-name="The hand test">
+    Read the travel direction $\hat{u}$ from the exponent or the argument ($e^{-j\beta z}$ and $\omega t - \beta z$ travel toward $+z$; $e^{j\beta x}$ and $\omega t + \beta x$ toward $-x$). On the plane where the exponent is 1, take $\mathbf{E}(0) = \text{Re}\{\tilde{\mathbf{E}}\}$ and, a quarter period later, $\mathbf{E}(T/4) = -\text{Im}\{\tilde{\mathbf{E}}\}$ (for a real field: set $\omega t = 0$ and $\omega t = \pi/2$). Then $\hat{u}\cdot[\mathbf{E}(0)\times\mathbf{E}(T/4)]$ is positive for right-handed, negative for left-handed, zero for linear; the wave is circular when the two snapshots are perpendicular and equally long.
+  </pl-hint>
+  <pl-hint hint-name="Power and plasma" show-after-submission="1">
+    In a lossless medium $\langle\mathbf{S}\rangle = \dfrac{\lvert\tilde{E}_a\rvert^2 + \lvert\tilde{E}_b\rvert^2}{2\eta}\,\hat{u}$, whatever the phase between the components. Plasma: $\omega_p^2 = Ne^2/(m_e\epsilon_0)$, $\beta = \tfrac1c\sqrt{\omega^2 - \omega_p^2}$, $v_p = \omega/\beta$, $v_g = d\omega/d\beta$, so $v_pv_g = c^2$.
+  </pl-hint>
+</pl-hidden-hints>
+
+<pl-answer-panel>
+  <p><b>(a)</b> For each field: the travel direction, the two snapshots on the plane where the exponent is 1, and the hand test.</p>
+  <ul>
+    {{#params.match_items}}<li>{{{text}}}: <b>{{verdict}}</b>. {{{why}}}</li>
+    {{/params.match_items}}
+  </ul>
+  <p>An overall factor ($-1$, $\pm j$) or the order in which the components are written never changes the answer; only the travel direction and the relative phase do.</p>
+  <p><b>(b)</b> The wave travels toward ${{{params.trav_b}}}$, and $\eta = \eta_0/\sqrt{\epsilon_r} = 120\pi/{{params.n_str}} = {{params.eta_str}}\ \Omega$. Both components have amplitude $E_0 = {{params.E0}}\ \mathrm{V/m}$, so
+  $$\langle S_{ {{params.ub}} }\rangle = {{params.sgn_b}}\frac{E_0^2 + E_0^2}{2\eta} = {{params.S_str}}\ \mathrm{mW/m^2},$$
+  the sign being that of the travel direction: twice the ${{params.S_one_str}}\ \mathrm{mW/m^2}$ that either linear component alone would carry. $\mathbf{H} = \hat{u}\times\mathbf{E}/\eta$ rotates with $\mathbf{E}$ at constant length $\lvert\mathbf{H}\rvert = E_0/\eta = {{params.H_str}}\ \mathrm{mA/m}$. Since $\lvert\mathbf{E}\rvert$ and $\lvert\mathbf{H}\rvert$ are constant and $\mathbf{E}\perp\mathbf{H}$, the instantaneous $\mathbf{S}$ is constant and equals $\langle\mathbf{S}\rangle$. A linearly polarized wave of the same amplitude would instead have an $\mathbf{S}$ that pulses at $2\omega$.</p>
+  <p><b>(c)</b> $\omega_p = \sqrt{Ne^2/(m_e\epsilon_0)} = {{params.wp_str}}\ \mathrm{rad/s}$, so $f_p = \omega_p/2\pi = {{params.fp_str}}\ \mathrm{MHz}$, below the carrier: the wave propagates. With $f_p/f = {{params.ratio_str}}$, $\sqrt{1 - f_p^2/f^2} = {{params.root_str}}$, and
+  $$v_p = \frac{c}{\sqrt{1 - f_p^2/f^2}} = {{params.vp_str}}\times10^{8}\ \mathrm{m/s},\qquad v_g = c\sqrt{1 - f_p^2/f^2} = {{params.vg_str}}\times10^{8}\ \mathrm{m/s},$$
+  and $v_pv_g = c^2$. The message rides the envelope, which travels at $v_g$: it needs $L/v_g = {{params.delay_str}}\ \mathrm{ms}$, against ${{params.vac_str}}\ \mathrm{ms}$ in vacuum. A crest would cross in ${{params.crest_str}}\ \mathrm{ms}$, but crests carry no information, so $v_p \gt c$ breaks nothing.</p>
+  <p><b>(d)</b> The pool of statements (a random six are shown):</p>
+  <ul>
+    {{#params.facts}}<li>{{{text}}} <b>{{verdict}}</b>: {{{why}}}</li>
+    {{/params.facts}}
+  </ul>
+</pl-answer-panel>

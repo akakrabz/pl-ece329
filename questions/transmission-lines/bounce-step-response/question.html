@@ -1,0 +1,89 @@
+<pl-question-panel>
+  <p>
+    A step source with open-circuit voltage $f_i(t) = {{params.Vg}}\,u(t)\ \mathrm{V}$ and {{{params.Rg_txt}}} is connected to the end $z = 0$ of a lossless line with characteristic impedance $Z_0 = {{params.Z0}}\ \Omega$ and length $\ell = {{params.ell_s}}\ {{{params.lu}}}$, filled with {{{params.er_txt}}}. At $z = \ell$ the line is {{{params.load_txt}}}. The line carries no voltage or current for $t \lt 0$. Use $c = 3\times10^8\ \mathrm{m/s}$.
+  </p>
+  <svg viewBox="0 0 420 92" width="420" style="max-width:100%" role="img" aria-label="Generator at z = 0, line of length l, load at z = l">
+    <g fill="none" stroke="currentColor" stroke-width="1.5">
+      <circle cx="30" cy="50" r="13"/><path d="M30 37V18h12l4-6 8 12 8-12 8 12 4-6h16M30 63v19h60M90 18h240M90 82h240M330 18v20M330 62v20"/>
+      <rect x="322" y="38" width="16" height="24"/>
+    </g>
+    <g fill="currentColor" font-size="12">
+      <text x="24" y="54">+</text><text x="44" y="10">Rg</text><text x="0" y="54">fi</text>
+      <text x="190" y="12">upper conductor, I along +z</text><text x="196" y="52">Z0, v</text><text x="345" y="54">RL</text>
+      <text x="84" y="92">z = 0</text><text x="316" y="92">z = l</text>
+    </g>
+  </svg>
+  <p>
+    Conventions (Lecture 28): $+z$ points from the generator toward the load. $V(z,t)$ is the voltage of the upper conductor relative to the lower one, and $I(z,t)$ is the current flowing along $+z$ in the upper conductor (returning in the lower one). Times are counted from the switch-on at $t = 0$.
+  </p>
+</pl-question-panel>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(a)</b> Find the voltage $V^+$ of the first wave launched onto the line (before any echo returns), the load reflection coefficient $\Gamma_L$ and the generator reflection coefficient $\Gamma_g$ (both for voltage).</p>
+<pl-number-input answers-name="Vplus" label="$V^+ =$" suffix="$\mathrm{V}$" comparison="relabs" rtol="0.01" atol="{{params.atolV}}"></pl-number-input>
+<pl-number-input answers-name="GL" label="$\Gamma_L =$" comparison="relabs" rtol="0.01" atol="1e-4"></pl-number-input>
+<pl-number-input answers-name="Gg" label="$\Gamma_g =$" comparison="relabs" rtol="0.01" atol="1e-4"></pl-number-input>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(b)</b> Find the voltage at {{{params.zp_desc}}}, at the three times $t_1 = {{params.t1_s}}\ {{{params.tu}}}$, $t_2 = {{params.t2_s}}\ {{{params.tu}}}$ and $t_3 = {{params.t3_s}}\ {{{params.tu}}}$.</p>
+<pl-number-input answers-name="V1" label="$V(z_p,t_1) =$" suffix="$\mathrm{V}$" comparison="relabs" rtol="0.01" atol="{{params.atolV1}}"></pl-number-input>
+<pl-number-input answers-name="V2" label="$V(z_p,t_2) =$" suffix="$\mathrm{V}$" comparison="relabs" rtol="0.01" atol="{{params.atolV2}}"></pl-number-input>
+<pl-number-input answers-name="V3" label="$V(z_p,t_3) =$" suffix="$\mathrm{V}$" comparison="relabs" rtol="0.01" atol="{{params.atolV3}}"></pl-number-input>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(c)</b> Find the current at {{{params.zq_desc}}}, at $t = {{params.tq_s}}\ {{{params.tu}}}$, positive when it flows along $+z$ in the upper conductor.</p>
+<pl-number-input answers-name="Iq" label="$I(z_q,t) =$" suffix="$\mathrm{mA}$" comparison="relabs" rtol="0.01" atol="{{params.atolIq}}"></pl-number-input>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(d)</b> Find the voltage and current on the line long after the switch-on ($t\to\infty$).</p>
+<pl-number-input answers-name="Vdc" label="$V(z,\infty) =$" suffix="$\mathrm{V}$" comparison="relabs" rtol="0.01" atol="{{params.atolV}}"></pl-number-input>
+<pl-number-input answers-name="Idc" label="$I(z,\infty) =$" suffix="$\mathrm{mA}$" comparison="relabs" rtol="0.01" atol="{{params.atolI}}"></pl-number-input>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(e)</b> {{{params.e_stem}}}</p>
+<pl-multiple-choice answers-name="whatif">
+  {{#params.e_choices}}<pl-answer correct="{{correct}}" feedback="{{feedback}}">{{{text}}}</pl-answer>
+  {{/params.e_choices}}
+</pl-multiple-choice>
+</div></div>
+
+<pl-hidden-hints>
+  <pl-hint hint-name="Coefficients and timing">
+    $v = c/\sqrt{\epsilon_r}$ and $T = \ell/v$. Until the first echo returns, the line looks like a resistor $Z_0$, so the generator launches $\tau_gf_i$ with $\tau_g = Z_0/(R_g+Z_0)$. Each end reflects voltage by $\Gamma = (R-Z_0)/(R+Z_0)$ with its own resistance. Forward segment $n$ passes $z$ at $z/v + 2nT$; backward segment $n$ at $2T - z/v + 2nT$.
+  </pl-hint>
+  <pl-hint hint-name="Reading the diagram" show-after-submission="1">
+    For a step, $V(z,t)$ is $V_g$ times the running sum of the weights of the segments that have crossed $z$ before $t$. For $I$, divide each weight by $Z_0$ and flip the sign of the backward ones. As $t\to\infty$ the line is just two wires: use the DC voltage divider.
+  </pl-hint>
+</pl-hidden-hints>
+
+<pl-answer-panel>
+  <p><b>(a)</b> $v = c/\sqrt{\epsilon_r} = {{params.v_expr}} = {{params.v_s}}\ {{{params.lu}}}/{{{params.tu}}}$, so $T = \ell/v = {{params.T_s}}\ {{{params.tu}}}$. The generator sees the line as $Z_0$ until an echo returns:
+  $$\tau_g = \frac{Z_0}{R_g+Z_0} = {{{params.tg_tex}}},\qquad V^+ = \tau_gV_g = {{params.Vplus_s}}\ \mathrm{V}\quad\left(I^+ = V^+/Z_0 = {{params.Iplus_s}}\ \mathrm{mA}\right).$$
+  $$\Gamma_L = \frac{R_L-Z_0}{R_L+Z_0} = {{{params.GL_tex}}}\ \ (R_L = {{params.RL_sym}}\ \Omega),\qquad \Gamma_g = \frac{R_g-Z_0}{R_g+Z_0} = {{{params.Gg_tex}}}\ \ (R_g = {{params.Rg_s}}\ \Omega).$$
+  Each round trip multiplies the weights by $\Gamma_L\Gamma_g = {{{params.GLGg_tex}}}$. {{{params.zero_note}}}The bounce diagram's first nonzero segments (voltage weight $w$; current weight $+w/Z_0$ forward, $-w/Z_0$ backward):</p>
+  <table class="table table-sm">
+    <tr><th>segment</th><th>travels</th><th>during $t$ ({{params.tu_t}})</th><th>weight</th><th>$w$ (V)</th><th>current (mA)</th></tr>
+    {{#params.seg_rows}}<tr><td>{{k}}</td><td>{{dir}}</td><td>{{t0}} to {{t1}}</td><td>${{{mult}}}V_g$</td><td>{{w}}</td><td>{{i}}</td></tr>
+    {{/params.seg_rows}}
+  </table>
+  <p><b>(b)</b> At $z_p$, forward segments cross at $z_p/v + 2nT$ (first at {{params.zp_over_v}} {{params.tu_t}}) and backward ones at $2T - z_p/v + 2nT$ (first at {{params.tp_back}} {{params.tu_t}}). {{{params.end_note}}}Running sum of the crossings:</p>
+  <table class="table table-sm">
+    <tr><th>crossing at $t$ ({{params.tu_t}})</th><th>segment</th><th>direction</th><th>step in $V$ (V)</th><th>$V(z_p)$ after it (V)</th></tr>
+    {{#params.rows_p}}<tr><td>{{t}}</td><td>{{k}}</td><td>{{dir}}</td><td>{{dv}}</td><td>{{run}}</td></tr>
+    {{/params.rows_p}}
+  </table>
+  <p>So $V(z_p,t_1) = {{params.Vb1_s}}\ \mathrm{V}$, $V(z_p,t_2) = {{params.Vb2_s}}\ \mathrm{V}$ and $V(z_p,t_3) = {{params.Vb3_s}}\ \mathrm{V}$.</p>
+  <p><b>(c)</b> At $z_q$ the first forward crossing is at {{params.zq_over_v}} {{params.tu_t}} and the first backward one at {{params.tq_back}} {{params.tu_t}}. Each forward segment adds $+w/Z_0$ to the current, each backward one $-w/Z_0$.{{{params.end_note_q}}}</p>
+  <table class="table table-sm">
+    <tr><th>crossing at $t$ ({{params.tu_t}})</th><th>segment</th><th>direction</th><th>step in $I$ (mA)</th><th>$I(z_q)$ after it (mA)</th></tr>
+    {{#params.rows_q}}<tr><td>{{t}}</td><td>{{k}}</td><td>{{dir}}</td><td>{{dv}}</td><td>{{run}}</td></tr>
+    {{/params.rows_q}}
+  </table>
+  <p>So $I(z_q, {{params.tq_s}}\ {{{params.tu}}}) = {{params.Iq_s}}\ \mathrm{mA}$. Once an echo has passed, the total current is not $V/Z_0$.</p>
+  <p><b>(d)</b> As $t\to\infty$ the line is just two wires and the circuit is the lumped divider. {{{params.dc_text}}} {{{params.series_text}}}</p>
+  <p><b>(e)</b> {{{params.e_why}}}</p>
+</pl-answer-panel>

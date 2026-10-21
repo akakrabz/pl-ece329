@@ -1,0 +1,76 @@
+<pl-question-panel>
+  <p>
+    A long, lossless transmission line along $z$ is {{{params.geom_txt}}}. The space between the conductors is filled with {{params.fill}} ($\epsilon_r = {{params.er_str}}$, $\mu_r = 1$). Take $\mu_0 = 4\pi\times10^{-7}\ \mathrm{H/m}$ and $\epsilon_0 = 10^{-9}/36\pi\ \mathrm{F/m}$, so that $c = 3\times10^{8}\ \mathrm{m/s}$ and $\eta_0 = 120\pi\ \Omega$.
+  </p>
+  <p>
+    Reference directions: {{{params.conv_txt}}}
+  </p>
+</pl-question-panel>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(a)</b> Find the inductance and capacitance per unit length, the wave speed and the characteristic impedance of the line.</p>
+<pl-number-input answers-name="Lp" label="$\mathcal{L} =$" suffix="$\mathrm{nH/m}$" comparison="relabs" rtol="0.01" atol="1e-6"></pl-number-input>
+<pl-number-input answers-name="Cp" label="$\mathcal{C} =$" suffix="$\mathrm{pF/m}$" comparison="relabs" rtol="0.01" atol="1e-6"></pl-number-input>
+<pl-number-input answers-name="v" label="$v =$" suffix="$\times10^{8}\ \mathrm{m/s}$" comparison="relabs" rtol="0.01" atol="1e-6"></pl-number-input>
+<pl-number-input answers-name="Z0" label="$Z_0 =$" suffix="$\Omega$" comparison="relabs" rtol="0.01" atol="1e-6"></pl-number-input>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(b)</b> Select every true statement about TEM waves on lossless two-conductor lines, each filled with one homogeneous medium.</p>
+<pl-checkbox answers-name="facts" number-answers="6" min-correct="1" max-correct="4" partial-credit="each-answer">
+  {{#params.facts_list}}<pl-answer correct="{{correct}}" feedback="{{feedback}}">{{{text}}}</pl-answer>
+  {{/params.facts_list}}
+</pl-checkbox>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(c)</b> The line carries a single pulse; at the times and places considered nothing has been reflected. Its voltage is
+  $$V(z,t) = {{{params.V_tex}}},$$
+  where $v$ is the wave speed of this line. Find $V$ and $I$ at $z = {{params.z1_str}}\ \mathrm{m}$, $t = {{params.t1_str}}\ \mathrm{ns}$ (signed, with the reference directions above), and the direction in which the pulse travels.</p>
+<pl-number-input answers-name="V1" label="$V =$" suffix="$\mathrm{V}$" comparison="relabs" rtol="0.01" atol="1e-6"></pl-number-input>
+<pl-number-input answers-name="I1" label="$I =$" suffix="$\mathrm{mA}$" comparison="relabs" rtol="0.01" atol="1e-6"></pl-number-input>
+<pl-multiple-choice answers-name="dir" order="fixed">
+  {{#params.dirs_list}}<pl-answer correct="{{correct}}" feedback="{{feedback}}">{{{text}}}</pl-answer>
+  {{/params.dirs_list}}
+</pl-multiple-choice>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(d)</b> At that point and instant, find the power carried along the line in the $+z$ direction (negative if it flows toward $-z$).</p>
+<pl-number-input answers-name="p1" label="$p =$" suffix="$\mathrm{W}$" comparison="relabs" rtol="0.01" atol="1e-6"></pl-number-input>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(e)</b> The line is rebuilt so that {{{params.mod_txt}}}. How do the wave speed and the characteristic impedance change?</p>
+<pl-multiple-choice answers-name="scale">
+  {{#params.scl_list}}<pl-answer correct="{{correct}}" feedback="{{feedback}}">{{{text}}}</pl-answer>
+  {{/params.scl_list}}
+</pl-multiple-choice>
+</div></div>
+
+<pl-hidden-hints>
+  <pl-hint hint-name="Line parameters">
+    Every two-conductor line with a homogeneous filling has $\mathcal{C} = \epsilon\,\mathrm{GF}$ and $\mathcal{L} = \mu/\mathrm{GF}$ with one geometrical factor GF ($W/d$ for plates, $2\pi/\ln(b/a)$ for a coax). Then $v = 1/\sqrt{\mathcal{L}\mathcal{C}}$ and $Z_0 = \sqrt{\mathcal{L}/\mathcal{C}} = \eta/\mathrm{GF}$.
+  </pl-hint>
+  <pl-hint hint-name="Reading the wave" show-after-submission="1">
+    A function of $t - z/v$ (or of $z - vt$) travels toward $+z$; of $t + z/v$ (or $z + vt$), toward $-z$. A forward wave has $I = +V/Z_0$, a backward one $I = -V/Z_0$, and the power carried along $+z$ is $VI$.
+  </pl-hint>
+</pl-hidden-hints>
+
+<pl-answer-panel>
+  <p><b>(a)</b> For this line ${{{params.GF_txt}}}$ and $\epsilon = {{params.er_str}}\,\epsilon_0$:
+  $${{{params.L_formula}}} = {{params.L_str}}\ \mathrm{nH/m},\qquad {{{params.C_formula}}} = {{params.C_str}}\ \mathrm{pF/m}.$$
+  Check: $\mathcal{L}\mathcal{C} = {{{params.LC_str}}}\ \mathrm{s^2/m^2}$, equal to $\mu_0\epsilon = {{{params.mue_str}}}\ \mathrm{s^2/m^2}$. Then $v = 1/\sqrt{\mathcal{L}\mathcal{C}} = c/\sqrt{\epsilon_r} = {{params.v_str}}\times10^{8}\ \mathrm{m/s}$ and
+  $$Z_0 = \sqrt{\mathcal{L}/\mathcal{C}} = {{params.Z0_str}}\ \Omega,$$
+  the same as ${{{params.Z_formula}}}$ with $\eta = \eta_0/\sqrt{\epsilon_r} = {{params.eta_str}}\ \Omega$.</p>
+  <p><b>(b)</b> The pool of statements (a random six are shown):</p>
+  <ul>
+    {{#params.facts_list}}<li>{{{text}}} <b>{{verdict}}</b>: {{{why}}}</li>
+    {{/params.facts_list}}
+  </ul>
+  <p><b>(c)</b> {{{params.dir_why}}} At the given point the bracket equals ${{params.u_str}}$, so $V = ({{params.V0}}\ \mathrm{V})\,e^{-{{params.u2_str}} } = {{params.V1_str}}\ \mathrm{V}$. A wave toward ${{params.up}}$ has $I = {{params.s_sign}}V/Z_0$:
+  $$I = {{params.s_sign}}\frac{ {{params.V1_str}}\ \mathrm{V} }{ {{params.Z0_str}}\ \Omega } = {{params.I1_str}}\ \mathrm{mA}.$$
+  The pulse keeps its shape, so it does not oscillate in place, and its direction is set by the argument alone, whatever the sign of the amplitude.</p>
+  <p><b>(d)</b> $p = VI = {{params.s_sign}}V^2/Z_0 = {{params.p1_str}}\ \mathrm{W}$: the power flows toward ${{params.up}}$, with the pulse, whatever the sign of $V$.</p>
+  <p><b>(e)</b> $v = 1/\sqrt{\mu\epsilon}$ depends on the filling only; $Z_0 = \eta/\mathrm{GF}$ on the filling and on the ratio of dimensions in GF. The rebuilt line has $v' = {{params.v2_str}}\times10^{8}\ \mathrm{m/s}$ and $Z_0' = {{params.Z02_str}}\ \Omega$: $v$ is {{params.fv_str}} and $Z_0$ is {{params.fz_str}}.</p>
+</pl-answer-panel>

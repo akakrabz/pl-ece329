@@ -1,7 +1,7 @@
 # ECE 329 — PrairieLearn course (practice questions)
 
-A PrairieLearn course directory for self-study: **41 randomized "v3" questions** covering Lectures 1–19,
-one course instance and **seven assessments** (six practice sets and a timed, repeatable Midterm 2 practice exam).
+A PrairieLearn course directory for self-study: **52 randomized "v3" questions** covering Lectures 1–30,
+one course instance and **eight assessments** (seven practice sets and a timed, repeatable Midterm 2 practice exam).
 File formats are checked against PrairieLearn's own JSON schemas (vendored in `tools/schemas/`, October 2026)
 and its element documentation.
 
@@ -9,6 +9,9 @@ and its element documentation.
   HW4 / Lecture 10 material, four on magnetostatics (Lectures 12–15).
 - **19 concept questions, one per lecture (L1–L19)** (October): multiple choice with feedback on every wrong
   choice, select-all statement pools, matching, and one or two numerical parts each.
+- **11 concept questions, one per lecture (L20–L30)** (October 20): Poynting's theorem, phasors, damped waves,
+  good conductors, polarization, reflection, standing waves, line parameters, bounce diagrams, pulses on lines, line
+  junctions — every bounce-diagram key checked against an independent line simulation.
 - **9 exam-style Midterm 2 questions** (October): multi-part problems modelled on past ECE 329 Exam 2 problem
   families, re-parameterized (new numbers and at least one changed detail; no answer-key text), plus a quick-fire
   set of six short multiple-choice items drawn from twelve generators.
@@ -25,11 +28,13 @@ pl-ece329/
 │       ├── concepts-lectures-1-11/      Practice 4: one concept question per lecture, L1–L11
 │       ├── concepts-lectures-12-19/     Practice 5: one concept question per lecture, L12–L19
 │       ├── midterm2-exam-style/         Practice 6: the nine exam-style Midterm 2 problems, untimed
+│       ├── concepts-lectures-20-30/     Practice 7: one concept question per lecture, L20–L30
 │       └── midterm2-practice-exam/      Practice Exam 1: timed (75 min), 5 problems drawn from pools, repeatable
 ├── questions/
 │   ├── electrostatics/                  Lectures 1–11
 │   ├── magnetostatics/                  Lectures 12–15
-│   ├── waves/                           Lectures 16–19
+│   ├── waves/                           Lectures 16–26
+│   ├── transmission-lines/              Lectures 27–30
 │   └── midterm2/                        exam-style problems, Lectures 11–19
 └── tools/
     ├── test_questions.py                offline checker (see below)
@@ -71,6 +76,17 @@ pl-ece329/
 | 18 | `midterm2/pulse-on-the-move` | a pulse at another time and place, ε_r, H (SP18 Exam 2 #4 family) |
 | 19 | `midterm2/sheet-launches-waves` | a pulsed current sheet: E and H on both sides, timing, snapshot (SP18 Exam 2 #5 family) |
 | 11–19 | `midterm2/quickfire-mc` | six short multiple-choice items from twelve generators (SP18 Exam 2 #1 style) |
+| 20 | `waves/poynting-power-ledger` | Poynting's theorem statements; a resistive wire heated through its side; ⟨S⟩ through a tilted window |
+| 21 | `waves/phasor-conversion-power` | time domain ↔ phasor matching; H̃ and ⟨S⟩ from Ẽ; direction from a template; plasma β, v_p |
+| 22 | `waves/damped-wave-decoding` | α, β, λ, δ; η = jωμ/γ; σ and ε_r from γ/η; the other field's amplitude and lag |
+| 23 | `waves/good-conductor-skin-depth` | classifying media by loss tangent; δ, \|η\|; dB and % of power left; 45° lag |
+| 24 | `waves/polarization-handedness` | linear/circular/elliptical and handedness; ⟨S⟩ of a circular wave; plasma v_p, v_g |
+| 25 | `waves/reflection-interface` | Γ, τ, reflected/transmitted fields, power fractions; PEC J_s |
+| 26 | `waves/standing-wave-mirror` | E and H nulls, peak fields, reflected hand, J_s, radiation pressure |
+| 27 | `transmission-lines/line-parameters-waves` | 𝓛, 𝓒, v, Z₀; V/I of a pulse; instantaneous power; rebuilt lines |
+| 28 | `transmission-lines/bounce-step-response` | injection, Γ_L, Γ_g, V(z,t), I(z,t), DC limit |
+| 29 | `transmission-lines/pulse-snapshot-record` | snapshots and records of a pulse and its echo; overlap |
+| 30 | `transmission-lines/two-line-junction` | junction Γ and τ both ways, first echoes, junction voltage, matching resistor |
 
 Each question is `info.json` + `question.html` + `server.py`. All randomization happens in `generate(data)`, and
 `server.py` imports only `random`, `math`, `fractions` and `numpy`, so the questions need nothing beyond the
@@ -137,6 +153,12 @@ summarised in the October entry below.
   `fixed-order`; `accessControl`/`publishing` are the current (non-deprecated) access mechanisms.
 
 ## Changelog
+
+- **October 20, 2026** — 11 concept questions for Lectures 20–30 and the Practice 7 assessment; new tags (lec20–lec30,
+  exam3, topic tags); checker now rejects a `params` key that collides with a choice element's `answers-name`
+  (the cause of the "duplicate params variable name" error fixed in 13 questions on October 18). Independent review of
+  the 11: 2 blockers (ambiguous select-all statements), 5 majors (tolerances, answers accepted for the wrong reason,
+  feedback wording), all fixed; no wrong numeric key.
 
 - **October 2026** — 28 new questions (19 per-lecture concept questions, 9 exam-style Midterm 2 questions), four
   new assessments, a stronger checker (rendering, KaTeX, schemas, per-question check modules). Independent review

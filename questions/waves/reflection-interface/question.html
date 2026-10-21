@@ -1,0 +1,78 @@
+<pl-question-panel>
+  <p>
+    The plane ${{params.w}} = 0$ separates two lossless media. Region 1, ${{{params.reg1_side}}}$, is {{{params.medium1}}}; region 2, ${{{params.reg2_side}}}$, is {{{params.medium2}}}. The interface carries no surface charge or current. A uniform plane wave in region 1 is normally incident on the interface:
+    $$\mathbf{E}_i(\mathbf{r},t) = {{{params.E_tex}}}\ \ \mathrm{V/m},\qquad \beta_1 = \omega\sqrt{\mu_1\epsilon_1}.$$
+    It produces a reflected wave in region 1 and a transmitted wave in region 2. Use $\eta_0 = 120\pi\ \Omega$. Phasors follow $\mathbf{E} = \text{Re}\{\tilde{\mathbf{E}}\,e^{j\omega t}\}$. Signed answers: positive means along the positive coordinate axis.
+  </p>
+</pl-question-panel>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(a)</b> Find the reflection coefficient $\Gamma$ and the transmission coefficient $\tau$ (ratios of electric fields at the interface).</p>
+<pl-number-input answers-name="Gam" label="$\Gamma =$" comparison="relabs" rtol="0.01" atol="1e-4"></pl-number-input>
+<pl-number-input answers-name="tau" label="$\tau =$" comparison="relabs" rtol="0.01" atol="1e-4"></pl-number-input>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(b)</b> On the interface (${{params.w}} = 0$) at $t = 0$, find the ${{params.a}}$ components of the reflected field $\mathbf{E}_r$ and the transmitted field $\mathbf{E}_t$, and the ${{params.b}}$ component of the reflected magnetic field $\mathbf{H}_r$. (Because $\mathbf{E}_i$ is a cosine, these are also the phasor amplitudes at ${{params.w}} = 0$.)</p>
+<pl-number-input answers-name="Er" label="$E_{r,{{params.a}} } =$" suffix="$\mathrm{V/m}$" comparison="relabs" rtol="0.01" atol="1e-3"></pl-number-input>
+<pl-number-input answers-name="Et" label="$E_{t,{{params.a}} } =$" suffix="$\mathrm{V/m}$" comparison="relabs" rtol="0.01" atol="1e-3"></pl-number-input>
+<pl-number-input answers-name="Hr" label="$H_{r,{{params.b}} } =$" suffix="$\mathrm{mA/m}$" comparison="relabs" rtol="0.01" atol="1e-3"></pl-number-input>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(c)</b> What percentage of the incident time-average power enters region 2? Find also the ${{params.w}}$ component of the transmitted wave's time-average Poynting vector $\langle\mathbf{S}_t\rangle$ (signed).</p>
+<pl-number-input answers-name="frac" label="transmitted $=$" suffix="$\%$" comparison="relabs" rtol="0.01" atol="1e-3"></pl-number-input>
+<pl-number-input answers-name="St" label="$\langle S_{t,{{params.w}} }\rangle =$" suffix="$\mathrm{mW/m^2}$" comparison="relabs" rtol="0.01" atol="1e-3"></pl-number-input>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(d)</b> At the interface, the reflected electric field</p>
+<pl-multiple-choice answers-name="refl_ans">
+  {{#params.refl}}<pl-answer correct="{{correct}}" feedback="{{feedback}}">{{{text}}}</pl-answer>
+  {{/params.refl}}
+</pl-multiple-choice>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(e)</b> Region 2 is now replaced by a perfect conductor (same interface, same incident wave). Find the amplitude of the surface current density $\mathbf{J}_s$ on the conductor, and its direction at $t = 0$.</p>
+<pl-number-input answers-name="Js" label="$\lvert\mathbf{J}_s\rvert_{\max} =$" suffix="$\mathrm{mA/m}$" comparison="relabs" rtol="0.01" atol="1e-3"></pl-number-input>
+<pl-multiple-choice answers-name="js_ans">
+  {{#params.js}}<pl-answer correct="{{correct}}" feedback="{{feedback}}">{{{text}}}</pl-answer>
+  {{/params.js}}
+</pl-multiple-choice>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(f)</b> Select every true statement about normal incidence on a planar interface.</p>
+<pl-checkbox answers-name="facts_ans" number-answers="6" min-correct="1" max-correct="4" partial-credit="each-answer">
+  {{#params.facts}}<pl-answer correct="{{correct}}" feedback="{{feedback}}">{{{text}}}</pl-answer>
+  {{/params.facts}}
+</pl-checkbox>
+</div></div>
+
+<pl-hidden-hints>
+  <pl-hint hint-name="Three waves">
+    Incident and reflected waves in region 1, transmitted wave in region 2, each with $\tilde{\mathbf{H}} = \hat{u}\times\tilde{\mathbf{E}}/\eta$ for its own direction of travel $\hat{u}$. Continuity of tangential $\tilde{\mathbf{E}}$ and $\tilde{\mathbf{H}}$ at the interface gives $\Gamma = (\eta_2-\eta_1)/(\eta_2+\eta_1)$ and $\tau = 1+\Gamma$, with $\eta = \eta_0\sqrt{\mu_r/\epsilon_r}$. Region 1 is the side the incident wave comes from.
+  </pl-hint>
+  <pl-hint hint-name="Power and the mirror" show-after-submission="1">
+    Each wave carries $\lvert\tilde{E}\rvert^2/2\eta$ in its own medium; a fraction $\Gamma^2$ reflects and $1-\Gamma^2 = \tau^2\eta_1/\eta_2$ is transmitted. On a perfect conductor $\Gamma = -1$, the tangential $\mathbf{H}$ doubles, and $\mathbf{J}_s = \hat{n}\times\mathbf{H}$ with $\hat{n}$ pointing out of the conductor.
+  </pl-hint>
+</pl-hidden-hints>
+
+<pl-answer-panel>
+  <p><b>(a)</b> Region 1 holds the incident wave, which travels toward ${{{params.ui}}}$. $\eta_1 = \eta_0\sqrt{\mu_{r1}/\epsilon_{r1}} = 120\pi\times{{params.rt1}} = {{params.eta1_str}}\ \Omega$ and $\eta_2 = 120\pi\times{{params.rt2}} = {{params.eta2_str}}\ \Omega$, so
+  $$\Gamma = \frac{\eta_2-\eta_1}{\eta_2+\eta_1} = {{params.Gam_str}},\qquad \tau = 1+\Gamma = {{params.tau_str}}.$$</p>
+  <p><b>(b)</b> At ${{params.w}} = 0$ the incident phasor is $\tilde{\mathbf{E}}_i(0) = {{params.sigE0}}\,\hat{ {{params.a}} }\ \mathrm{V/m}$ (the value of $\mathbf{E}_i$ there at $t = 0$). Then $\tilde{E}_{r,{{params.a}} }(0) = \Gamma\,({{params.sigE0}}) = {{params.Er_str}}\ \mathrm{V/m}$ and $\tilde{E}_{t,{{params.a}} }(0) = \tau\,({{params.sigE0}}) = {{params.Et_str}}\ \mathrm{V/m}$. The reflected wave travels toward ${{{params.ur}}}$ in region 1, so $\tilde{\mathbf{H}}_r = \hat{u}_r\times\tilde{\mathbf{E}}_r/\eta_1$ with $({{{params.ur}}})\times\hat{ {{params.a}} } = {{{params.ur_x_a}}}$:
+  $$H_{r,{{params.b}} } = {{params.Hr_str}}\ \mathrm{mA/m},$$
+  which is $-\Gamma$ times the incident $H_{i,{{params.b}} } = {{params.Hi_str}}\ \mathrm{mA/m}$ (there $({{{params.ui}}})\times\hat{ {{params.a}} } = {{{params.ui_x_a}}}$). Check: $H_{i,{{params.b}} } + H_{r,{{params.b}} } = {{params.HiHr_str}}\ \mathrm{mA/m}$ equals the transmitted $H_{t,{{params.b}} } = {{params.Ht_str}}\ \mathrm{mA/m}$ (from $\tilde{\mathbf{H}}_t = \hat{u}_i\times\tilde{\mathbf{E}}_t/\eta_2$): tangential $\mathbf{H}$ is continuous.</p>
+  <p><b>(c)</b> A fraction $\Gamma^2 = {{params.G2_str}}$ of the power reflects, so $1-\Gamma^2 = {{params.frac_str}}\,\%$ enters region 2. In numbers: $\lvert\langle\mathbf{S}_i\rangle\rvert = E_0^2/2\eta_1 = {{params.Si_str}}\ \mathrm{mW/m^2}$, $\lvert\langle\mathbf{S}_r\rangle\rvert = \Gamma^2\lvert\langle\mathbf{S}_i\rangle\rvert = {{params.Sr_str}}\ \mathrm{mW/m^2}$ and $\lvert\langle\mathbf{S}_t\rangle\rvert = \tau^2E_0^2/2\eta_2 = {{params.St_str}}\ \mathrm{mW/m^2}$, which add up. The transmitted wave travels toward ${{{params.ui}}}$, so $\langle S_{t,{{params.w}} }\rangle = {{params.Stw_str}}\ \mathrm{mW/m^2}$. Whenever $\eta_2 \gt \eta_1$ the transmitted field exceeds the incident one ($\tau \gt 1$), yet this is no gain: the power also depends on $\eta$.</p>
+  <p><b>(d)</b> $\tilde{\mathbf{E}}_r(0) = \Gamma\,\tilde{\mathbf{E}}_i(0)$ with a real $\Gamma = {{params.Gam_str}}$: in phase if $\Gamma \gt 0$ ($\eta_2 \gt \eta_1$), inverted if $\Gamma \lt 0$ ($\eta_2 \lt \eta_1$), absent if $\Gamma = 0$. The reflected $\mathbf{H}$ follows $-\Gamma$ instead, because the reflected wave travels the other way.</p>
+  <p><b>(e)</b> With a perfect conductor $\eta_2 = 0$, so $\Gamma = -1$ and $\tau = 0$. At the surface the total $\tilde{\mathbf{E}}$ vanishes and the reflected $\tilde{\mathbf{H}}$ equals the incident one, so the total is $2\tilde{\mathbf{H}}_i(0)$: $H_{ {{params.b}} } = {{params.Hpec_str}}\ \mathrm{mA/m}$. With $\hat{n} = {{{params.nhat}}}$ pointing out of the conductor into region 1, $\hat{n}\times\hat{ {{params.b}} } = {{{params.n_x_b}}}$ and
+  $$\tilde{\mathbf{J}}_s = \hat{n}\times\tilde{\mathbf{H}} = {{params.Jsig_str}}\,\hat{ {{params.a}} }\ \mathrm{mA/m},\qquad \mathbf{J}_s(t) = {{params.Jsig_str}}\cos(\omega t)\,\hat{ {{params.a}} }\ \mathrm{mA/m}.$$
+  Its amplitude is $2E_0/\eta_1 = {{params.Js_str}}\ \mathrm{mA/m}$, and at $t = 0$ it points along ${{{params.Ehat}}}$, parallel to the incident $\mathbf{E}$ at the surface.</p>
+  <p><b>(f)</b> The pool of statements (a random six are shown):</p>
+  <ul>
+    {{#params.facts}}<li>{{{text}}} <b>{{verdict}}</b>: {{{why}}}</li>
+    {{/params.facts}}
+  </ul>
+</pl-answer-panel>

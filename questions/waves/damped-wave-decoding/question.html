@@ -1,0 +1,82 @@
+<pl-question-panel>
+  <p>
+    A uniform plane wave travels through a homogeneous, source-free medium with real, positive conductivity $\sigma$ and permittivity $\epsilon$, and permeability ${{{params.mu_tex}}}$. Its {{#params.is_phasor}}{{params.field}}-field phasor{{/params.is_phasor}}{{^params.is_phasor}}{{params.field}} field{{/params.is_phasor}} is
+    $$ {{{params.field_tex}}}\ \ {{{params.unit_tex}}}, $$
+    with ${{params.u}}$ in metres{{^params.is_phasor}} and $t$ in seconds{{/params.is_phasor}}. The angular frequency is $\omega = {{{params.om_tex}}}\ \mathrm{rad/s}$, and phasors follow $\mathbf{F}(\mathbf{r},t) = \mathrm{Re}\{\tilde{\mathbf{F}}(\mathbf{r})\,e^{j\omega t}\}$.
+  </p>
+  <p>
+    Write $\gamma = \alpha + j\beta$ and $\eta = \lvert\eta\rvert e^{j\tau}$; in this medium $\gamma\eta = j\omega\mu$ and $\gamma/\eta = \sigma + j\omega\epsilon$. Use $\mu_0 = 4\pi\times10^{-7}\ \mathrm{H/m}$ and $\epsilon_0 = 10^{-9}/(36\pi)\ \mathrm{F/m}$.
+  </p>
+</pl-question-panel>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(a)</b> In which direction does the wave travel?</p>
+<pl-multiple-choice answers-name="dir">
+  {{#params.dir_choices}}<pl-answer correct="{{correct}}" feedback="{{feedback}}">{{{text}}}</pl-answer>
+  {{/params.dir_choices}}
+</pl-multiple-choice>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(b)</b> Find the attenuation constant, the phase constant, the wavelength and the penetration depth $\delta = 1/\alpha$.</p>
+<pl-number-input answers-name="alpha" label="$\alpha =$" suffix="$\mathrm{Np/m}$" comparison="relabs" rtol="0.01" atol="1e-6"></pl-number-input>
+<pl-number-input answers-name="beta" label="$\beta =$" suffix="$\mathrm{rad/m}$" comparison="relabs" rtol="0.01" atol="1e-6"></pl-number-input>
+<pl-number-input answers-name="lam" label="$\lambda =$" suffix="$\mathrm{m}$" comparison="relabs" rtol="0.01" atol="1e-6"></pl-number-input>
+<pl-number-input answers-name="delta" label="$\delta =$" suffix="$\mathrm{m}$" comparison="relabs" rtol="0.01" atol="1e-6"></pl-number-input>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(c)</b> Find the magnitude and the angle of the intrinsic impedance $\eta$.</p>
+<pl-number-input answers-name="eta_mag" label="$\lvert\eta\rvert =$" suffix="$\Omega$" comparison="relabs" rtol="0.01" atol="1e-6"></pl-number-input>
+<pl-number-input answers-name="tau_deg" label="$\tau = \angle\eta =$" suffix="$^\circ$" comparison="relabs" rtol="0.01" atol="1e-6"></pl-number-input>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(d)</b> At a point and an instant at which ${{{params.F_tex}}}$ has its largest magnitude and points along ${{{params.ref_hat}}}$, the field ${{{params.O_tex}}}$ at the same point and instant points along</p>
+<pl-multiple-choice answers-name="odir">
+  {{#params.odir_choices}}<pl-answer correct="{{correct}}" feedback="{{feedback}}">{{{text}}}</pl-answer>
+  {{/params.odir_choices}}
+</pl-multiple-choice>
+<p>Find the amplitude of ${{{params.O_tex}}}$ (its largest magnitude over time) on the plane ${{params.u}} = {{params.u1_str}}\ \mathrm{m}$.</p>
+<pl-number-input answers-name="Oamp" label="${{{params.O_tex}}}$ amplitude $=$" suffix="${{{params.other_unit}}}$" comparison="relabs" rtol="0.01" atol="1e-6"></pl-number-input>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(e)</b> Find the conductivity and the relative permittivity $\epsilon_r = \epsilon/\epsilon_0$ of the medium.</p>
+<pl-number-input answers-name="sigma" label="$\sigma =$" suffix="$\mathrm{mS/m}$" comparison="relabs" rtol="0.01" atol="1e-6"></pl-number-input>
+<pl-number-input answers-name="epsr" label="$\epsilon_r =$" comparison="relabs" rtol="0.01" atol="1e-6"></pl-number-input>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(f)</b> Select every true statement about this wave and this medium.</p>
+<pl-checkbox answers-name="facts_ans" number-answers="6" min-correct="1" max-correct="4" partial-credit="each-answer">
+  {{#params.facts}}<pl-answer correct="{{correct}}" feedback="{{feedback}}">{{{text}}}</pl-answer>
+  {{/params.facts}}
+</pl-checkbox>
+</div></div>
+
+<pl-hidden-hints>
+  <pl-hint hint-name="Reading the wave">
+    $\omega$ multiplies $t$; $\beta$ multiplies the position in the phase; $\alpha$ multiplies it in the decaying exponential. Then $\eta = j\omega\mu/\gamma$: $\lvert\eta\rvert = \omega\mu/\lvert\gamma\rvert$ and $\tau = 90^\circ - \angle\gamma = \tan^{-1}(\alpha/\beta)$. Use this medium's $\mu$, ${{{params.mu_tex}}}$.
+  </pl-hint>
+  <pl-hint hint-name="The other field and the medium" show-after-submission="1">
+    $\tilde{\mathbf{H}} = \hat{u}\times\tilde{\mathbf{E}}/\eta$ (divide by $\lvert\eta\rvert$, subtract $\tau$) or $\tilde{\mathbf{E}} = \eta\,\tilde{\mathbf{H}}\times\hat{u}$ (multiply by $\lvert\eta\rvert$, add $\tau$), with $\hat{u}$ the direction of travel; both decay as $e^{-\alpha d}$. For the medium, $\gamma/\eta = \gamma^2/(j\omega\mu) = \sigma + j\omega\epsilon$, so $\sigma = 2\alpha\beta/\omega\mu$ and $\epsilon = (\beta^2-\alpha^2)/\omega^2\mu$.
+  </pl-hint>
+</pl-hidden-hints>
+
+<pl-answer-panel>
+  <p><b>(a)</b> {{{params.read_txt}}} The field direction ${{{params.F_tex}}}$ is the polarization, not the travel, and decay does not make a standing wave: the phase still moves.</p>
+  <p><b>(b)</b> $\alpha = {{params.alpha_str}}\ \mathrm{Np/m}$ (in the exponential) and $\beta = {{{params.beta_eq}}}\ \mathrm{rad/m}$ (in the phase): {{{params.tri_txt}}}. Then $\lambda = 2\pi/\beta = {{params.lam_str}}\ \mathrm{m}$ and $\delta = 1/\alpha = {{params.delta_str}}\ \mathrm{m}$.</p>
+  <p><b>(c)</b> $\omega\mu = {{params.ommu_str}}\ \Omega/\mathrm{m}$ and $\gamma = \alpha + j\beta = {{params.gmag_str}}\,e^{j{{params.gang_str}}^\circ}\ \mathrm{m^{-1}}$, so
+  $$\eta = \frac{j\omega\mu}{\gamma}:\qquad \lvert\eta\rvert = \frac{\omega\mu}{\lvert\gamma\rvert} = {{params.eta_str}}\ \Omega,\qquad \tau = 90^\circ - {{params.gang_str}}^\circ = \tan^{-1}\frac{\alpha}{\beta} = {{params.tau_str}}^\circ,$$
+  i.e. $\eta = {{params.eta_re}} + j{{params.eta_im}}\ \Omega$. Check: $0 \le \tau \lt 45^\circ$.</p>
+  <p><b>(d)</b> {{{params.other_txt}}} Direction: at the instant asked, the given field points along ${{{params.ref_hat}}}$, so the other field points along ${{{params.o_hat}}}$; it is then $\cos\tau = {{params.cos_tau}}$ of its own peak, not zero, because $\tau \lt 45^\circ$. Check: $\mathbf{E}\times\mathbf{H}$ along ${{{params.trav_hat}}}$. The plane ${{params.u}} = {{params.u1_str}}\ \mathrm{m}$ lies $d = {{params.D_str}}\ \mathrm{m}$ along the travel, so the amplitude there is ${{params.oamp0_str}}\,e^{-{{params.aD_str}}} = {{params.oamp1_str}}\ {{{params.other_unit}}}$.</p>
+  <p><b>(e)</b> $\gamma^2 = (\alpha + j\beta)^2 = {{params.g2re}} + j{{params.g2im}}\ \mathrm{m^{-2}}$, and
+  $$\sigma + j\omega\epsilon = \frac{\gamma}{\eta} = \frac{\gamma^2}{j\omega\mu} = \frac{2\alpha\beta + j(\beta^2-\alpha^2)}{\omega\mu}.$$
+  So $\sigma = 2\alpha\beta/\omega\mu = {{params.sigma_str}}\ \mathrm{mS/m}$ and $\omega\epsilon = (\beta^2-\alpha^2)/\omega\mu = {{params.omeps_str}}\ \mathrm{S/m}$, giving $\epsilon = {{params.eps_str}}\ \mathrm{F/m}$ and $\epsilon_r = {{params.epsr_str}}$. The loss tangent $\sigma/\omega\epsilon = {{params.p_str}}$: neither $\ll 1$ nor $\gg 1$, so neither shortcut of Lecture 22 §6 applies, which is why the exact relations were used.</p>
+  <p><b>(f)</b> The pool of statements (a random six are shown):</p>
+  <ul>
+    {{#params.facts}}<li>{{{text}}} <b>{{verdict}}</b>: {{{why}}}</li>
+    {{/params.facts}}
+  </ul>
+</pl-answer-panel>

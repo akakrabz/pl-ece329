@@ -1,0 +1,147 @@
+{
+  "uuid": "22d91d43-4cc0-4bcb-ad6d-ad9e3cc10d46",
+  "type": "Homework",
+  "title": "Concept checks — one question per lecture, Lectures 20–30",
+  "set": "Practice",
+  "number": "7",
+  "comment": "Concept-focused questions with numerical parts; one per lecture, Lectures 20–30 (built from the course notes).",
+  "accessControl": [
+    {
+      "dateControl": {
+        "release": {
+          "date": "2026-10-20T00:00:01"
+        },
+        "due": {
+          "date": "2026-12-20T23:59:59"
+        },
+        "afterLastDeadline": {
+          "allowSubmissions": true,
+          "credit": 0
+        }
+      }
+    }
+  ],
+  "zones": [
+    {
+      "title": "Lecture 20 — Poynting's theorem and power",
+      "questions": [
+        {
+          "id": "waves/poynting-power-ledger",
+          "autoPoints": 5,
+          "maxAutoPoints": 15,
+          "triesPerVariant": 3
+        }
+      ]
+    },
+    {
+      "title": "Lecture 21 — phasors and time-average power",
+      "questions": [
+        {
+          "id": "waves/phasor-conversion-power",
+          "autoPoints": 5,
+          "maxAutoPoints": 15,
+          "triesPerVariant": 3
+        }
+      ]
+    },
+    {
+      "title": "Lecture 22 — decoding a damped wave",
+      "questions": [
+        {
+          "id": "waves/damped-wave-decoding",
+          "autoPoints": 5,
+          "maxAutoPoints": 15,
+          "triesPerVariant": 3
+        }
+      ]
+    },
+    {
+      "title": "Lecture 23 — good conductors and skin depth",
+      "questions": [
+        {
+          "id": "waves/good-conductor-skin-depth",
+          "autoPoints": 5,
+          "maxAutoPoints": 15,
+          "triesPerVariant": 3
+        }
+      ]
+    },
+    {
+      "title": "Lecture 24 — polarization and group velocity",
+      "questions": [
+        {
+          "id": "waves/polarization-handedness",
+          "autoPoints": 5,
+          "maxAutoPoints": 15,
+          "triesPerVariant": 3
+        }
+      ]
+    },
+    {
+      "title": "Lecture 25 — reflection and transmission",
+      "questions": [
+        {
+          "id": "waves/reflection-interface",
+          "autoPoints": 5,
+          "maxAutoPoints": 15,
+          "triesPerVariant": 3
+        }
+      ]
+    },
+    {
+      "title": "Lecture 26 — standing waves and radiation pressure",
+      "questions": [
+        {
+          "id": "waves/standing-wave-mirror",
+          "autoPoints": 5,
+          "maxAutoPoints": 15,
+          "triesPerVariant": 3
+        }
+      ]
+    },
+    {
+      "title": "Lecture 27 — line parameters and V, I waves",
+      "questions": [
+        {
+          "id": "transmission-lines/line-parameters-waves",
+          "autoPoints": 5,
+          "maxAutoPoints": 15,
+          "triesPerVariant": 3
+        }
+      ]
+    },
+    {
+      "title": "Lecture 28 — step response and bounce diagrams",
+      "questions": [
+        {
+          "id": "transmission-lines/bounce-step-response",
+          "autoPoints": 5,
+          "maxAutoPoints": 15,
+          "triesPerVariant": 3
+        }
+      ]
+    },
+    {
+      "title": "Lecture 29 — pulses: records and snapshots",
+      "questions": [
+        {
+          "id": "transmission-lines/pulse-snapshot-record",
+          "autoPoints": 5,
+          "maxAutoPoints": 15,
+          "triesPerVariant": 3
+        }
+      ]
+    },
+    {
+      "title": "Lecture 30 — junctions of two lines",
+      "questions": [
+        {
+          "id": "transmission-lines/two-line-junction",
+          "autoPoints": 5,
+          "maxAutoPoints": 15,
+          "triesPerVariant": 3
+        }
+      ]
+    }
+  ]
+}

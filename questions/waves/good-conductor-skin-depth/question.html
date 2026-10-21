@@ -1,0 +1,72 @@
+<pl-question-panel>
+  <p>
+    Throughout, every medium is non-magnetic ($\mu = \mu_0$), its $\sigma$ and $\epsilon = \epsilon_r\epsilon_0$ are the handbook values given and are treated as independent of frequency, and $\omega = 2\pi f$. Use $\mu_0 = 4\pi\times10^{-7}\ \mathrm{H/m}$ and $\epsilon_0 = 8.854\times10^{-12}\ \mathrm{F/m}$. At a given frequency a medium counts as a <b>good conductor</b> if $\sigma/\omega\epsilon \gt 10$ and as an <b>imperfect dielectric</b> if $\sigma/\omega\epsilon \lt 0.1$.
+  </p>
+</pl-question-panel>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(a)</b> Classify each medium at the stated frequency.</p>
+<pl-matching answers-name="cls" number-statements="5" fixed-options-order="true" counter-type="full-text" partial-credit="true">
+  {{#params.cls_items}}<pl-statement match="{{key}}">{{{text}}}</pl-statement>
+  {{/params.cls_items}}
+  <pl-option name="good">good conductor</pl-option>
+  <pl-option name="imperfect">imperfect dielectric</pl-option>
+  <pl-option name="neither">neither (in between)</pl-option>
+</pl-matching>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p>
+  <b>Parts (b)–(e).</b> A uniform plane wave of frequency $f = {{{params.f_tex}}}$ travels {{params.where}} ($\sigma = {{{params.sig_tex}}}\ \mathrm{S/m}$, $\epsilon_r = {{params.er}}$).
+</p>
+<p><b>(b)</b> Find the loss tangent $\sigma/\omega\epsilon$ (to confirm the regime), and then, with the good-conductor approximations, the skin depth $\delta$ and the magnitude of the intrinsic impedance.</p>
+<pl-number-input answers-name="lt" label="$\sigma/\omega\epsilon =$" comparison="relabs" rtol="0.01" atol="1e-6"></pl-number-input>
+<pl-number-input answers-name="delta" label="$\delta =$" suffix="${{{params.d_u}}}$" comparison="relabs" rtol="0.01" atol="1e-9"></pl-number-input>
+<pl-number-input answers-name="eta" label="$\lvert\eta\rvert =$" suffix="${{{params.e_u}}}$" comparison="relabs" rtol="0.01" atol="1e-9"></pl-number-input>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(c)</b> Ignore any reflection at the surface. Between a point just inside the surface and a point a distance $\ell = {{params.ell_str}}\ {{{params.ell_u}}}$ further along the travel, by how many decibels does the time-average power density fall, and what percentage of it is left?</p>
+<pl-number-input answers-name="dB" label="attenuation $=$" suffix="$\mathrm{dB}$" comparison="relabs" rtol="0.01" atol="1e-6"></pl-number-input>
+<pl-number-input answers-name="pct" label="power density left $=$" suffix="$\%$" comparison="relabs" rtol="{{params.pct_rtol}}" atol="1e-9"></pl-number-input>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(d)</b> At a fixed point inside the {{params.mat}}, the magnetic field $\mathbf{H}$ of this wave</p>
+<pl-multiple-choice answers-name="lag">
+  {{#params.lag_choices}}<pl-answer correct="{{correct}}" feedback="{{feedback}}">{{{text}}}</pl-answer>
+  {{/params.lag_choices}}
+</pl-multiple-choice>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(e)</b> Which statement about the wavelength inside the {{params.mat}} is correct?</p>
+<pl-multiple-choice answers-name="lam_ans">
+  {{#params.lam_choices}}<pl-answer correct="{{correct}}" feedback="{{feedback}}">{{{text}}}</pl-answer>
+  {{/params.lam_choices}}
+</pl-multiple-choice>
+</div></div>
+
+<pl-hidden-hints>
+  <pl-hint hint-name="Classifying">
+    Compute $\sigma/\omega\epsilon$ with the medium's own $\epsilon = \epsilon_r\epsilon_0$ and with $\omega = 2\pi f$, not $f$. Equivalently, compare $f$ with the crossover $f_c = \sigma/2\pi\epsilon$: more than ten times below it, a good conductor; more than ten times above it, an imperfect dielectric.
+  </pl-hint>
+  <pl-hint hint-name="Good-conductor formulas" show-after-submission="1">
+    $\delta = 1/\sqrt{\pi f\mu\sigma}$, $\alpha = \beta = 1/\delta$, $\eta = (1+j)/(\sigma\delta) = \sqrt{\omega\mu/\sigma}\,e^{j45^\circ}$, $\lambda = 2\pi\delta$. The power density falls as $e^{-2\alpha d}$, which is $8.686\,\alpha d$ decibels.
+  </pl-hint>
+</pl-hidden-hints>
+
+<pl-answer-panel>
+  <p><b>(a)</b> For each medium in the pool (five were shown), $\sigma/\omega\epsilon$ with its own $\epsilon$:</p>
+  <ul>
+    {{#params.cls_items}}<li>{{{text}}}: $\sigma/\omega\epsilon = {{p_str}}$, so <b>{{cls_name}}</b>{{{trap}}}.</li>
+    {{/params.cls_items}}
+  </ul>
+  <p>The verdict belongs to a material <i>at a frequency</i>, never to the material's name.</p>
+  <p><b>(b)</b> $\omega = 2\pi f = {{params.om_str}}\ \mathrm{rad/s}$ and $\omega\epsilon = {{params.omeps_str}}\ \mathrm{S/m}$, so $\sigma/\omega\epsilon = {{params.p_str}} \gg 10$: a good conductor, and the approximations hold. Then $\pi f\mu_0\sigma = {{params.pis_str}}\ \mathrm{m^{-2}}$, so
+  $$\delta = \frac{1}{\sqrt{\pi f\mu_0\sigma}} = {{params.delta_str}}\ {{{params.d_u}}},\qquad \lvert\eta\rvert = \sqrt{\frac{\omega\mu_0}{\sigma}} = {{params.eta_str}}\ {{{params.e_u}}},$$
+  with $\eta = (1+j)/(\sigma\delta) = {{params.eta_re_str}}(1+j)\ {{{params.e_u}}}$: equal real and imaginary parts, angle $45^\circ$. (The lossless formula $\sqrt{\mu/\epsilon}$ would be far too large: conduction, not $\epsilon$, sets $\eta$ here.)</p>
+  <p><b>(c)</b> $\ell/\delta = {{params.nd_str}}$. The power density falls as $e^{-2\ell/\delta}$, i.e. by $10\log_{10}e^{2\ell/\delta} = 8.686\,\ell/\delta = {{params.dB_str}}\ \mathrm{dB}$ (the field amplitude falls by the same number of decibels, $20\log_{10}e^{\ell/\delta}$); the attenuation rate is $8.686/\delta = {{params.dBpm_str}}\ \mathrm{dB/m}$. What is left is $100\,e^{-2\ell/\delta} = {{params.pct_str}}\ \%$. Using $e^{-\ell/\delta}$ (the field ratio) for the power is the classic slip.</p>
+  <p><b>(d)</b> $\tilde{\mathbf{H}} = \hat{u}\times\tilde{\mathbf{E}}/\eta$ and $\angle\eta = 45^\circ$, so $\mathbf{H}$ lags $\mathbf{E}$ by $45^\circ$, one eighth of a period: $T/8 = {{{params.T8_str}}}$. It never leads (that would need $\sigma \lt 0$) and the lag never reaches $90^\circ$.</p>
+  <p><b>(e)</b> $\beta = \alpha = 1/\delta$, so $\lambda = 2\pi/\beta = 2\pi\delta = {{{params.lam_str}}}$, and $e^{-\alpha\lambda} = e^{-2\pi} = 1/535$: the wave is essentially gone within one wavelength. Its phase velocity $v_p = \omega\delta = {{params.vp_str}}\ \mathrm{m/s}$ is tiny compared with $c$ and grows as $\sqrt{f}$ (dispersion).</p>
+</pl-answer-panel>

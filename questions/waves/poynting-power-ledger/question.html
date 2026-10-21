@@ -1,0 +1,65 @@
+<pl-question-panel>
+  <p>
+    Poynting's theorem, $\dfrac{\partial w}{\partial t} + \nabla\cdot\mathbf{S} + \mathbf{J}\cdot\mathbf{E} = 0$ with $w = \tfrac12\epsilon E^2 + \tfrac12\mu H^2$ and $\mathbf{S} = \mathbf{E}\times\mathbf{H}$, is an energy ledger kept at every point. This question reads it in general, for a resistive wire and for a plane wave. All fields are real functions of time (no phasors); $\langle\cdot\rangle$ is the average over one period.
+  </p>
+  <p>
+    <b>The wire (parts (b) and (c)).</b> A straight wire of {{params.mat}}, conductivity $\sigma = {{{params.sigma_str}}}\ \mathrm{S/m}$, radius $a = {{params.a_str}}\ \mathrm{mm}$ and length $\ell = {{params.ell_str}}\ \mathrm{m}$, lies along the ${{params.w}}$ axis. It carries a steady current $I = {{params.I_str}}\ \mathrm{A}$ in the ${{{params.Idir}}}$ direction, spread uniformly over its cross-section. Ignore the ends of the wire (treat it as a piece of a very long one).
+  </p>
+  <p>
+    <b>The wave (part (d)).</b> A lossless, non-magnetic dielectric ($\mu_r = 1$) with $\epsilon_r = {{params.eps_str}}$ carries the plane wave
+    $$ {{{params.field_tex}}}, $$
+    with $t$ in seconds and ${{params.u}}$ in metres. Use $\eta_0 = 120\pi\ \Omega$.
+  </p>
+</pl-question-panel>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(a)</b> Select every true statement about Poynting's theorem and the energy it tracks.</p>
+<pl-checkbox answers-name="facts" number-answers="6" min-correct="1" max-correct="4" partial-credit="each-answer">
+  {{#params.facts_list}}<pl-answer correct="{{correct}}" feedback="{{feedback}}">{{{text}}}</pl-answer>
+  {{/params.facts_list}}
+</pl-checkbox>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(b)</b> For the wire: find the magnitude of the Poynting vector just inside its side surface ($\rho = a^-$, where $\mathbf{E}$ is purely axial), and the total power that crosses its side surface (its magnitude).</p>
+<pl-number-input answers-name="S_surf" label="$\lvert\mathbf{S}\rvert =$" suffix="$\mathrm{kW/m^2}$" comparison="relabs" rtol="0.01" atol="1e-6"></pl-number-input>
+<pl-number-input answers-name="P_in" label="$P_{\text{side}} =$" suffix="$\mathrm{W}$" comparison="relabs" rtol="0.01" atol="1e-6"></pl-number-input>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(c)</b> At the point $P = {{params.P_tex}}$ on the surface of the wire (just inside the metal), the Poynting vector points along</p>
+<pl-multiple-choice answers-name="sdir">
+  {{#params.sdir_list}}<pl-answer correct="{{correct}}" feedback="{{feedback}}">{{{text}}}</pl-answer>
+  {{/params.sdir_list}}
+</pl-multiple-choice>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(d)</b> For the wave: find the time-averaged Poynting vector (its ${{params.u}}$ component, its only one, signed: positive means along $+\hat{ {{params.u}} }$). Then find the average power that crosses a flat window of area $A = {{params.A_cm2}}\ \mathrm{cm^2}$ placed in the wave, {{{params.window_txt}}}.</p>
+<pl-number-input answers-name="S_avg" label="$\langle S_{ {{params.u}} }\rangle =$" suffix="$\mathrm{W/m^2}$" comparison="relabs" rtol="0.01" atol="1e-6"></pl-number-input>
+<pl-number-input answers-name="P_win" label="$\langle P\rangle =$" suffix="$\mathrm{mW}$" comparison="relabs" rtol="0.01" atol="1e-6"></pl-number-input>
+</div></div>
+
+<pl-hidden-hints>
+  <pl-hint hint-name="The wire's fields">
+    Ohm's law gives a uniform axial $\mathbf{E} = \mathbf{J}/\sigma$ inside, with $J = I/(\pi a^2)$; Ampère's law gives $H_\phi = I/(2\pi a)$ at the surface, circling the current by the right-hand rule. Their cross product is $\mathbf{S}$; multiply by the side area $2\pi a\ell$ for the power, and compare with $I^2R$, $R = \ell/(\sigma\pi a^2)$.
+  </pl-hint>
+  <pl-hint hint-name="Averages and the window" show-after-submission="1">
+    For one plane wave $\mathbf{S} = \tfrac{E_0^2}{\eta}\cos^2(\omega t-\beta u)\,\hat{u}$ and $\langle\cos^2\rangle = \tfrac12$, so $\langle S\rangle = \dfrac{E_0^2}{2\eta} = \tfrac12\eta H_0^2$ with $\eta = \eta_0/\sqrt{\epsilon_r}$. Only the component of $\langle\mathbf{S}\rangle$ along the window's normal crosses it: $\langle P\rangle = \langle S\rangle A\cos\theta$.
+  </pl-hint>
+</pl-hidden-hints>
+
+<pl-answer-panel>
+  <p><b>(a)</b> The pool of statements (a random six are shown):</p>
+  <ul>
+    {{#params.facts_list}}<li>{{{text}}} <b>{{verdict}}</b>: {{{why}}}</li>
+    {{/params.facts_list}}
+  </ul>
+  <p><b>(b)</b> $J = I/(\pi a^2) = {{{params.J_str}}}\ \mathrm{A/m^2}$, so inside the wire $E = J/\sigma = {{{params.Ez_str}}}\ \mathrm{V/m}$, along the current. Ampère's law at the surface: $H_\phi = I/(2\pi a) = {{{params.Hs_str}}}\ \mathrm{A/m}$. They are perpendicular, so
+  $$\lvert\mathbf{S}\rvert = EH_\phi = \frac{I^2}{2\pi^2\sigma a^3} = {{{params.S_str}}}\ \mathrm{W/m^2} = {{{params.SkW_str}}}\ \mathrm{kW/m^2}.$$
+  It is the same all over the side surface, of area $2\pi a\ell = {{{params.area_str}}}\ \mathrm{m^2}$, so $P_{\text{side}} = {{{params.Pw_str}}}\ \mathrm{W}$, flowing in (part (c)). Check: $R = \ell/(\sigma\pi a^2) = {{{params.R_str}}}\ \Omega$ and $I^2R = {{{params.Pw_str}}}\ \mathrm{W}$: the field delivers through the side exactly the heat produced inside, as the steady-state ledger ($\partial w/\partial t = 0$, $\nabla\cdot\mathbf{S} = -\sigma E^2$) demands.</p>
+  <p><b>(c)</b> At $P$ the current, and so $\mathbf{E}$, is along ${{{params.Idir}}}$; the outward radial direction is ${{{params.rhat}}}$, and $\mathbf{H}$ (right-hand rule around the current) is along ${{{params.hP}}}$. Then $\mathbf{S} = \mathbf{E}\times\mathbf{H}$ is along $({{{params.Idir}}})\times({{{params.hP}}}) = {{{params.sP}}}$: radially inward. Not along the wire: $\mathbf{S}\perp\mathbf{E}$ and $\mathbf{E}$ is axial. Not along $\mathbf{H}$: $\mathbf{S}\perp\mathbf{H}$. Not outward: the wire absorbs energy.</p>
+  <p><b>(d)</b> The argument ${{{params.arg_tex}}}$ has {{#params.d_pos}}opposite signs on the $t$ and ${{params.u}}$ terms{{/params.d_pos}}{{^params.d_pos}}the same sign on the $t$ and ${{params.u}}$ terms{{/params.d_pos}}, so the wave travels toward $\hat{u} = {{{params.trav_hat}}}$. With $\eta = \eta_0/\sqrt{\epsilon_r} = 120\pi/{{params.n_str}} = {{{params.eta_str}}}\ \Omega$, the partner field is ${{{params.partner_rule}}}$: amplitude ${{{params.partner_amp}}}\ {{{params.partner_unit}}}$, along ${{{params.partner_hat}}}$ when the given field is along ${{{params.f_given_hat}}}$. Then $\mathbf{S} = \mathbf{E}\times\mathbf{H}$ swings between $0$ and ${{{params.Speak_str}}}\ \mathrm{W/m^2}$ along ${{{params.trav_hat}}}$, and its average is
+  $$\langle S\rangle = {{{params.S_formula}}} = {{{params.Savg_str}}}\ \mathrm{W/m^2},\qquad \langle S_{ {{params.u}} }\rangle = {{{params.Su_str}}}\ \mathrm{W/m^2}.$$
+  The window's normal is at ${{params.theta}}^\circ$ to $\langle\mathbf{S}\rangle$, so $\langle P\rangle = \langle S\rangle A\cos\theta = ({{{params.Savg_str}}}\ \mathrm{W/m^2})({{params.A_cm2}}\times10^{-4}\ \mathrm{m^2})({{{params.cth_str}}}) = {{{params.P_W_str}}}\ \mathrm{W} = {{{params.P_mW_str}}}\ \mathrm{mW}$.</p>
+</pl-answer-panel>

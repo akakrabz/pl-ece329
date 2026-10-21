@@ -1,0 +1,67 @@
+<pl-question-panel>
+  <p>
+    {{{params.Rg_txt}}} drives a lossless line at $z = 0$. The line has characteristic impedance $Z_0 = {{params.Z0}}\ \Omega$, wave speed $v = {{params.v}}\ \mathrm{m}/\mu\mathrm{s}$ and length $\ell = {{params.ell}}\ \mathrm{m}$; at $z = \ell$ it is {{{params.load_txt}}}. The line carries no voltage or current before $t = 0$. The source's open-circuit voltage is {{{params.fi_txt}}}.
+  </p>
+  <p>
+    Conventions (Lecture 28): $+z$ points from the generator toward the load; $V(z,t)$ is the voltage of the upper conductor relative to the lower one, and $I(z,t)$ is the current along $+z$ in the upper conductor. Times are in $\mu\mathrm{s}$ from $t = 0$.
+  </p>
+</pl-question-panel>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(a)</b> Which description matches the snapshot $V(z,t_0)$ along the whole line ($0 \le z \le \ell$) at $t_0 = {{params.t0_s}}\ \mu\mathrm{s}$?</p>
+<pl-multiple-choice answers-name="snap_ans">
+  {{#params.snap}}<pl-answer correct="{{correct}}" feedback="{{feedback}}">{{{text}}}</pl-answer>
+  {{/params.snap}}
+</pl-multiple-choice>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(b)</b> Find the voltage at $z_1 = {{params.z1_s}}\ \mathrm{m}$ at $t_1 = {{params.t1_s}}\ \mu\mathrm{s}$, while the pulse is being reflected at the load.</p>
+<pl-number-input answers-name="Vov" label="$V(z_1,t_1) =$" suffix="$\mathrm{V}$" comparison="relabs" rtol="0.01" atol="{{params.atolV}}"></pl-number-input>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(c)</b> A probe records $V(z_p,t)$ at $z_p = {{params.zp_s}}\ \mathrm{m}$. {{params.c_ask}}</p>
+<pl-number-input answers-name="tpk" label="$t =$" suffix="$\mu\mathrm{s}$" comparison="relabs" rtol="0.01" atol="1e-3"></pl-number-input>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(d)</b> Find the current at the same point and time as in (b), positive when it flows along $+z$ in the upper conductor.</p>
+<pl-number-input answers-name="Iov" label="$I(z_1,t_1) =$" suffix="$\mathrm{mA}$" comparison="relabs" rtol="0.01" atol="{{params.atolI}}"></pl-number-input>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(e)</b> Select every true statement about this pulse and its echoes.</p>
+<pl-checkbox answers-name="facts_ans" number-answers="5" min-correct="1" max-correct="4" partial-credit="each-answer">
+  {{#params.facts}}<pl-answer correct="{{correct}}" feedback="{{feedback}}">{{{text}}}</pl-answer>
+  {{/params.facts}}
+</pl-checkbox>
+</div></div>
+
+<pl-hidden-hints>
+  <pl-hint hint-name="Horizontal and vertical cuts">
+    The generator launches $\tau_gf_i$, $\tau_g = Z_0/(R_g+Z_0)$; each end multiplies by its $\Gamma = (R-Z_0)/(R+Z_0)$. At time $t$ the first forward copy is $\tau_gf_i(t-z/v)$ and the first echo is $\tau_g\Gamma_Lf_i(t+z/v-2T)$, with $T = \ell/v$; a copy is nonzero only where its argument lies inside the pulse.
+  </pl-hint>
+  <pl-hint hint-name="Adding the copies" show-after-submission="1">
+    $V$ adds the copies; $Z_0I$ subtracts the backward ones. On a snapshot a forward pulse lies reversed compared with $f_i(t)$ and an echo lies in source order; at a fixed point every copy arrives in source order.
+  </pl-hint>
+</pl-hidden-hints>
+
+<pl-answer-panel>
+  <p><b>Setup.</b> $T = \ell/v = {{params.T_s}}\ \mu\mathrm{s}$; the pulse lasts {{params.w}} μs, so it is $v\times{{params.w}}\ \mu\mathrm{s} = {{params.L_s}}\ \mathrm{m}$ long on the line.
+  $$\tau_g = \frac{Z_0}{R_g+Z_0} = {{{params.tg_tex}}},\qquad \Gamma_g = \frac{R_g-Z_0}{R_g+Z_0} = {{{params.Gg_tex}}},\qquad \Gamma_L = {{{params.GL_tex}}}.$$
+  The launched pulse peaks at $\tau_g\cdot{{params.A}} = {{params.Vl_s}}\ \mathrm{V}$; the echo is $\tau_g\Gamma_L f_i$ (peak {{params.wecho_s}} V), and {{{params.gen_txt}}}.</p>
+  <p><b>(a)</b> {{{params.snap_why}}}</p>
+  <p><b>(b)</b> $t_1 = T + {{params.u_s}}\ \mu\mathrm{s}$: the first {{params.u_s}} μs of the pulse has reflected. Two copies cover $z_1$, which is {{params.dl_s}} μs of travel from the load. The forward copy sees $f_i$ at $t_1 - z_1/v = {{params.af_s}}\ \mu\mathrm{s}$ and the echo sees it at $t_1 + z_1/v - 2T = {{params.ae_s}}\ \mu\mathrm{s}$, where the pulse shape (relative to its peak) is {{params.sf_s}} and {{params.se_s}}:
+  $$V(z_1,t_1) = \tau_g\cdot{{params.A}}\,\big[{{params.sf_s}} + \Gamma_L\cdot{{params.se_s}}\big] = {{params.Vb_s}}\ \mathrm{V}.$$</p>
+  <p><b>(c)</b> The echo leaves the load at $t = T$ with the pulse's {{params.pk_word}} {{params.tdel_s}} μs behind its front, and needs $(\ell - z_p)/v$ to come back to $z_p$:
+  $$t = 2T - \frac{z_p}{v} + {{params.tdel_s}} = {{params.twoT_s}} - {{params.zpv_s}} + {{params.tdel_s}} = {{params.tc_s}}\ \mu\mathrm{s}.$$</p>
+  <p><b>(d)</b> The echo travels toward $-z$, so it enters the current with a minus sign:
+  $$I(z_1,t_1) = \frac{\tau_g\cdot{{params.A}}}{Z_0}\big[{{params.sf_s}} - \Gamma_L\cdot{{params.se_s}}\big] = {{params.Id_s}}\ \mathrm{mA}.$$
+  In the overlap $V/I \ne Z_0$.</p>
+  <p><b>(e)</b> The pool of statements (a random five are shown):</p>
+  <ul>
+    {{#params.facts}}<li>{{{text}}} <b>{{verdict}}</b>: {{{why}}}</li>
+    {{/params.facts}}
+  </ul>
+</pl-answer-panel>

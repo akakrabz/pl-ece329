@@ -1,0 +1,95 @@
+<pl-question-panel>
+  <p>
+    A step source with open-circuit voltage $V_0\,u(t)$, $V_0 = {{params.V0}}\ \mathrm{V}$, and internal resistance $R_g = {{params.Rg_s}}\ \Omega$ drives line 1 at $z = 0$. Line 1 ($Z_1 = {{params.Z1}}\ \Omega$, $v_1 = {{params.v1}}\ \mathrm{m}/\mu\mathrm{s}$) runs from $z = 0$ to a junction at $z = \ell_1 = {{params.ell1}}\ \mathrm{m}$. There it joins line 2 ($Z_2 = {{params.Z2_s}}\ \Omega$, $v_2 = {{params.v2}}\ \mathrm{m}/\mu\mathrm{s}$, length $\ell_2 = {{params.ell2}}\ \mathrm{m}$), which {{{params.load_txt}}} at $z = \ell_1 + \ell_2 = {{params.ellsum}}\ \mathrm{m}$. {{{params.shunt_txt}}}Both lines are lossless and carry no voltage or current for $t \lt 0$.
+  </p>
+  <svg viewBox="0 0 440 92" width="440" style="max-width:100%" role="img" aria-label="Generator, line 1, junction, line 2, load">
+    <g fill="none" stroke="currentColor" stroke-width="1.5">
+      <circle cx="26" cy="50" r="12"/><path d="M26 38V18h10l4-6 8 12 8-12 8 12 4-6h12M26 62v20h54M80 18h300M80 82h300M380 18v20M380 62v20M230 6v8M230 86v6"/>
+      <rect x="372" y="38" width="16" height="24"/>
+      {{#params.shunt}}<path d="M240 18v20M240 62v20"/><rect x="233" y="38" width="14" height="24"/>{{/params.shunt}}
+    </g>
+    <g fill="currentColor" font-size="12">
+      <text x="38" y="10">Rg</text><text x="120" y="54">line 1: Z1, v1</text><text x="282" y="54">line 2: Z2, v2</text>
+      <text x="394" y="54">RL</text><text x="74" y="92">z = 0</text><text x="214" y="92">z = l1</text>
+      {{#params.shunt}}<text x="250" y="34">R</text>{{/params.shunt}}
+    </g>
+  </svg>
+  <p>
+    Conventions (Lectures 28–30): $+z$ points from the generator toward the load on both lines. $V(z,t)$ is the voltage of the upper conductor relative to the lower one; on each line a wave toward $+z$ carries $I = V/Z$ and a wave toward $-z$ carries $I = -V/Z$, with that line's $Z$. Reflection and transmission coefficients are voltage ratios; subscript $12$ is for a wave arriving at the junction from line 1, $21$ for one arriving from line 2.
+  </p>
+</pl-question-panel>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(a)</b> Find the junction's reflection and transmission coefficients for waves arriving from each side.</p>
+<pl-number-input answers-name="G12" label="$\Gamma_{12} =$" comparison="relabs" rtol="0.01" atol="1e-4"></pl-number-input>
+<pl-number-input answers-name="t12" label="$\tau_{12} =$" comparison="relabs" rtol="0.01" atol="1e-4"></pl-number-input>
+<pl-number-input answers-name="G21" label="$\Gamma_{21} =$" comparison="relabs" rtol="0.01" atol="1e-4"></pl-number-input>
+<pl-number-input answers-name="t21" label="$\tau_{21} =$" comparison="relabs" rtol="0.01" atol="1e-4"></pl-number-input>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(b)</b> When the first wave launched by the generator reaches the junction, find the voltage of the wave transmitted onto line 2 and of the wave reflected back toward the generator (signed).</p>
+<pl-number-input answers-name="V2f" label="transmitted $=$" suffix="$\mathrm{V}$" comparison="relabs" rtol="0.01" atol="{{params.atolV}}"></pl-number-input>
+<pl-number-input answers-name="V1r" label="reflected $=$" suffix="$\mathrm{V}$" comparison="relabs" rtol="0.01" atol="{{params.atolV}}"></pl-number-input>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(c)</b> Find the voltage at the junction, $V(\ell_1,t)$, at $t = {{params.tc_s}}\ \mu\mathrm{s}$.</p>
+<pl-number-input answers-name="VJ" label="$V(\ell_1,t) =$" suffix="$\mathrm{V}$" comparison="relabs" rtol="0.01" atol="{{params.atolJ}}"></pl-number-input>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(d)</b> Find the load voltage $V_L$ as $t\to\infty$.</p>
+<pl-number-input answers-name="VL" label="$V_L(\infty) =$" suffix="$\mathrm{V}$" comparison="relabs" rtol="0.01" atol="{{params.atolV}}"></pl-number-input>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(e)</b> {{{params.e_stem}}}</p>
+<pl-multiple-choice answers-name="match_ans">
+  {{#params.e_choices}}<pl-answer correct="{{correct}}" feedback="{{feedback}}">{{{text}}}</pl-answer>
+  {{/params.e_choices}}
+</pl-multiple-choice>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(f)</b> Select every true statement about junctions between lines.</p>
+<pl-checkbox answers-name="facts_ans" number-answers="5" min-correct="1" max-correct="4" partial-credit="each-answer">
+  {{#params.facts}}<pl-answer correct="{{correct}}" feedback="{{feedback}}">{{{text}}}</pl-answer>
+  {{/params.facts}}
+</pl-checkbox>
+</div></div>
+
+<pl-hidden-hints>
+  <pl-hint hint-name="Junction coefficients">
+    A wave arriving on line $j$ sees, until an echo returns, the impedance $Z_{eq}$ of everything beyond the junction: line $k$ as a resistor $Z_k$, in parallel with any resistor across the junction. Then $\Gamma_{jk} = (Z_{eq}-Z_j)/(Z_{eq}+Z_j)$, and since the voltage is the same on both sides of the junction, $\tau_{jk} = 1 + \Gamma_{jk}$.
+  </pl-hint>
+  <pl-hint hint-name="Bookkeeping" show-after-submission="1">
+    One-way times $T_1 = \ell_1/v_1$ and $T_2 = \ell_2/v_2$. The generator launches $\tau_gV_0$ with $\tau_g = Z_1/(R_g+Z_1)$ and reflects with $\Gamma_g$ computed with $Z_1$; the load reflects with $\Gamma_L$ computed with $Z_2$. Each wave arriving at the junction raises the junction voltage by $\tau$ times its own voltage. At DC both lines are wires.
+  </pl-hint>
+</pl-hidden-hints>
+
+<pl-answer-panel>
+  <p><b>(a)</b> From line 1 the wave sees $Z_{eq} = {{params.zeq12_expr}} = {{params.Zeq12_s}}\ \Omega$; from line 2 it sees $Z_{eq} = {{params.zeq21_expr}} = {{params.Zeq21_s}}\ \Omega$:
+  $$\Gamma_{12} = \frac{ {{params.Zeq12_s}} - {{params.Z1}} }{ {{params.Zeq12_s}} + {{params.Z1}} } = {{{params.G12_tex}}},\quad \tau_{12} = 1+\Gamma_{12} = {{{params.t12_tex}}},\quad \Gamma_{21} = \frac{ {{params.Zeq21_s}} - {{params.Z2_s}} }{ {{params.Zeq21_s}} + {{params.Z2_s}} } = {{{params.G21_tex}}},\quad \tau_{21} = {{{params.t21_tex}}}.$$</p>
+  <p><b>(b)</b> The generator sees line 1 as $Z_1$: $\tau_g = Z_1/(R_g+Z_1) = {{{params.tg_tex}}}$, so the first wave is $V^+ = {{params.Vplus_s}}\ \mathrm{V}$. At the junction (at $t = T_1$) it splits into $\tau_{12}V^+ = {{params.V2f_s}}\ \mathrm{V}$ on line 2 and $\Gamma_{12}V^+ = {{params.V1r_s}}\ \mathrm{V}$ back on line 1.</p>
+  <p><b>(c)</b> $T_1 = \ell_1/v_1 = {{params.T1}}\ \mu\mathrm{s}$, $T_2 = \ell_2/v_2 = {{params.T2}}\ \mu\mathrm{s}$, $\Gamma_g = {{{params.Gg_tex}}}$ (with $Z_1$), $\Gamma_L = {{{params.GL_tex}}}$ (with $Z_2$). The two second-order echoes reach the junction at $3T_1 = {{params.s3T1}}\ \mu\mathrm{s}$ (from the generator{{{params.gen_zero}}}) and $T_1 + 2T_2 = {{params.sT12T2}}\ \mu\mathrm{s}$ (from the load{{{params.load_zero}}}). Every nonzero wave launched before $t = {{params.tc_s}}\ \mu\mathrm{s}$:</p>
+  <table class="table table-sm">
+    <tr><th>launched at $t$ (μs)</th><th>on</th><th>voltage (V)</th></tr>
+    {{#params.wave_rows}}<tr><td>{{t}}</td><td>{{where}}</td><td>{{w}}</td></tr>
+    {{/params.wave_rows}}
+  </table>
+  <p>Each arrival at the junction raises $V(\ell_1)$ by $\tau$ times the arriving voltage ($\tau_{12}$ from line 1, $\tau_{21}$ from line 2):</p>
+  <table class="table table-sm">
+    <tr><th>arrives at $t$ (μs)</th><th>from</th><th>arriving (V)</th><th>factor</th><th>step (V)</th><th>$V(\ell_1)$ after (V)</th></tr>
+    {{#params.j_rows}}<tr><td>{{t}}</td><td>{{side}}</td><td>{{w}}</td><td>${{{coef}}}$</td><td>{{jump}}</td><td>{{run}}</td></tr>
+    {{/params.j_rows}}
+  </table>
+  <p>So $V(\ell_1, {{params.tc_s}}\ \mu\mathrm{s}) = {{params.VJ_s}}\ \mathrm{V}$.</p>
+  <p><b>(d)</b> At DC both lines are wires, and the source sees $R_g$ in series with ${{params.dc_expr}} = {{params.Rdc_s}}\ \Omega$: $V_L = V_0\,\dfrac{ {{params.dc_expr}} }{R_g + {{params.dc_expr}} } = {{params.VL_s}}\ \mathrm{V}$. {{{params.dc_open_note}}}</p>
+  <p><b>(e)</b> $\Gamma_{12} = 0$ needs the arriving wave to see exactly $Z_1 = {{params.Z1}}\ \Omega$. A resistor across the junction gives $R\parallel Z_2 \lt Z_2$; one in series gives $R + Z_2 \gt Z_2$. So a shunt works only when $Z_2 \gt Z_1$ (with $R = Z_1Z_2/(Z_2-Z_1)$), a series resistor only when $Z_2 \lt Z_1$ (with $R = Z_1 - Z_2$).</p>
+  <p><b>(f)</b> The pool of statements (a random five are shown):</p>
+  <ul>
+    {{#params.facts}}<li>{{{text}}} <b>{{verdict}}</b>: {{{why}}}</li>
+    {{/params.facts}}
+  </ul>
+</pl-answer-panel>

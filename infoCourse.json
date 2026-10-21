@@ -287,6 +287,106 @@
       "name": "radiation",
       "color": "pink2",
       "description": "Current-sheet radiation and the Poynting vector"
+    },
+    {
+      "name": "lec20",
+      "color": "purple1",
+      "description": "Lecture 20"
+    },
+    {
+      "name": "lec21",
+      "color": "purple1",
+      "description": "Lecture 21"
+    },
+    {
+      "name": "lec22",
+      "color": "purple1",
+      "description": "Lecture 22"
+    },
+    {
+      "name": "lec23",
+      "color": "purple1",
+      "description": "Lecture 23"
+    },
+    {
+      "name": "lec24",
+      "color": "purple1",
+      "description": "Lecture 24"
+    },
+    {
+      "name": "lec25",
+      "color": "purple1",
+      "description": "Lecture 25"
+    },
+    {
+      "name": "lec26",
+      "color": "purple1",
+      "description": "Lecture 26"
+    },
+    {
+      "name": "lec27",
+      "color": "purple1",
+      "description": "Lecture 27"
+    },
+    {
+      "name": "lec28",
+      "color": "purple1",
+      "description": "Lecture 28"
+    },
+    {
+      "name": "lec29",
+      "color": "purple1",
+      "description": "Lecture 29"
+    },
+    {
+      "name": "lec30",
+      "color": "purple1",
+      "description": "Lecture 30"
+    },
+    {
+      "name": "exam3",
+      "color": "red1",
+      "description": "In scope for Exam 3 (Lectures 20 onward)"
+    },
+    {
+      "name": "poynting",
+      "color": "purple1",
+      "description": "Poynting's theorem, energy flow, time-average power"
+    },
+    {
+      "name": "phasors",
+      "color": "purple1",
+      "description": "Phasors and monochromatic waves"
+    },
+    {
+      "name": "lossy-media",
+      "color": "purple1",
+      "description": "Damped waves, loss tangent, skin depth"
+    },
+    {
+      "name": "wave-polarization",
+      "color": "purple1",
+      "description": "Polarization of waves and group velocity"
+    },
+    {
+      "name": "reflection",
+      "color": "purple1",
+      "description": "Reflection and transmission at interfaces"
+    },
+    {
+      "name": "standing-waves",
+      "color": "purple1",
+      "description": "Standing waves and radiation pressure"
+    },
+    {
+      "name": "transmission-lines",
+      "color": "purple1",
+      "description": "Telegrapher's equations, characteristic impedance"
+    },
+    {
+      "name": "bounce-diagrams",
+      "color": "purple1",
+      "description": "Transients and bounce diagrams on lines"
     }
   ]
 }

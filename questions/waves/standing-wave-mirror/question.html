@@ -1,0 +1,82 @@
+<pl-question-panel>
+  <p>
+    Air (treat it as vacuum) fills the region ${{{params.region}}}$. A perfect conductor fills ${{{params.cond}}}$; its flat surface, the plane ${{params.w}} = 0$, acts as a mirror. A uniform plane wave of frequency $f = {{{params.f_tex}}}$ arrives from the air side at normal incidence:
+    $$\mathbf{E}_i(\mathbf{r},t) = {{{params.E_tex}}}\ \ \mathrm{V/m},\qquad \beta = \omega/c .$$
+    It is reflected, and incident plus reflected wave fill the air. Use $c = 3\times10^{8}\ \mathrm{m/s}$, $\eta_0 = 120\pi\ \Omega$ and $\mu_0 = 4\pi\times10^{-7}\ \mathrm{H/m}$. $T = 1/f$ is the period. Distances are measured from the mirror surface into the air.
+  </p>
+</pl-question-panel>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(a)</b> Find the smallest <em>nonzero</em> distance from the mirror at which the total $\mathbf{E}$ is zero at every instant, and the smallest distance at which the total $\mathbf{H}$ is zero at every instant.</p>
+<pl-number-input answers-name="dE" label="$\mathbf{E}$ null at" suffix="$\mathrm{cm}$" comparison="relabs" rtol="0.01" atol="1e-6"></pl-number-input>
+<pl-number-input answers-name="dH" label="$\mathbf{H}$ null at" suffix="$\mathrm{cm}$" comparison="relabs" rtol="0.01" atol="1e-6"></pl-number-input>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(b)</b> On the plane ${{params.w}} = {{params.wp_str}}\ \mathrm{cm}$, a distance $D = {{params.dp_str}}\ \mathrm{cm}$ in front of the mirror, find the largest values that $\lvert\mathbf{E}\rvert$ and $\lvert\mathbf{H}\rvert$ of the total field reach during a period.</p>
+<pl-number-input answers-name="Emax" label="$\lvert\mathbf{E}\rvert_{\max} =$" suffix="$\mathrm{V/m}$" comparison="relabs" rtol="0.01" atol="1e-6"></pl-number-input>
+<pl-number-input answers-name="Hmax" label="$\lvert\mathbf{H}\rvert_{\max} =$" suffix="$\mathrm{mA/m}$" comparison="relabs" rtol="0.01" atol="1e-6"></pl-number-input>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(c)</b> {{params.c_prompt}} (Hand convention: right-circular if the right thumb points along the direction of travel and the fingers curl the way $\mathbf{E}$ rotates at a fixed point.)</p>
+<pl-multiple-choice answers-name="refl" order="fixed">
+  {{#params.refl_list}}<pl-answer correct="{{correct}}" feedback="{{feedback}}">{{{text}}}</pl-answer>
+  {{/params.refl_list}}
+</pl-multiple-choice>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(d)</b> Find the largest magnitude of the surface current density $\mathbf{J}_s$ on the mirror during a period, and the direction of $\mathbf{J}_s$ at $t = {{params.t1_tex}}$.</p>
+<pl-number-input answers-name="Js" label="$\lvert\mathbf{J}_s\rvert_{\max} =$" suffix="$\mathrm{mA/m}$" comparison="relabs" rtol="0.01" atol="1e-6"></pl-number-input>
+<pl-multiple-choice answers-name="jsdir" order="fixed">
+  {{#params.js_list}}<pl-answer correct="{{correct}}" feedback="{{feedback}}">{{{text}}}</pl-answer>
+  {{/params.js_list}}
+</pl-multiple-choice>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(e)</b> Find the time-average radiation pressure on the mirror, and the time-average force the wave exerts on a {{params.A_m2}} $\mathrm{m^2}$ patch of it.</p>
+<pl-number-input answers-name="P" label="$\langle P_{rad}\rangle =$" suffix="$\mathrm{nPa}$" comparison="relabs" rtol="0.01" atol="1e-6"></pl-number-input>
+<pl-number-input answers-name="F" label="$\lvert\langle\mathbf{F}\rangle\rvert =$" suffix="$\mathrm{nN}$" comparison="relabs" rtol="0.01" atol="1e-6"></pl-number-input>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(f)</b> Select every true statement about the field in front of the mirror and the force on it.</p>
+<pl-checkbox answers-name="facts" number-answers="6" min-correct="1" max-correct="4" partial-credit="each-answer">
+  {{#params.facts_list}}<pl-answer correct="{{correct}}" feedback="{{feedback}}">{{{text}}}</pl-answer>
+  {{/params.facts_list}}
+</pl-checkbox>
+</div></div>
+
+<pl-hidden-hints>
+  <pl-hint hint-name="Standing wave">
+    A perfect conductor reflects each tangential component with $\Gamma = -1$, and the reflected $\tilde{\mathbf{H}}$ keeps the incident sign. With $D$ the distance from the mirror, the total $\lvert\tilde{\mathbf{E}}\rvert\propto\lvert\sin\beta D\rvert$ and $\lvert\tilde{\mathbf{H}}\rvert\propto\lvert\cos\beta D\rvert$, each with twice the incident amplitude.
+  </pl-hint>
+  <pl-hint hint-name="Mirror current and push" show-after-submission="1">
+    $\mathbf{J}_s = \hat n\times\mathbf{H}$ on the surface, with $\hat n$ pointing out of the conductor into the air. The average pressure on a perfect mirror is $2\langle S_i\rangle/c$, with $\langle S_i\rangle$ the incident wave's average flux (a circular wave carries both components' power).
+  </pl-hint>
+</pl-hidden-hints>
+
+<pl-answer-panel>
+  <p>The incident wave travels along $\hat u_i = {{{params.ui}}}$, toward the mirror. In air $\lambda = c/f = {{params.lam_str}}\ \mathrm{cm}$ and $\beta = 2\pi/\lambda = {{params.beta_str}}\ \mathrm{rad/m}$. The reflected wave ($\Gamma = -1$ for each tangential component, travel along $\hat u_r = {{{params.ur}}}$) is
+  $$\mathbf{E}_r = {{{params.Er_tex}}},$$
+  and the totals in the air, from $\tilde{\mathbf{E}}_i + \tilde{\mathbf{E}}_r$ and $\tilde{\mathbf{H}} = \hat u\times\tilde{\mathbf{E}}/\eta_0$ for each wave, are
+  $$\mathbf{E} = {{{params.Etot_tex}}},$$
+  $$\mathbf{H} = {{{params.Htot_tex}}}.$$
+  Each is a function of position times a function of time: a standing wave.</p>
+  <p><b>(a)</b> $\lvert\tilde{\mathbf{E}}\rvert\propto\lvert\sin\beta D\rvert$ vanishes at $D = 0, \lambda/2, \lambda, \ldots$: the first nonzero null is at $\lambda/2 = {{params.dE_str}}\ \mathrm{cm}$. $\lvert\tilde{\mathbf{H}}\rvert\propto\lvert\cos\beta D\rvert$ vanishes first at $\lambda/4 = {{params.dH_str}}\ \mathrm{cm}$; the mirror itself is an $\mathbf{H}$ maximum.</p>
+  <p><b>(b)</b> $D = {{params.dp_str}}\ \mathrm{cm} = ({{params.r_tex}})\lambda$, so $\beta D = {{params.phase_str}}^\circ$, $\lvert\sin\beta D\rvert = {{params.sin_str}}$ and $\lvert\cos\beta D\rvert = {{params.cos_str}}$. Then $\lvert\mathbf{E}\rvert_{\max} = 2E_0\lvert\sin\beta D\rvert = {{params.Emax_str}}\ \mathrm{V/m}$ and $\lvert\mathbf{H}\rvert_{\max} = (2E_0/\eta_0)\lvert\cos\beta D\rvert = {{params.Hmax_str}}\ \mathrm{mA/m}$.{{#params.circ}} For this circular wave both magnitudes are in fact constant in time.{{/params.circ}}{{#params.lin}} They occur a quarter period apart.{{/params.lin}}</p>
+  <p><b>(c)</b>
+  {{#params.circ}}On the mirror, $\mathbf{E}_i$ points along ${{{params.e0_dir}}}$ at $t = 0$ and along ${{{params.eq_dir}}}$ at $t = T/4$; their cross product points along ${{{params.cross_dir}}}$, and its dot product with $\hat u_i = {{{params.ui}}}$ is {{params.dot_str}}: the incident wave is <b>{{params.hand_i}}-circular</b>. On the mirror $\mathbf{E}_r = -\mathbf{E}_i$, which rotates the same way, but the reflected wave travels along ${{{params.ur}}}$, so the dot product changes sign: the reflected wave is <b>{{params.hand_r}}-circular</b>.{{/params.circ}}
+  {{#params.lin}}$\Gamma = -1$ is real, so the reflected wave is linearly polarized along the same axis $\hat{ {{params.a}} }$, and on the mirror $\mathbf{E}_r = -\mathbf{E}_i$ at every instant, which keeps the tangential $\mathbf{E}$ zero. Its $\mathbf{H}$, along $\hat{ {{params.b}} }$, keeps the incident sign.{{/params.lin}}</p>
+  <p><b>(d)</b> On the mirror $\mathbf{H}(0,t)$ is twice the incident $\mathbf{H}$. With $\hat n = {{{params.nhat}}}$ (out of the conductor),
+  $$\mathbf{J}_s = \hat n\times\mathbf{H}(0,t) = \frac{2\mathbf{E}_i(0,t)}{\eta_0} = {{{params.Ji_tex}}}.$$
+  Its largest magnitude is $2E_0/\eta_0 = {{params.Js_str}}\ \mathrm{mA/m}$, twice the incident $\lvert\mathbf{H}\rvert_{\max} = {{params.Hi_str}}\ \mathrm{mA/m}$. At $t = {{params.t1_tex}}$ it points along ${{{params.J_dir}}}$, while $\mathbf{H}$ on the surface points along ${{{params.H_dir}}}$.</p>
+  <p><b>(e)</b> $\langle S_i\rangle = {{{params.hfac}}}E_0^2/2\eta_0 = {{params.Si_str}}\ \mathrm{W/m^2}${{#params.circ}} (two equal components){{/params.circ}}, so $\langle P_{rad}\rangle = 2\langle S_i\rangle/c = {{params.P_str}}\ \mathrm{nPa}$, pushing along ${{{params.ui}}}$, into the conductor. On {{params.A_m2}} $\mathrm{m^2}$: $\lvert\langle\mathbf{F}\rangle\rvert = {{params.F_str}}\ \mathrm{nN}$. The same follows from the force on the sheet current, $P(t) = \tfrac12\mu_0\lvert\mathbf{H}(0,t)\rvert^2$, averaged over a period.</p>
+  <p><b>(f)</b> The pool of statements (a random six are shown):</p>
+  <ul>
+    {{#params.facts_list}}<li>{{{text}}} <b>{{verdict}}</b>: {{{why}}}</li>
+    {{/params.facts_list}}
+  </ul>
+</pl-answer-panel>

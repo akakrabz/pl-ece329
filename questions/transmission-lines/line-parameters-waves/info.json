@@ -1,0 +1,10 @@
+{
+  "uuid": "5e18f9f2-ff97-4313-8e43-8c0765904e59",
+  "title": "Line parameters, characteristic impedance, and reading V and I waves on a TEM line",
+  "topic": "Transmission lines",
+  "tags": ["lec27", "exam3", "concept", "calculate", "MC", "multianswer", "numeric", "transmission-lines"],
+  "type": "v3",
+  "gradingMethod": "Internal",
+  "singleVariant": false,
+  "showCorrectAnswer": true
+}

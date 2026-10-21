@@ -1,0 +1,10 @@
+{
+  "uuid": "6b54cba3-3a3f-466a-ae06-a4c90f0fb9c0",
+  "title": "Two lines in cascade: junction coefficients both ways, echoes at the junction and the DC load voltage",
+  "topic": "Transmission lines",
+  "tags": ["lec30", "exam3", "concept", "calculate", "MC", "multianswer", "numeric", "transmission-lines", "bounce-diagrams"],
+  "type": "v3",
+  "gradingMethod": "Internal",
+  "singleVariant": false,
+  "showCorrectAnswer": true
+}

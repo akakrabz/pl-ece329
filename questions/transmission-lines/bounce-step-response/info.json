@@ -1,0 +1,10 @@
+{
+  "uuid": "d0debe80-03bf-494a-bebb-14b8690ff6a8",
+  "title": "Step response of a terminated line: injection, reflection coefficients, bounce-diagram readings and the DC limit",
+  "topic": "Transmission lines",
+  "tags": ["lec28", "exam3", "concept", "calculate", "MC", "numeric", "transmission-lines", "bounce-diagrams"],
+  "type": "v3",
+  "gradingMethod": "Internal",
+  "singleVariant": false,
+  "showCorrectAnswer": true
+}

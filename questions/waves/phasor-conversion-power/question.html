@@ -1,0 +1,77 @@
+<pl-question-panel>
+  <p>
+    Phasors follow the course's convention: a field $a(t) = \mathrm{Re}\{\tilde{A}\,e^{j\omega t}\}$, with the cosine as reference and peak (not rms) values. All media are lossless and non-magnetic ($\mu = \mu_0$). Use $c = 3\times10^{8}\ \mathrm{m/s}$ and $\eta_0 = 120\pi\ \Omega$.
+  </p>
+</pl-question-panel>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(a)</b> Match each electric field (in V/m; $\omega$ and $\beta$ are positive constants) to its phasor $\tilde{\mathbf{E}}$. Three of the phasors listed match none of the fields.</p>
+<pl-matching answers-name="conv" number-statements="5" fixed-options-order="true" partial-credit="true">
+  {{#params.conv_items}}<pl-statement match="{{key}}">{{{text}}}</pl-statement>
+  {{/params.conv_items}}
+  {{#params.conv_opts}}<pl-option name="{{name}}">{{{text}}}</pl-option>
+  {{/params.conv_opts}}
+</pl-matching>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(b)</b> In a dielectric with $\epsilon_r = {{params.epsb_str}}$, a plane wave at $f = {{params.fb_str}}\ \mathrm{MHz}$ has the electric-field phasor
+$$ {{{params.Eb_tex}}} $$
+(${{params.ub}}$ in metres). Its magnetic-field phasor has the form $\tilde{\mathbf{H}} = \big(\tilde{H}_{0 {{params.ax1}} }\,\hat{ {{params.ax1}} } + \tilde{H}_{0 {{params.ax2}} }\,\hat{ {{params.ax2}} }\big)\,e^{ {{params.exp_b}} }$ with complex constants $\tilde{H}_{0 {{params.ax1}} }$ and $\tilde{H}_{0 {{params.ax2}} }$. Give their real and imaginary parts, then the time-averaged Poynting vector's ${{params.ub}}$ component (signed: positive means along $+\hat{ {{params.ub}} }$).</p>
+<pl-number-input answers-name="H1re" label="$\mathrm{Re}\,\tilde{H}_{0 {{params.ax1}} } =$" suffix="$\mathrm{mA/m}$" comparison="relabs" rtol="0.01" atol="0.01"></pl-number-input>
+<pl-number-input answers-name="H1im" label="$\mathrm{Im}\,\tilde{H}_{0 {{params.ax1}} } =$" suffix="$\mathrm{mA/m}$" comparison="relabs" rtol="0.01" atol="0.01"></pl-number-input>
+<pl-number-input answers-name="H2re" label="$\mathrm{Re}\,\tilde{H}_{0 {{params.ax2}} } =$" suffix="$\mathrm{mA/m}$" comparison="relabs" rtol="0.01" atol="0.01"></pl-number-input>
+<pl-number-input answers-name="H2im" label="$\mathrm{Im}\,\tilde{H}_{0 {{params.ax2}} } =$" suffix="$\mathrm{mA/m}$" comparison="relabs" rtol="0.01" atol="0.01"></pl-number-input>
+<pl-number-input answers-name="Sb" label="$\langle S_{ {{params.ub}} }\rangle =$" suffix="$\mathrm{mW/m^2}$" comparison="relabs" rtol="0.01" atol="1e-6"></pl-number-input>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(c)</b> In vacuum, a plane wave has the phasor
+$$ {{{params.tmpl_tex}}}, $$
+with the coefficients of ${{params.pc}}$ and ${{params.qc}}$ in rad/m. In which direction does it travel?</p>
+<pl-multiple-choice answers-name="tdir">
+  {{#params.dir_list}}<pl-answer correct="{{correct}}" feedback="{{feedback}}">{{{text}}}</pl-answer>
+  {{/params.dir_list}}
+</pl-multiple-choice>
+<p>Find its wavelength and frequency.</p>
+<pl-number-input answers-name="lam_c" label="$\lambda =$" suffix="$\mathrm{m}$" comparison="relabs" rtol="0.01" atol="1e-6"></pl-number-input>
+<pl-number-input answers-name="f_c" label="$f =$" suffix="$\mathrm{GHz}$" comparison="relabs" rtol="0.01" atol="1e-6"></pl-number-input>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(d)</b> A region of the ionosphere is modelled as a uniform, collisionless plasma with plasma frequency $f_p = {{params.fp_str}}\ \mathrm{MHz}$, whose dispersion relation is $\beta = \tfrac{1}{c}\sqrt{\omega^2-\omega_p^2}$. For a plane wave at $f = {{params.f1_str}}\ \mathrm{MHz}$ inside it, find the phase constant and the phase velocity.</p>
+<pl-number-input answers-name="beta_p" label="$\beta =$" suffix="$\mathrm{rad/m}$" comparison="relabs" rtol="0.01" atol="1e-6"></pl-number-input>
+<pl-number-input answers-name="vp8" label="$v_p =$" suffix="$\times10^{8}\ \mathrm{m/s}$" comparison="relabs" rtol="0.01" atol="1e-6"></pl-number-input>
+<p>A second wave, at $f = {{params.f2_str}}\ \mathrm{MHz}$, is sent into the same plasma. What happens to it?</p>
+<pl-multiple-choice answers-name="plasma">
+  {{#params.plasma_list}}<pl-answer correct="{{correct}}" feedback="{{feedback}}">{{{text}}}</pl-answer>
+  {{/params.plasma_list}}
+</pl-multiple-choice>
+</div></div>
+
+<pl-hidden-hints>
+  <pl-hint hint-name="Conversion rules">
+    $A\cos(\omega t+\theta)\to Ae^{j\theta}$; a sine is a cosine delayed by a quarter period, $A\sin(\omega t+\theta)\to -jAe^{j\theta}$; a minus sign is $e^{j\pi}$. A wave toward $+u$ carries $e^{-j\beta u}$ (the phase lags downstream), toward $-u$ $e^{+j\beta u}$. If the time term is not first, use $\cos(-x) = \cos x$ and $\sin(-x) = -\sin x$ before converting.
+  </pl-hint>
+  <pl-hint hint-name="Partner field, power, template" show-after-submission="1">
+    One wave in a lossless medium: $\tilde{\mathbf{H}} = \tfrac{1}{\eta}\,\hat{u}\times\tilde{\mathbf{E}}$, with complex factors riding along, and $\langle\mathbf{S}\rangle = \tfrac12\mathrm{Re}\{\tilde{\mathbf{E}}\times\tilde{\mathbf{H}}^*\} = \dfrac{\lvert\tilde{\mathbf{E}}_0\rvert^2}{2\eta}\,\hat{u}$. In $e^{j(ax+by)}$ the vector $(a, b)$ equals $-\beta\hat{u}$.
+  </pl-hint>
+</pl-hidden-hints>
+
+<pl-answer-panel>
+  <p><b>(a)</b> Each field and its phasor:</p>
+  <ul>
+    {{#params.conv_items}}<li>{{{text}}} $\;\to\;$ {{{ans}}}: {{{why}}}</li>
+    {{/params.conv_items}}
+  </ul>
+  <p>The three unmatched options, {{{params.extra_tex}}}, are the usual slips: $+j$ for a sine, the wrong sign in the exponent, a dropped minus sign or phase, or the phase of a reversed argument left unflipped.</p>
+  <p><b>(b)</b> {{{params.b_read}}} With $\eta = \eta_0/\sqrt{\epsilon_r} = 120\pi/{{params.nb_str}} = {{{params.eta_b_str}}}\ \Omega$ and $\tilde{\mathbf{H}} = \tfrac{1}{\eta}\,\hat{u}\times\tilde{\mathbf{E}}$, using ${{{params.ub_hat}}}\times\hat{ {{params.e1}} } = {{{params.ue1}}}$ and ${{{params.ub_hat}}}\times\hat{ {{params.e2}} } = {{{params.ue2}}}$ (the $j$ rides along):
+  $$ {{{params.H_tex}}}. $$
+  Check: $\tilde{\mathbf{E}}\times\tilde{\mathbf{H}}^*$ points along ${{{params.ub_hat}}}$. The common factor $e^{ {{params.exp_b}} }$ cancels against its conjugate, and the two perpendicular components add their powers whatever their phases:
+  $$\langle\mathbf{S}\rangle = \frac{\lvert\tilde{\mathbf{E}}_0\rvert^2}{2\eta}\,\hat{u} = \frac{ {{params.Esq}} }{2({{{params.eta_b_str}}})}\,({{{params.ub_hat}}})\ \mathrm{W/m^2},\qquad \langle S_{ {{params.ub}} }\rangle = {{{params.Su_b_str}}}\ \mathrm{mW/m^2}.$$
+  $\lvert\tilde{\mathbf{E}}_0\rvert^2 = ({{params.a_b}})^2 + \lvert {{params.b_b}}j\rvert^2 = {{params.Esq}}\ \mathrm{V^2/m^2}$; forgetting the conjugate would turn $+\lvert {{params.b_b}}j\rvert^2$ into $({{params.b_b}}j)^2 \lt 0$.</p>
+  <p><b>(c)</b> Restore $e^{j\omega t}$: the phase is $\omega t + ({{{params.lin_tex}}})$, which stays constant when the position moves against the vector $(a, b) = ({{{params.a_c_str}}}, {{{params.b_c_str}}})\ \mathrm{rad/m}$. So $(a, b) = -\beta\hat{u}$, $\beta = \sqrt{a^2+b^2} = {{{params.beta_c_str}}}\ \mathrm{rad/m}$ (a right triangle with sides ${{params.m1}}$, ${{params.m2}}$, ${{params.m3}}$), and $\hat{u} = {{{params.uc_tex}}}$, perpendicular to $\hat{ {{params.e3}} }$ as it must be. Then $\lambda = 2\pi/\beta = {{params.lam_c_str}}\ \mathrm{m}$ and $f = c/\lambda = {{params.f_c_str}}\ \mathrm{GHz}$.</p>
+  <p><b>(d)</b> With $\omega_p = 2\pi f_p$, $\beta = \dfrac{\omega}{c}\sqrt{1-\dfrac{f_p^2}{f^2}}$. At $f = {{params.f1_str}}\ \mathrm{MHz}$, $f_p/f = {{params.rd}}/{{params.rn}}$, so $\sqrt{1-f_p^2/f^2} = {{params.root_str}}$ and $\omega/c = {{params.w_c_str}}\ \mathrm{rad/m}$:
+  $$\beta = ({{params.w_c_str}})({{params.root_str}}) = {{params.beta_p_str}}\ \mathrm{rad/m},\qquad v_p = \frac{\omega}{\beta} = \frac{c}{\sqrt{1-f_p^2/f^2}} = {{params.vp8_str}}\times10^{8}\ \mathrm{m/s} \gt c.$$
+  A phase velocity above $c$ carries no signal; signals move at the group velocity, here $c\sqrt{1-f_p^2/f^2} = {{params.vg8_str}}\times10^{8}\ \mathrm{m/s}$. {{{params.d_read}}}</p>
+</pl-answer-panel>
