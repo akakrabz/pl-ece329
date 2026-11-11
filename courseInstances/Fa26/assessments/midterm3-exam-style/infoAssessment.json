@@ -1,0 +1,116 @@
+{
+  "uuid": "d051520f-a6e1-4674-b5e2-2a4248a54041",
+  "type": "Homework",
+  "title": "Midterm 3 exam-style problems (Lectures 21–30)",
+  "set": "Practice",
+  "number": "8",
+  "comment": "Multi-part problems modelled on past ECE 329 Exam 3 problem families, re-parameterized; untimed, repeatable. No Smith chart, no Lectures 31-33.",
+  "accessControl": [
+    {
+      "dateControl": {
+        "release": {
+          "date": "2026-11-10T00:00:01"
+        },
+        "due": {
+          "date": "2026-12-20T23:59:59"
+        },
+        "afterLastDeadline": {
+          "allowSubmissions": true,
+          "credit": 0
+        }
+      }
+    }
+  ],
+  "zones": [
+    {
+      "title": "Quick-fire multiple choice",
+      "questions": [
+        {
+          "id": "midterm3/quickfire-mc-3",
+          "autoPoints": 6,
+          "maxAutoPoints": 18,
+          "triesPerVariant": 3
+        }
+      ]
+    },
+    {
+      "title": "Waves in lossy media",
+      "questions": [
+        {
+          "id": "midterm3/damped-wave-magnetic-medium",
+          "autoPoints": 5,
+          "maxAutoPoints": 15,
+          "triesPerVariant": 3
+        },
+        {
+          "id": "midterm3/power-against-depth",
+          "autoPoints": 5,
+          "maxAutoPoints": 15,
+          "triesPerVariant": 3
+        }
+      ]
+    },
+    {
+      "title": "Polarization and reflection",
+      "questions": [
+        {
+          "id": "midterm3/two-component-wave",
+          "autoPoints": 5,
+          "maxAutoPoints": 15,
+          "triesPerVariant": 3
+        },
+        {
+          "id": "midterm3/transmitted-wave-work-back",
+          "autoPoints": 5,
+          "maxAutoPoints": 15,
+          "triesPerVariant": 3
+        }
+      ]
+    },
+    {
+      "title": "Line basics and reading a line",
+      "questions": [
+        {
+          "id": "midterm3/parallel-plate-line-fields",
+          "autoPoints": 5,
+          "maxAutoPoints": 15,
+          "triesPerVariant": 3
+        },
+        {
+          "id": "midterm3/two-pulses-at-a-probe",
+          "autoPoints": 5,
+          "maxAutoPoints": 15,
+          "triesPerVariant": 3
+        }
+      ]
+    },
+    {
+      "title": "Bounce diagrams",
+      "questions": [
+        {
+          "id": "midterm3/bounce-diagram-both-ends",
+          "autoPoints": 5,
+          "maxAutoPoints": 15,
+          "triesPerVariant": 3
+        },
+        {
+          "id": "midterm3/matched-source-pulse-echo",
+          "autoPoints": 5,
+          "maxAutoPoints": 15,
+          "triesPerVariant": 3
+        }
+      ]
+    },
+    {
+      "title": "Lines in cascade",
+      "questions": [
+        {
+          "id": "midterm3/three-line-sections",
+          "autoPoints": 5,
+          "maxAutoPoints": 15,
+          "triesPerVariant": 3
+        }
+      ]
+    }
+  ]
+}

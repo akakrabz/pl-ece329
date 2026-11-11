@@ -1,7 +1,8 @@
 # ECE 329 — PrairieLearn course (practice questions)
 
-A PrairieLearn course directory for self-study: **52 randomized "v3" questions** covering Lectures 1–30,
-one course instance and **eight assessments** (seven practice sets and a timed, repeatable Midterm 2 practice exam).
+A PrairieLearn course directory for self-study: **62 randomized "v3" questions** covering Lectures 1–30,
+one course instance and **ten assessments** (eight practice sets and two timed, repeatable practice exams, for
+Midterm 2 and Midterm 3).
 File formats are checked against PrairieLearn's own JSON schemas (vendored in `tools/schemas/`, October 2026)
 and its element documentation.
 
@@ -15,10 +16,16 @@ and its element documentation.
 - **9 exam-style Midterm 2 questions** (October): multi-part problems modelled on past ECE 329 Exam 2 problem
   families, re-parameterized (new numbers and at least one changed detail; no answer-key text), plus a quick-fire
   set of six short multiple-choice items drawn from twelve generators.
+- **10 exam-style Midterm 3 questions** (November 11): multi-part problems modelled on the problem types that recur
+  on past ECE 329 Exam 3 papers (Lectures 21–30; no Smith chart and nothing from Lectures 31–33), re-parameterized,
+  with numbers chosen the way a no-calculator exam chooses them (3-4-5 and 30-60-90 triangles, $120\pi$, simple
+  fractions for $\Gamma$), plus a quick-fire set of six items drawn from fourteen generators. Every bounce-diagram
+  answer and every plot is checked against a time-domain simulation of the circuit that uses no reflection
+  coefficients.
 
 ```
 pl-ece329/
-├── infoCourse.json                      topics; tags (lec01…lec19, midterm2, exam-style, topic tags); "Practice" set
+├── infoCourse.json                      topics; tags (lec01…lec30, midterm2, midterm3, exam-style, topic tags); "Practice" set
 ├── courseInstances/Fa26/
 │   ├── infoCourseInstance.json
 │   └── assessments/
@@ -29,16 +36,20 @@ pl-ece329/
 │       ├── concepts-lectures-12-19/     Practice 5: one concept question per lecture, L12–L19
 │       ├── midterm2-exam-style/         Practice 6: the nine exam-style Midterm 2 problems, untimed
 │       ├── concepts-lectures-20-30/     Practice 7: one concept question per lecture, L20–L30
-│       └── midterm2-practice-exam/      Practice Exam 1: timed (75 min), 5 problems drawn from pools, repeatable
+│       ├── midterm3-exam-style/         Practice 8: the ten exam-style Midterm 3 problems, untimed
+│       ├── midterm2-practice-exam/      Practice Exam 1: timed (75 min), 5 problems drawn from pools, repeatable
+│       └── midterm3-practice-exam/      Practice Exam 2: timed (75 min), 5 problems drawn from pools, repeatable
 ├── questions/
 │   ├── electrostatics/                  Lectures 1–11
 │   ├── magnetostatics/                  Lectures 12–15
 │   ├── waves/                           Lectures 16–26
 │   ├── transmission-lines/              Lectures 27–30
-│   └── midterm2/                        exam-style problems, Lectures 11–19
+│   ├── midterm2/                        exam-style problems, Lectures 11–19
+│   └── midterm3/                        exam-style problems, Lectures 21–30
 └── tools/
     ├── test_questions.py                offline checker (see below)
     ├── checks/<question>.py             independent physics check for each new question
+    ├── checks/_tlsim.py                 exact time-domain line simulator used by the Midterm 3 line checks
     ├── render_question.py               print one question rendered for one seed (proofreading)
     ├── mustache_lite.py, katex_check.js helpers for the checker
     └── schemas/                         PrairieLearn's JSON schemas (see SOURCE.txt)
@@ -87,6 +98,16 @@ pl-ece329/
 | 28 | `transmission-lines/bounce-step-response` | injection, Γ_L, Γ_g, V(z,t), I(z,t), DC limit |
 | 29 | `transmission-lines/pulse-snapshot-record` | snapshots and records of a pulse and its echo; overlap |
 | 30 | `transmission-lines/two-line-junction` | junction Γ and τ both ways, first echoes, junction voltage, matching resistor |
+| 21–23 | `midterm3/damped-wave-magnetic-medium` | read α, β; λ, v_p, δ; η in polar form from γη = jωμ; the H phasor; ⟨S⟩ downstream; loss tangent and regime at another frequency (SP19 Exam 3 #1, SP17 #3 family) |
+| 22–23 | `midterm3/power-against-depth` | α = β as the mark of a good conductor; δ, λ, f, \|η\|; ⟨S⟩ against depth; dB/m; heat in a layer; δ scaling (FA23 Exam 3 #6 family) |
+| 21, 24 | `midterm3/two-component-wave` | phasor of a cos + sin field; H at a point; ⟨S⟩; the condition for circular with a given hand; naming three waves given through H (SP17 Exam 3 #4, FA23 #2 family) |
+| 25 | `midterm3/transmitted-wave-work-back` | from a transmitted phasor back to β₁, ε_r, η_t, Γ, τ, the incident and reflected phasors, H_r and the power split (SP18 Exam 3 #2 family) |
+| 27 | `midterm3/parallel-plate-line-fields` | Z₀ = ηd/w; H, E, V and plate charge from a plate current and a travel direction; V/I = ±Z₀; power (SP19 Exam 3 #2 family) |
+| 27–29 | `midterm3/two-pulses-at-a-probe` | time-domain reflectometry: v and ε_r from timing, R_L from a ratio, R_g from silence; a third pulse when R_g changes (FA23 Exam 3 #4 family) |
+| 28–29 | `midterm3/bounce-diagram-both-ends` | τ_g, Γ_L, Γ_g; voltage and current bounce diagrams; levels at both ends; choosing the load-end plot; DC limit (SP18 Exam 3 #3, SP17 #5 family) |
+| 28–29 | `midterm3/matched-source-pulse-echo` | matched generator on a shorted or open line: DC limit, then a pulse as step minus delayed step, V and I at the source end, the plot, the energy ledger (FA23 Exam 3 #5 family) |
+| 28, 30 | `midterm3/three-line-sections` | three sections in cascade: τ_g, Γ₁₂, τ₁₂, a current coefficient, timing and height of the first echoes, load arrival (FA23 Exam 3 #3, SP19 #4 family) |
+| 21–30 | `midterm3/quickfire-mc-3` | six short multiple-choice items from fourteen generators (SP18 Exam 3 #1, SP17 #1–#2, FA23 #1 style) |
 
 Each question is `info.json` + `question.html` + `server.py`. All randomization happens in `generate(data)`, and
 `server.py` imports only `random`, `math`, `fractions` and `numpy`, so the questions need nothing beyond the
@@ -153,6 +174,16 @@ summarised in the October entry below.
   `fixed-order`; `accessControl`/`publishing` are the current (non-deprecated) access mechanisms.
 
 ## Changelog
+
+- **November 11, 2026** — 10 exam-style Midterm 3 questions (`questions/midterm3/`), the Practice 8 assessment and
+  the timed Practice Exam 2; new tag `midterm3`. One check module per question, each by a route that does not reuse
+  the question's formulas: Faraday's law by finite differences on the phasors for the wave problems, boundary
+  conditions solved as linear systems for reflection, field tips traced over a period for polarization, and for
+  every line problem an exact time-domain simulation (`tools/checks/_tlsim.py`: characteristics plus KVL/KCL at the
+  generator, junctions and load, no reflection or injection coefficients). 400 seeds per question pass, with the
+  KaTeX pass. Plots in the two bounce-diagram questions carry no numbers on the vertical axis, so they do not give
+  away the numeric parts. Not yet done for these ten: the independent re-solve from the rendered statement that the
+  October questions had, and a run inside PrairieLearn itself.
 
 - **October 20, 2026** — 11 concept questions for Lectures 20–30 and the Practice 7 assessment; new tags (lec20–lec30,
   exam3, topic tags); checker now rejects a `params` key that collides with a choice element's `answers-name`

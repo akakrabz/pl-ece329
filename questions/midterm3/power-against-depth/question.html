@@ -1,0 +1,69 @@
+<pl-question-panel>
+  <p>
+    A uniform plane wave travels straight down into {{params.desc}} ({{params.name}}: $\sigma = {{{params.sig_tex}}}\ \mathrm{S/m}$, $\epsilon_r = {{params.epsr}}$, $\mu = \mu_0$). With $z$ measured downward from the surface, in metres, its electric-field phasor below the surface is
+    $$ {{{params.field_tex}}}\ \ \mathrm{V/m}. $$
+    Phasors follow $\mathbf{E} = \mathrm{Re}\{\tilde{\mathbf{E}}\,e^{j\omega t}\}$. Use $\mu_0 = 4\pi\times10^{-7}\ \mathrm{H/m}$.
+  </p>
+</pl-question-panel>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(a)</b> The attenuation constant and the phase constant of this wave are equal. What does that tell you?</p>
+<pl-multiple-choice answers-name="regime_mc" hide-letter-keys="true">
+  {{#params.regime}}<pl-answer correct="{{correct}}" feedback="{{feedback}}">{{{text}}}</pl-answer>
+  {{/params.regime}}
+</pl-multiple-choice>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(b)</b> Find the skin depth, the wavelength in the {{params.name}}, the frequency of the wave, and the magnitude of the intrinsic impedance.</p>
+<pl-number-input answers-name="delta" label="$\delta =$" suffix="$\mathrm{m}$" comparison="relabs" rtol="0.01" atol="1e-9"></pl-number-input>
+<pl-number-input answers-name="lam" label="$\lambda =$" suffix="$\mathrm{m}$" comparison="relabs" rtol="0.01" atol="1e-9"></pl-number-input>
+<pl-number-input answers-name="f" label="$f =$" suffix="$\mathrm{kHz}$" comparison="relabs" rtol="0.01" atol="1e-9"></pl-number-input>
+<pl-number-input answers-name="eta_mag" label="$\lvert\eta\rvert =$" suffix="$\Omega$" comparison="relabs" rtol="0.01" atol="1e-12"></pl-number-input>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(c)</b> Find the time-average power density $\langle S_z\rangle$ just below the surface ($z = 0$) and at the depth $z = {{params.d_s}}\ \mathrm{m}$.</p>
+<pl-number-input answers-name="S0" label="$\langle S_z\rangle(0) =$" suffix="${{{params.S_unit}}}$" comparison="relabs" rtol="0.01" atol="1e-9"></pl-number-input>
+<pl-number-input answers-name="Sd" label="$\langle S_z\rangle({{params.d_s}}\ \mathrm{m}) =$" suffix="${{{params.S_unit}}}$" comparison="relabs" rtol="0.01" atol="1e-9"></pl-number-input>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(d)</b> Find the attenuation rate of the <em>power</em> in decibels per metre, and the depth at which the power density is {{params.XdB}} dB below its value at $z = 0$.</p>
+<pl-number-input answers-name="dBm" label="rate $=$" suffix="$\mathrm{dB/m}$" comparison="relabs" rtol="0.01" atol="1e-9"></pl-number-input>
+<pl-number-input answers-name="zX" label="depth $=$" suffix="$\mathrm{m}$" comparison="relabs" rtol="0.01" atol="1e-9"></pl-number-input>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(e)</b> How much power is turned into heat, per square metre of surface, in the layer $0 \lt z \lt {{params.d_s}}\ \mathrm{m}$ (time average)?</p>
+<pl-number-input answers-name="Qd" label="$\langle P\rangle/\text{area} =$" suffix="${{{params.S_unit}}}$" comparison="relabs" rtol="0.01" atol="1e-9"></pl-number-input>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(f)</b> Suppose {{params.change}}, and the medium is still a good conductor. The skin depth, $\delta$ before the change, becomes</p>
+<pl-multiple-choice answers-name="scaling" hide-letter-keys="true" display="inline">
+  {{#params.scal}}<pl-answer correct="{{correct}}" feedback="{{feedback}}">{{{text}}}</pl-answer>
+  {{/params.scal}}
+</pl-multiple-choice>
+</div></div>
+
+<pl-hidden-hints>
+  <pl-hint hint-name="Reading the phasor">
+    Compare with $e^{-\alpha z}e^{-j\beta z}$. The first exponential is the envelope, the second the phase.
+  </pl-hint>
+  <pl-hint hint-name="Good-conductor formulas" show-after-submission="1">
+    $\alpha = \beta = \sqrt{\pi f\mu\sigma} = 1/\delta$ and $\eta = (1+j)\,\alpha/\sigma$. The second one follows from $\gamma\eta = j\omega\mu$ or from $\gamma/\eta \approx \sigma$.
+  </pl-hint>
+  <pl-hint hint-name="Field against power" show-after-submission="2">
+    $\langle\mathbf{S}\rangle = \tfrac12\mathrm{Re}\{\tilde{\mathbf{E}}\times\tilde{\mathbf{H}}^*\}$ contains $\lvert\tilde E\rvert^2$, so it decays as $e^{-2\alpha z}$, and it carries a factor $\cos\angle\eta$. In decibels, $10\log_{10}e^{2\alpha z} = 8.686\,\alpha z$.
+  </pl-hint>
+</pl-hidden-hints>
+
+<pl-answer-panel>
+  <p><b>(a)</b> $\alpha = \beta$ is the good-conductor limit: $\gamma = \sqrt{j\omega\mu\sigma} = (1+j)\sqrt{\pi f\mu\sigma}$ when $\sigma \gg \omega\epsilon$. Then $\eta = j\omega\mu/\gamma$ has the angle $90^\circ - 45^\circ = 45^\circ$.</p>
+  <p><b>(b)</b> $\alpha = \beta = {{params.s_a}}\ \mathrm{m^{-1}}$, so $\delta = 1/\alpha = {{params.s_delta}}\ \mathrm{m}$ and $\lambda = 2\pi/\beta = 2\pi\delta = {{params.s_lam}}\ \mathrm{m}$. From $\alpha^2 = \pi f\mu_0\sigma$: $f = \alpha^2/(\pi\mu_0\sigma) = {{params.s_f}}\ \mathrm{kHz}$. From $\eta = (1+j)\alpha/\sigma$: $\lvert\eta\rvert = \sqrt2\,\alpha/\sigma = {{{params.s_eta}}}\ \Omega$.</p>
+  <p><b>(c)</b> $\tilde{\mathbf{H}} = \hat z\times\tilde{\mathbf{E}}/\eta$, so $\langle S_z\rangle = \dfrac{\lvert\tilde E\rvert^2}{2\lvert\eta\rvert}\cos45^\circ = \dfrac{\sigma E_0^2}{4\alpha}\,e^{-2\alpha z}$. At $z = 0$: ${{params.s_S0}}\ {{{params.S_unit}}}$. At $z = {{params.d_s}}\ \mathrm{m}$, $2\alpha z = {{params.s_md}}$: ${{params.s_S0}}\,e^{-{{params.s_md}}} = {{params.s_Sd}}\ {{{params.S_unit}}}$.</p>
+  <p><b>(d)</b> The power falls as $e^{-2\alpha z}$: $10\log_{10}e^{2\alpha} = 8.686\,\alpha = {{params.s_dBm}}\ \mathrm{dB/m}$. It is down {{params.XdB}} dB at $z = {{params.XdB}}/{{params.s_dBm}} = {{params.s_zX}}\ \mathrm{m}$. (The field, in contrast, falls as $e^{-\alpha z}$.)</p>
+  <p><b>(e)</b> By Poynting's theorem the heat in the layer is what flows in at the top minus what flows out at the bottom: ${{params.s_S0}} - {{params.s_Sd}} = {{params.s_Qd}}\ {{{params.S_unit}}}$. The same number comes from $\int_0^d\tfrac12\sigma\lvert\tilde E\rvert^2\,dz$.</p>
+  <p><b>(f)</b> $\delta = 1/\sqrt{\pi f\mu\sigma}$, and {{{params.s_why}}}: the skin depth becomes ${{{params.s_ratio}}}\,\delta$.</p>
+</pl-answer-panel>

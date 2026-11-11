@@ -349,6 +349,11 @@
       "description": "In scope for Exam 3 (Lectures 20 onward)"
     },
     {
+      "name": "midterm3",
+      "color": "red1",
+      "description": "Exam-style set for Midterm 3 (Lectures 21-30, no Smith chart)"
+    },
+    {
       "name": "poynting",
       "color": "purple1",
       "description": "Poynting's theorem, energy flow, time-average power"

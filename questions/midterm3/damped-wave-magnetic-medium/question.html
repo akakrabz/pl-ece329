@@ -1,0 +1,85 @@
+<pl-question-panel>
+  <p>
+    A homogeneous, source-free medium has real, positive conductivity $\sigma$ and permittivity $\epsilon$, and permeability ${{{params.mu_tex}}}$. {{params.intro}}
+    $$ {{{params.field_tex}}}\ \ \mathrm{V/m}, $$
+    with ${{params.w}}$ in metres{{#params.time_form}} and $t$ in seconds{{/params.time_form}}{{^params.time_form}}, at the angular frequency $\omega = {{{params.om_tex}}}\ \mathrm{rad/s}${{/params.time_form}}.
+    Phasors follow $\mathbf{F}(\mathbf{r},t) = \mathrm{Re}\{\tilde{\mathbf{F}}(\mathbf{r})\,e^{j\omega t}\}$.
+  </p>
+  <p>
+    Write $\gamma = \alpha + j\beta$ and $\eta = \lvert\eta\rvert e^{j\tau}$. Given: $\gamma\eta = j\omega\mu$ and $\gamma/\eta = \sigma + j\omega\epsilon$. Use $\mu_0 = 4\pi\times10^{-7}\ \mathrm{H/m}$.{{#params.has_given}} You may use ${{{params.given}}}$.{{/params.has_given}}
+  </p>
+</pl-question-panel>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(a)</b> In which direction does the wave travel?</p>
+<pl-multiple-choice answers-name="dir" hide-letter-keys="true" order="fixed" display="inline">
+  {{#params.dir_choices}}<pl-answer correct="{{correct}}" feedback="{{feedback}}">{{{text}}}</pl-answer>
+  {{/params.dir_choices}}
+</pl-multiple-choice>
+<p class="mt-3">Read off the attenuation constant and the phase constant.</p>
+<pl-number-input answers-name="alpha" label="$\alpha =$" suffix="$\mathrm{Np/m}$" comparison="relabs" rtol="0.01" atol="1e-6"></pl-number-input>
+<pl-number-input answers-name="beta" label="$\beta =$" suffix="$\mathrm{rad/m}$" comparison="relabs" rtol="0.01" atol="1e-6"></pl-number-input>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(b)</b> Find the wavelength, the phase velocity and the penetration depth $\delta = 1/\alpha$.</p>
+<pl-number-input answers-name="lam" label="$\lambda =$" suffix="$\mathrm{m}$" comparison="relabs" rtol="0.01" atol="1e-6"></pl-number-input>
+<pl-number-input answers-name="vp" label="$v_p =$" suffix="$\times10^{8}\ \mathrm{m/s}$" comparison="relabs" rtol="0.01" atol="1e-6"></pl-number-input>
+<pl-number-input answers-name="delta" label="$\delta =$" suffix="$\mathrm{m}$" comparison="relabs" rtol="0.01" atol="1e-6"></pl-number-input>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(c)</b> Find the intrinsic impedance in polar form, $\eta = \lvert\eta\rvert e^{j\tau}$.</p>
+<pl-number-input answers-name="eta_mag" label="$\lvert\eta\rvert =$" suffix="$\Omega$" comparison="relabs" rtol="0.01" atol="1e-6"></pl-number-input>
+<pl-number-input answers-name="tau" label="$\tau =$" suffix="degrees" comparison="relabs" rtol="0.01" atol="0.3"></pl-number-input>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(d)</b> The magnetic-field phasor has the form $\tilde{\mathbf{H}} = \hat{h}\,H_0\,e^{j\phi_H}\,{{{params.exp_tex}}}$ with $H_0 \gt 0$. Which unit vector is $\hat h$?</p>
+<pl-multiple-choice answers-name="hdir" hide-letter-keys="true" display="inline">
+  {{#params.h_choices}}<pl-answer correct="{{correct}}" feedback="{{feedback}}">{{{text}}}</pl-answer>
+  {{/params.h_choices}}
+</pl-multiple-choice>
+<p class="mt-3">Find $H_0$ and $\phi_H$ (in degrees, between $-180^\circ$ and $180^\circ$).</p>
+<pl-number-input answers-name="H0" label="$H_0 =$" suffix="$\mathrm{mA/m}$" comparison="relabs" rtol="0.01" atol="1e-6"></pl-number-input>
+<pl-number-input answers-name="phiH" label="$\phi_H =$" suffix="degrees" comparison="relabs" rtol="0.01" atol="0.3"></pl-number-input>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(e)</b> Find the ${{params.w}}$ component of the time-average Poynting vector $\langle\mathbf{S}\rangle$ on the plane ${{params.w}} = {{params.w1_s}}\ \mathrm{m}$ (signed: positive means along $+\hat{ {{params.w}} }$).</p>
+<pl-number-input answers-name="Sw" label="$\langle S_{ {{params.w}} }\rangle =$" suffix="$\mathrm{mW/m^2}$" comparison="relabs" rtol="0.01" atol="1e-6"></pl-number-input>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(f)</b> Find the loss tangent $\sigma/\omega\epsilon$ of the medium at this frequency.</p>
+<pl-number-input answers-name="tanl" label="$\dfrac{\sigma}{\omega\epsilon} =$" comparison="relabs" rtol="0.01" atol="1e-6"></pl-number-input>
+<p class="mt-3">The frequency is now <b>{{params.K_txt}}</b>, with $\sigma$, $\epsilon$ and $\mu$ unchanged. Find the new loss tangent.</p>
+<pl-number-input answers-name="tanl2" label="new $\dfrac{\sigma}{\omega\epsilon} =$" comparison="relabs" rtol="0.01" atol="1e-9"></pl-number-input>
+<p class="mt-3">Take a good conductor to mean $\sigma/\omega\epsilon \gt 10$ and an imperfect dielectric to mean $\sigma/\omega\epsilon \lt 0.1$. At the new frequency the medium is</p>
+<pl-multiple-choice answers-name="medium" hide-letter-keys="true">
+  {{#params.cls_choices}}<pl-answer correct="{{correct}}" feedback="{{feedback}}">{{{text}}}</pl-answer>
+  {{/params.cls_choices}}
+</pl-multiple-choice>
+</div></div>
+
+<pl-hidden-hints>
+  <pl-hint hint-name="Where to start">
+    Everything is in the exponent. The real part of the coefficient of ${{params.w}}$ is $\alpha$, the imaginary part is $\beta$, and the wave travels toward the side on which the amplitude shrinks.
+  </pl-hint>
+  <pl-hint hint-name="Getting the impedance without sigma or epsilon" show-after-submission="1">
+    $\gamma\eta = j\omega\mu$ gives $\eta = j\omega\mu/\gamma$ directly: $\lvert\eta\rvert = \omega\mu/\lvert\gamma\rvert$ and $\tau = 90^\circ - \angle\gamma$. Do not forget the factor in $\mu$.
+  </pl-hint>
+  <pl-hint hint-name="The loss tangent from alpha and beta" show-after-submission="2">
+    Square $\gamma$: $\gamma^2 = j\omega\mu(\sigma + j\omega\epsilon)$, so $\alpha^2-\beta^2 = -\omega^2\mu\epsilon$ and $2\alpha\beta = \omega\mu\sigma$. Divide the two; $\mu$ and $\omega$ cancel.
+  </pl-hint>
+</pl-hidden-hints>
+
+<pl-answer-panel>
+  <p><b>(a)</b> The exponent holds $\alpha = {{{params.s_alpha}}}\ \mathrm{Np/m}$ and $\beta = {{{params.s_beta}}} = {{params.s_beta_num}}\ \mathrm{rad/m}$. The amplitude decays, and the phase lags, toward ${{{params.s_udir}}}$: that is the direction of travel.</p>
+  <p><b>(b)</b> $\lambda = 2\pi/\beta = {{params.s_lam}}\ \mathrm{m}$, $v_p = \omega/\beta = {{{params.s_vp}}}\ \mathrm{m/s}$ (enter {{params.s_vp8}}), $\delta = 1/\alpha = {{params.s_delta}}\ \mathrm{m}$.</p>
+  <p><b>(c)</b> $\lvert\gamma\rvert = \sqrt{\alpha^2+\beta^2} = {{params.s_gmag}}\ \mathrm{m^{-1}}$ and $\angle\gamma = \tan^{-1}(\beta/\alpha) = {{params.s_gang}}^\circ$. From $\gamma\eta = j\omega\mu$ with $\omega\mu = {{params.s_omu}}\ \Omega/\mathrm{m}$:
+     $\lvert\eta\rvert = \omega\mu/\lvert\gamma\rvert = {{params.s_eta}}\ \Omega$ and $\tau = 90^\circ - \angle\gamma = {{params.s_tau}}^\circ$.</p>
+  <p><b>(d)</b> $\tilde{\mathbf{H}} = \hat u\times\tilde{\mathbf{E}}/\eta$ with $\hat u = {{{params.s_udir}}}$: the direction is ${{{params.s_cross}}}$, the size is $H_0 = E_0/\lvert\eta\rvert = {{params.s_H0}}\ \mathrm{mA/m}$, and dividing by $e^{j\tau}$ makes $\mathbf{H}$ lag $\mathbf{E}$ by $\tau$: $\phi_H = {{params.s_phiE}}^\circ - {{params.s_tau}}^\circ = {{params.s_phiH}}^\circ$.</p>
+  <p><b>(e)</b> $\langle\mathbf{S}\rangle = \tfrac12\mathrm{Re}\{\tilde{\mathbf{E}}\times\tilde{\mathbf{H}}^*\} = \hat u\,\dfrac{\lvert\tilde E\rvert^2}{2\lvert\eta\rvert}\cos\tau$. On ${{params.w}} = 0$ this is ${{params.s_S0}}\ \mathrm{mW/m^2}$. The plane asked for is ${{params.d_s}}\ \mathrm{m}$ further along the travel, where the power has fallen by $e^{-2\alpha d} = e^{-{{params.s_2ad}}}$: ${{params.s_S1}}\ \mathrm{mW/m^2}$ along ${{{params.s_udir}}}$, so $\langle S_{ {{params.w}} }\rangle = {{params.s_sgn}}{{params.s_S1}}\ \mathrm{mW/m^2}$. The field decays as $e^{-\alpha d}$; the power as $e^{-2\alpha d}$.</p>
+  <p><b>(f)</b> $\gamma^2 = j\omega\mu(\sigma+j\omega\epsilon)$ gives $2\alpha\beta = \omega\mu\sigma$ and $\beta^2-\alpha^2 = \omega^2\mu\epsilon$, so $\dfrac{\sigma}{\omega\epsilon} = \dfrac{2\alpha\beta}{\beta^2-\alpha^2} = {{params.s_tanl}}$ (here $\sigma = {{{params.s_sigma}}}\ \mathrm{S/m}$ and $\epsilon_r = {{params.s_epsr}}$). The loss tangent is proportional to $1/\omega$: with the frequency {{params.K_txt}} it becomes ${{params.s_tanl}}{{{params.s_Kop}}} = {{{params.s_tanl2}}}$, and the medium is {{params.s_cls}}. The same material can be a conductor at one frequency and a dielectric at another.</p>
+</pl-answer-panel>

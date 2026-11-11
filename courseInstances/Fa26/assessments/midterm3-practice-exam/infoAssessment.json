@@ -1,0 +1,126 @@
+{
+  "uuid": "f5123ccb-175e-4ae7-8611-4a75bbef6af1",
+  "type": "Exam",
+  "title": "Midterm 3 practice exam (timed, Lectures 21–30)",
+  "set": "Practice Exam",
+  "number": "2",
+  "comment": "Repeatable timed practice exam; each instance draws one problem per zone, with fresh random variants.",
+  "multipleInstance": true,
+  "requireHonorCode": false,
+  "accessControl": [
+    {
+      "dateControl": {
+        "release": {
+          "date": "2026-11-10T00:00:01"
+        },
+        "due": {
+          "date": "2026-12-20T23:59:59"
+        },
+        "durationMinutes": 75
+      }
+    }
+  ],
+  "zones": [
+    {
+      "title": "Short answers",
+      "questions": [
+        {
+          "id": "midterm3/quickfire-mc-3",
+          "autoPoints": [
+            20,
+            14,
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Waves in lossy media",
+      "questions": [
+        {
+          "numberChoose": 1,
+          "autoPoints": [
+            20,
+            14,
+            8
+          ],
+          "alternatives": [
+            {
+              "id": "midterm3/damped-wave-magnetic-medium"
+            },
+            {
+              "id": "midterm3/power-against-depth"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Polarization and reflection",
+      "questions": [
+        {
+          "numberChoose": 1,
+          "autoPoints": [
+            20,
+            14,
+            8
+          ],
+          "alternatives": [
+            {
+              "id": "midterm3/two-component-wave"
+            },
+            {
+              "id": "midterm3/transmitted-wave-work-back"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Line basics and reading a line",
+      "questions": [
+        {
+          "numberChoose": 1,
+          "autoPoints": [
+            20,
+            14,
+            8
+          ],
+          "alternatives": [
+            {
+              "id": "midterm3/parallel-plate-line-fields"
+            },
+            {
+              "id": "midterm3/two-pulses-at-a-probe"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Bounce diagrams and cascades",
+      "questions": [
+        {
+          "numberChoose": 1,
+          "autoPoints": [
+            20,
+            14,
+            8
+          ],
+          "alternatives": [
+            {
+              "id": "midterm3/bounce-diagram-both-ends"
+            },
+            {
+              "id": "midterm3/matched-source-pulse-echo"
+            },
+            {
+              "id": "midterm3/three-line-sections"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "text": "<p><strong>Timed practice: 75 minutes, 5 problems, 100 points.</strong> Each problem allows three submissions, worth 20, 14 and 8 points. Every new instance draws different problems and fresh numbers, so you can take it as often as you like. Assumed scope: Lectures 21–30 (no Smith chart, nothing from Lectures 31–33). The real exam is closed book with no calculator; here a calculator is needed to type decimal answers.</p>"
+}

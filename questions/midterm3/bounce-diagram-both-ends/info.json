@@ -1,0 +1,22 @@
+{
+  "uuid": "812d2269-80fb-42a8-bfbe-345c1e9e0d02",
+  "title": "Voltage and current bounce diagrams, and the voltage at both ends",
+  "topic": "Transmission lines",
+  "tags": [
+    "lec28",
+    "lec29",
+    "exam3",
+    "midterm3",
+    "exam-style",
+    "calculate",
+    "concept",
+    "numeric",
+    "MC",
+    "transmission-lines",
+    "bounce-diagrams"
+  ],
+  "type": "v3",
+  "gradingMethod": "Internal",
+  "singleVariant": false,
+  "showCorrectAnswer": true
+}

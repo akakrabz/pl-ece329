@@ -1,0 +1,68 @@
+<pl-question-panel>
+  <p>
+    Three lossless line sections are joined in cascade between a generator and a resistive load, as shown; $T_1$, $T_2$, $T_3$ are their one-way delays. At $t = 0$ the generator produces one very narrow rectangular pulse of open-circuit height ${{params.V0}}\ \mathrm{V}$ (much shorter than any of the delays). The lines are empty before $t = 0$.
+  </p>
+  {{{params.svg}}}
+  <p>
+    Reflection and transmission coefficients are voltage ratios unless a part says otherwise. The subscript $jk$ refers to a wave travelling in section $j$ and arriving at the junction with section $k$. Currents are positive along $+z$ (toward the load) in the upper conductor.
+  </p>
+</pl-question-panel>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(a)</b> Find the injection coefficient $\tau_g$ and the height of the pulse launched onto section 1.</p>
+<pl-number-input answers-name="tg" label="$\tau_g =$" comparison="relabs" rtol="0.01" atol="1e-4"></pl-number-input>
+<pl-number-input answers-name="V1" label="$V_1^+ =$" suffix="$\mathrm{V}$" comparison="relabs" rtol="0.01" atol="1e-3"></pl-number-input>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(b)</b> Find the voltage reflection and transmission coefficients at junction 1 for a wave arriving from section 1, and the <em>current</em> reflection coefficient at junction 2 for a wave arriving from section 2.</p>
+<pl-number-input answers-name="G12" label="$\Gamma_{12} =$" comparison="relabs" rtol="0.01" atol="1e-4"></pl-number-input>
+<pl-number-input answers-name="t12" label="$\tau_{12} =$" comparison="relabs" rtol="0.01" atol="1e-4"></pl-number-input>
+<pl-number-input answers-name="GI23" label="$\Gamma^{I}_{23} =$" comparison="relabs" rtol="0.01" atol="1e-4"></pl-number-input>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(c)</b> Find the earliest time at which an echo produced at <b>junction 2</b> arrives back at the generator end, and the voltage of that echo as a wave on section 1 (just before it reaches the generator).</p>
+<pl-number-input answers-name="techo" label="$t =$" suffix="$\mu\mathrm{s}$" comparison="relabs" rtol="0.01" atol="1e-4"></pl-number-input>
+<pl-number-input answers-name="echo" label="echo $=$" suffix="$\mathrm{V}$" comparison="relabs" rtol="0.01" atol="1e-3"></pl-number-input>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(d)</b> Find the time at which the pulse first reaches the load, and the height of the voltage pulse across the load at that moment.</p>
+<pl-number-input answers-name="tload" label="$t =$" suffix="$\mu\mathrm{s}$" comparison="relabs" rtol="0.01" atol="1e-4"></pl-number-input>
+<pl-number-input answers-name="Vload" label="$V_{\text{load}} =$" suffix="$\mathrm{V}$" comparison="relabs" rtol="0.01" atol="1e-3"></pl-number-input>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(e)</b> The first echo of all returns to the generator at $t = {{params.t2T1}}\ \mu\mathrm{s}$. Find the height of the voltage pulse seen at the generator end ($z = 0$) at that moment.</p>
+<pl-number-input answers-name="Vgen" label="$V(0) =$" suffix="$\mathrm{V}$" comparison="relabs" rtol="0.01" atol="1e-3"></pl-number-input>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(f)</b> At junction 1, the ratio of the <em>current</em> transmitted into section 2 to the current of the wave arriving from section 1 is</p>
+<pl-multiple-choice answers-name="taui" hide-letter-keys="true">
+  {{#params.cur}}<pl-answer correct="{{correct}}" feedback="{{feedback}}">{{{text}}}</pl-answer>
+  {{/params.cur}}
+</pl-multiple-choice>
+</div></div>
+
+<pl-hidden-hints>
+  <pl-hint hint-name="A junction is a load">
+    A wave that reaches a junction sees the next section as a resistor equal to that section's characteristic impedance, whatever is connected further on. Use $\Gamma = (Z_{\text{ahead}} - Z_{\text{here}})/(Z_{\text{ahead}} + Z_{\text{here}})$ and $\tau = 1 + \Gamma$.
+  </pl-hint>
+  <pl-hint hint-name="Following one path" show-after-submission="1">
+    The height of a pulse that has followed a given path is the launched height times one coefficient per junction or end it met: a $\tau$ each time it crossed, a $\Gamma$ each time it turned back. On the way back through junction 1 the pulse comes from section 2, so the coefficient is $\tau_{21}$, not $\tau_{12}$.
+  </pl-hint>
+  <pl-hint hint-name="Current coefficients" show-after-submission="2">
+    A backward wave carries $I = -V/Z$, so the current reflection coefficient is $-\Gamma$. For transmission, divide each voltage by its own section's impedance.
+  </pl-hint>
+</pl-hidden-hints>
+
+<pl-answer-panel>
+  <p><b>(a)</b> At $t = 0$ the generator sees only $Z_1$: $\tau_g = \dfrac{Z_1}{R_g+Z_1} = {{{params.s_tg}}}$ and $V_1^+ = \tau_g\times{{params.V0}} = {{params.s_V1}}\ \mathrm{V}$.</p>
+  <p><b>(b)</b> $\Gamma_{12} = \dfrac{Z_2-Z_1}{Z_2+Z_1} = {{{params.s_G12}}}$, $\tau_{12} = 1+\Gamma_{12} = {{{params.s_t12}}}$. At junction 2, $\Gamma_{23} = \dfrac{Z_3-Z_2}{Z_3+Z_2} = {{{params.s_G23}}}$ for voltage, so for current $\Gamma^I_{23} = -\Gamma_{23} = {{{params.s_GI23}}}$.</p>
+  <p><b>(c)</b> Out through sections 1 and 2 and back: $t = 2(T_1+T_2) = {{params.s_techo}}\ \mu\mathrm{s}$. The pulse crossed junction 1 ($\tau_{12}$), turned back at junction 2 ($\Gamma_{23}$) and crossed junction 1 again from the other side ($\tau_{21} = 1-\Gamma_{12} = {{{params.s_t21}}}$): $V_1^+\,\tau_{12}\Gamma_{23}\tau_{21} = {{params.s_echo}}\ \mathrm{V}$.</p>
+  <p><b>(d)</b> $t = T_1+T_2+T_3 = {{params.s_tload}}\ \mu\mathrm{s}$. The pulse arriving on section 3 is $V_1^+\tau_{12}\tau_{23}$ with $\tau_{23} = {{{params.s_t23}}}$, and at the load it adds to its own reflection ($\Gamma_L = {{{params.s_GL}}}$): $V_1^+\tau_{12}\tau_{23}(1+\Gamma_L) = {{params.s_Vload}}\ \mathrm{V}$.</p>
+  <p><b>(e)</b> The first echo comes from junction 1: $\Gamma_{12}V_1^+ = {{params.s_first}}\ \mathrm{V}$, arriving at $2T_1$. {{{params.s_matched_g}}} With $\Gamma_g = {{{params.s_Gg}}}$ the voltage at $z = 0$ is $\Gamma_{12}V_1^+(1+\Gamma_g) = {{params.s_Vgen}}\ \mathrm{V}$.</p>
+  <p><b>(f)</b> $\dfrac{I_t}{I_i} = \dfrac{V_t/Z_2}{V_i/Z_1} = \tau_{12}\dfrac{Z_1}{Z_2} = \dfrac{2Z_1}{Z_1+Z_2} = 1-\Gamma_{12} = {{params.s_tau_i}}$. The voltage and current transmission coefficients differ whenever the two impedances differ.</p>
+</pl-answer-panel>

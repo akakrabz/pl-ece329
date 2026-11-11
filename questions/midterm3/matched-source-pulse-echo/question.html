@@ -1,0 +1,73 @@
+<pl-question-panel>
+  <p>
+    A source with internal resistance $R_g = {{params.Z0}}\ \Omega$ drives a lossless line at $z = 0$. The line has $Z_0 = {{params.Z0}}\ \Omega$, wave speed $v = {{params.v}}\ \mathrm{m}/\mu\mathrm{s}$ and length $\ell = {{params.ell}}\ \mathrm{m}$, and its far end ($z = \ell$) is <b>{{params.load_txt}}</b>. The line is empty before $t = 0$.
+  </p>
+  <p>
+    $V(z,t)$ is the voltage of the upper conductor relative to the lower one, and $I(z,t)$ is the current along $+z$ (from the generator toward the far end) in the upper conductor. Times are in $\mu\mathrm{s}$.
+  </p>
+</pl-question-panel>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(a)</b> First let the source be a step, $V_g(t) = {{params.V0}}\,u(t)\ \mathrm{V}$. Find the steady-state ($t\to\infty$) voltage at the source end and current at the far end.</p>
+<pl-number-input answers-name="Vdc0" label="$V(0,\infty) =$" suffix="$\mathrm{V}$" comparison="relabs" rtol="0.01" atol="1e-3"></pl-number-input>
+<pl-number-input answers-name="Idc" label="$I(\ell,\infty) =$" suffix="$\mathrm{A}$" comparison="relabs" rtol="0.01" atol="1e-4"></pl-number-input>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(b)</b> Find the injection coefficient and the voltage reflection coefficients at the far end and at the generator.</p>
+<pl-number-input answers-name="tg" label="$\tau_g =$" comparison="relabs" rtol="0.01" atol="1e-4"></pl-number-input>
+<pl-number-input answers-name="GL" label="$\Gamma_L =$" comparison="relabs" rtol="0.01" atol="1e-4"></pl-number-input>
+<pl-number-input answers-name="Gg" label="$\Gamma_g =$" comparison="relabs" rtol="0.01" atol="1e-4"></pl-number-input>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(c)</b> Now the source is a rectangular pulse: $V_g = {{params.V0}}\ \mathrm{V}$ for $0 \lt t \lt {{params.tp}}\ \mu\mathrm{s}$ and zero otherwise. Find the voltage and the current at the source end, $z = 0$, at $t_a = {{params.ta}}\ \mu\mathrm{s}$, $t_b = {{params.tb}}\ \mu\mathrm{s}$ and $t_c = {{params.tc}}\ \mu\mathrm{s}$.</p>
+<pl-number-input answers-name="Va" label="$V(0,t_a) =$" suffix="$\mathrm{V}$" comparison="relabs" rtol="0.01" atol="1e-3"></pl-number-input>
+<pl-number-input answers-name="Ia" label="$I(0,t_a) =$" suffix="$\mathrm{A}$" comparison="relabs" rtol="0.01" atol="1e-4"></pl-number-input>
+<br>
+<pl-number-input answers-name="Vb" label="$V(0,t_b) =$" suffix="$\mathrm{V}$" comparison="relabs" rtol="0.01" atol="1e-3"></pl-number-input>
+<pl-number-input answers-name="Ib" label="$I(0,t_b) =$" suffix="$\mathrm{A}$" comparison="relabs" rtol="0.01" atol="1e-4"></pl-number-input>
+<br>
+<pl-number-input answers-name="Vc" label="$V(0,t_c) =$" suffix="$\mathrm{V}$" comparison="relabs" rtol="0.01" atol="1e-3"></pl-number-input>
+<pl-number-input answers-name="Ic" label="$I(0,t_c) =$" suffix="$\mathrm{A}$" comparison="relabs" rtol="0.01" atol="1e-4"></pl-number-input>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(d)</b> Which plot shows $V(0,t)$ for the pulse of part (c)? Here $V_0 = {{params.V0}}\ \mathrm{V}$ is the height of the source pulse.</p>
+<pl-multiple-choice answers-name="sourceplot" hide-letter-keys="false">
+  {{#params.plots}}<pl-answer correct="{{correct}}" feedback="{{feedback}}">{{{text}}}</pl-answer>
+  {{/params.plots}}
+</pl-multiple-choice>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(e)</b> Long after the pulse, when the line is quiet again, which statement about the energy is true?</p>
+<pl-multiple-choice answers-name="energy_mc" hide-letter-keys="true">
+  {{#params.energy}}<pl-answer correct="{{correct}}" feedback="{{feedback}}">{{{text}}}</pl-answer>
+  {{/params.energy}}
+</pl-multiple-choice>
+</div></div>
+
+<pl-hidden-hints>
+  <pl-hint hint-name="Steady state of a step">
+    A long time after a step, nothing changes any more: the line is just a pair of wires joining the generator to whatever sits at the far end. Solve that DC circuit.
+  </pl-hint>
+  <pl-hint hint-name="Only two waves" show-after-submission="1">
+    The generator is matched, so the echo is absorbed when it returns: there is the incident wave and one echo, which reaches $z = 0$ a time $2T$ after the part of the incident wave that produced it.
+  </pl-hint>
+  <pl-hint hint-name="Pulse and current signs" show-after-submission="2">
+    A pulse is a step minus the same step delayed by the pulse length. For the current, the echo contributes $-V^-/Z_0$: at a short the currents of the incident wave and the echo add where their voltages cancel.
+  </pl-hint>
+</pl-hidden-hints>
+
+<pl-answer-panel>
+  <p><b>(a)</b> DC circuit: {{{params.s_dc_why}}}. $V(0,\infty) = {{params.s_dcV}}\ \mathrm{V}$, $I(\ell,\infty) = {{params.s_dcI}}\ \mathrm{A}$.</p>
+  <p><b>(b)</b> $\tau_g = Z_0/(R_g+Z_0) = \tfrac12$, $\Gamma_L = {{params.s_G}}$, $\Gamma_g = 0$ (matched). The one-way delay is $T = \ell/v = {{params.s_T}}\ \mu\mathrm{s}$, so the echo of anything launched returns after $2T = {{params.s_2T}}\ \mu\mathrm{s}$.</p>
+  <p><b>(c)</b> The incident wave has $V^+ = {{params.s_h}}\ \mathrm{V}$ and $I^+ = V^+/Z_0 = {{params.s_Ih}}\ \mathrm{A}$ and is at $z = 0$ for $0 \lt t \lt {{params.tp}}\ \mu\mathrm{s}$. The echo has $V^- = \Gamma_L V^+ = {{params.s_echoV}}\ \mathrm{V}$ and $I^- = -V^-/Z_0 = {{params.s_echoI}}\ \mathrm{A}$ and is at $z = 0$ for ${{params.s_2T}} \lt t \lt {{params.s_end}}\ \mu\mathrm{s}$.</p>
+  <ul>
+    {{#params.s_rows}}<li>$t_{{n}} = {{t}}\ \mu\mathrm{s}$: {{{why}}}, so $V = {{V}}\ \mathrm{V}$ and $I = {{I}}\ \mathrm{A}$.</li>
+    {{/params.s_rows}}
+  </ul>
+  <p><b>(d)</b> The record is the incident pulse plus its echo delayed by $2T$, with the two added where they overlap. It returns to zero only at ${{params.s_end}}\ \mu\mathrm{s}$, a time $2T$ after the source switches off.</p>
+  <p><b>(e)</b> The far end takes no power ($V = 0$ at a short, $I = 0$ at an open end), the line is lossless and ends up empty, so all the energy supplied by the source ends as heat in $R_g$: part while the pulse is launched, the rest when the echo is absorbed.</p>
+</pl-answer-panel>

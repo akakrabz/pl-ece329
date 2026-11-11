@@ -1,0 +1,66 @@
+<pl-question-panel>
+  <p>
+    A source with open-circuit voltage $V_g(t) = {{params.V0}}\,u(t)\ \mathrm{V}$ and internal resistance $R_g = {{params.Rg}}\ \Omega$ drives a lossless line at $z = 0$. The line has $Z_0 = {{params.Z0}}\ \Omega$, length $\ell = {{params.ell_s}}\ \mathrm{ {{params.ell_u}} }$ and wave speed $v = {{{params.v_tex}}}\ \mathrm{m/s}$. A resistor $R_L = {{params.RL}}\ \Omega$ terminates it at $z = \ell$. There is no voltage or current on the line before $t = 0$.
+  </p>
+  {{{params.circuit}}}
+  <p>
+    $V(z,t)$ is the voltage of the upper conductor relative to the lower one, and $I(z,t)$ is the current along $+z$ in the upper conductor. $T = \ell/v$ is the one-way delay.
+  </p>
+</pl-question-panel>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(a)</b> Find the injection coefficient $\tau_g$ (launched voltage over source voltage) and the voltage reflection coefficients at the load and at the generator.</p>
+<pl-number-input answers-name="tg" label="$\tau_g =$" comparison="relabs" rtol="0.01" atol="1e-4"></pl-number-input>
+<pl-number-input answers-name="GL" label="$\Gamma_L =$" comparison="relabs" rtol="0.01" atol="1e-4"></pl-number-input>
+<pl-number-input answers-name="Gg" label="$\Gamma_g =$" comparison="relabs" rtol="0.01" atol="1e-4"></pl-number-input>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(b)</b> Number the waves on the bounce diagram in the order they appear: $V_1^+$ is launched at $t = 0$, $V_1^-$ is its reflection at the load, $V_2^+$ the reflection of $V_1^-$ at the generator. Find the voltages of the second and third waves, and the <em>currents</em> carried by the first and second waves (signed, with $I$ positive along $+z$).</p>
+<pl-number-input answers-name="V1m" label="$V_1^- =$" suffix="$\mathrm{V}$" comparison="relabs" rtol="0.01" atol="1e-3"></pl-number-input>
+<pl-number-input answers-name="V2p" label="$V_2^+ =$" suffix="$\mathrm{V}$" comparison="relabs" rtol="0.01" atol="1e-3"></pl-number-input>
+<pl-number-input answers-name="I1p" label="$I_1^+ =$" suffix="$\mathrm{mA}$" comparison="relabs" rtol="0.01" atol="1e-2"></pl-number-input>
+<pl-number-input answers-name="I1m" label="$I_1^- =$" suffix="$\mathrm{mA}$" comparison="relabs" rtol="0.01" atol="1e-2"></pl-number-input>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(c)</b> Find the voltage at the source end during $0 \lt t \lt {{params.t2T}}\ \mathrm{ {{{params.tu}}} }$ and during ${{params.t2T}} \lt t \lt {{params.t4T}}\ \mathrm{ {{{params.tu}}} }$, and the voltage at the load end during ${{params.tT}} \lt t \lt {{params.t3T}}\ \mathrm{ {{{params.tu}}} }$ and during ${{params.t3T}} \lt t \lt {{params.t5T}}\ \mathrm{ {{{params.tu}}} }$.</p>
+<pl-number-input answers-name="Vs1" label="$V(0,t)$, first interval $=$" suffix="$\mathrm{V}$" comparison="relabs" rtol="0.01" atol="1e-3"></pl-number-input>
+<pl-number-input answers-name="Vs2" label="$V(0,t)$, second interval $=$" suffix="$\mathrm{V}$" comparison="relabs" rtol="0.01" atol="1e-3"></pl-number-input>
+<pl-number-input answers-name="VL1" label="$V(\ell,t)$, first interval $=$" suffix="$\mathrm{V}$" comparison="relabs" rtol="0.01" atol="1e-3"></pl-number-input>
+<pl-number-input answers-name="VL2" label="$V(\ell,t)$, second interval $=$" suffix="$\mathrm{V}$" comparison="relabs" rtol="0.01" atol="1e-3"></pl-number-input>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(d)</b> Which plot shows the voltage at the <b>load</b> end, $V(\ell,t)$? The dashed line marks the level $V_1^+$ of the first launched wave; all four plots use the same vertical scale.</p>
+<pl-multiple-choice answers-name="loadplot" hide-letter-keys="false">
+  {{#params.plots}}<pl-answer correct="{{correct}}" feedback="{{feedback}}">{{{text}}}</pl-answer>
+  {{/params.plots}}
+</pl-multiple-choice>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(e)</b> Find the voltage and the current on the line a long time after the switch-on.</p>
+<pl-number-input answers-name="Vinf" label="$V(t\to\infty) =$" suffix="$\mathrm{V}$" comparison="relabs" rtol="0.01" atol="1e-3"></pl-number-input>
+<pl-number-input answers-name="Iinf" label="$I(t\to\infty) =$" suffix="$\mathrm{mA}$" comparison="relabs" rtol="0.01" atol="1e-2"></pl-number-input>
+</div></div>
+
+<pl-hidden-hints>
+  <pl-hint hint-name="Three coefficients">
+    At $t = 0$ the generator sees only $Z_0$: a voltage divider gives $\tau_g = Z_0/(R_g+Z_0)$. At either end, $\Gamma = (R - Z_0)/(R + Z_0)$ with that end's resistance.
+  </pl-hint>
+  <pl-hint hint-name="Current diagram" show-after-submission="1">
+    A wave toward $+z$ carries $I = V/Z_0$; a wave toward $-z$ carries $I = -V/Z_0$. So the current diagram is the voltage diagram divided by $Z_0$, with the sign of every backward wave flipped.
+  </pl-hint>
+  <pl-hint hint-name="Reading the ends" show-after-submission="2">
+    At an end, an arriving wave and its reflection appear together. The source end changes at $0, 2T, 4T, \dots$ and the load end at $T, 3T, 5T, \dots$; between changes the voltage is the sum of all waves that have passed.
+  </pl-hint>
+</pl-hidden-hints>
+
+<pl-answer-panel>
+  <p><b>(a)</b> $\tau_g = \dfrac{Z_0}{R_g+Z_0} = {{{params.s_tg}}}$, $\Gamma_L = \dfrac{R_L-Z_0}{R_L+Z_0} = {{{params.s_GL}}}$, $\Gamma_g = \dfrac{R_g-Z_0}{R_g+Z_0} = {{{params.s_Gg}}}$. The delay is $T = \ell/v = {{params.s_T}}\ \mathrm{ {{{params.tu}}} }$.</p>
+  <p><b>(b)</b> $V_1^+ = \tau_g V_0 = {{params.s_V1p}}\ \mathrm{V}$, $V_1^- = \Gamma_L V_1^+ = {{params.s_V1m}}\ \mathrm{V}$, $V_2^+ = \Gamma_g V_1^- = {{params.s_V2p}}\ \mathrm{V}$ (and $V_2^- = \Gamma_L V_2^+ = {{params.s_V2m}}\ \mathrm{V}$). Currents: $I_1^+ = V_1^+/Z_0 = {{params.s_I1p}}\ \mathrm{mA}$, $I_1^- = -V_1^-/Z_0 = {{params.s_I1m}}\ \mathrm{mA}$, $I_2^+ = V_2^+/Z_0 = {{params.s_I2p}}\ \mathrm{mA}$.</p>
+  <p><b>(c)</b> Source end: $V_1^+ = {{params.s_Vs1}}\ \mathrm{V}$ until $2T$, then $V_1^+ + V_1^- + V_2^+ = {{params.s_Vs2}}\ \mathrm{V}$ until $4T$. Load end: $V_1^+ + V_1^- = {{params.s_VL1}}\ \mathrm{V}$ from $T$ to $3T$, then $+\,V_2^+ + V_2^- $ gives ${{params.s_VL2}}\ \mathrm{V}$ until $5T$.</p>
+  <p><b>(d)</b> The load record is zero until $T$, then ${{params.s_VL1}}\ \mathrm{V}$, then ${{params.s_VL2}}\ \mathrm{V}$ from $3T$, moving toward the final value of part (e).</p>
+  <p><b>(e)</b> When the bouncing has died out the line is a pair of wires: $V = V_0\dfrac{R_L}{R_g+R_L} = {{params.s_Vinf}}\ \mathrm{V}$ and $I = \dfrac{V_0}{R_g+R_L} = {{params.s_Iinf}}\ \mathrm{mA}$. The levels in (c) approach these.</p>
+</pl-answer-panel>

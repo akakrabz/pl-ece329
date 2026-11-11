@@ -1,0 +1,66 @@
+<pl-question-panel>
+  <p>
+    Free space fills the region ${{{params.side1}}}$. A perfect dielectric with $\mu = \mu_0$ and unknown permittivity fills ${{{params.side2}}}$. A uniform plane wave arrives from the free-space side at normal incidence on the plane ${{params.w}} = 0$; part of it is reflected and part is transmitted. Only the transmitted wave has been measured:
+    $$ {{{params.field_tex}}}\ \ \mathrm{V/m},\qquad \omega = {{{params.om_tex}}}\ \mathrm{rad/s}, $$
+    with ${{params.w}}$ in metres. Phasors follow $\mathbf{E} = \mathrm{Re}\{\tilde{\mathbf{E}}\,e^{j\omega t}\}$. Use $c = 3\times10^{8}\ \mathrm{m/s}$, $\eta_0 = 120\pi\ \Omega$ and $\mu_0 = 4\pi\times10^{-7}\ \mathrm{H/m}$. Given: $\eta\gamma = j\omega\mu$.
+  </p>
+</pl-question-panel>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(a)</b> Find the phase constant in free space, and the relative permittivity and the intrinsic impedance of the dielectric.</p>
+<pl-number-input answers-name="beta1" label="$\beta_1 =$" suffix="$\mathrm{rad/m}$" comparison="relabs" rtol="0.01" atol="1e-6"></pl-number-input>
+<pl-number-input answers-name="epsr" label="$\epsilon_r =$" comparison="relabs" rtol="0.01" atol="1e-6"></pl-number-input>
+<pl-number-input answers-name="eta_t" label="$\eta_t =$" suffix="$\Omega$" comparison="relabs" rtol="0.01" atol="1e-6"></pl-number-input>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(b)</b> Find the reflection and transmission coefficients for the electric field at the interface.</p>
+<pl-number-input answers-name="Gam" label="$\Gamma =$" comparison="relabs" rtol="0.01" atol="1e-4"></pl-number-input>
+<pl-number-input answers-name="tau" label="$\tau =$" comparison="relabs" rtol="0.01" atol="1e-4"></pl-number-input>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(c)</b> Write the incident and reflected phasors as $\tilde{\mathbf{E}}_i = \hat{ {{params.a}} }\,E_{i0}\,e^{(\cdots)}$ and $\tilde{\mathbf{E}}_r = \hat{ {{params.a}} }\,E_{r0}\,e^{(\cdots)}$. Find the two amplitudes (signed).</p>
+<pl-number-input answers-name="Ei" label="$E_{i0} =$" suffix="$\mathrm{V/m}$" comparison="relabs" rtol="0.01" atol="1e-4"></pl-number-input>
+<pl-number-input answers-name="Er" label="$E_{r0} =$" suffix="$\mathrm{V/m}$" comparison="relabs" rtol="0.01" atol="1e-4"></pl-number-input>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(d)</b> Which is the reflected phasor $\tilde{\mathbf{E}}_r$ (in V/m)?</p>
+<pl-multiple-choice answers-name="reflected" hide-letter-keys="true">
+  {{#params.refl}}<pl-answer correct="{{correct}}" feedback="{{feedback}}">{{{text}}}</pl-answer>
+  {{/params.refl}}
+</pl-multiple-choice>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(e)</b> The reflected magnetic-field phasor on the interface has a single component, along $\hat{ {{params.hax}} }$. Find it (signed).</p>
+<pl-number-input answers-name="Hr" label="$\tilde H_{r,{{params.hax}}}({{params.w}} = 0) =$" suffix="$\mathrm{mA/m}$" comparison="relabs" rtol="0.01" atol="1e-4"></pl-number-input>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(f)</b> What percentage of the incident time-average power enters the dielectric? Find also the ${{params.w}}$ component of the transmitted wave's time-average Poynting vector (signed).</p>
+<pl-number-input answers-name="pct" label="transmitted $=$" suffix="%" comparison="relabs" rtol="0.01" atol="0.05"></pl-number-input>
+<pl-number-input answers-name="St" label="$\langle S_{t,{{params.w}}}\rangle =$" suffix="$\mathrm{W/m^2}$" comparison="relabs" rtol="0.01" atol="1e-6"></pl-number-input>
+</div></div>
+
+<pl-hidden-hints>
+  <pl-hint hint-name="What the transmitted phasor tells you">
+    Its exponent is $\beta_t$, the phase constant <em>inside the dielectric</em>. In free space $\beta_1 = \omega/c$. The ratio $\beta_t/\beta_1$ is $\sqrt{\epsilon_r}$.
+  </pl-hint>
+  <pl-hint hint-name="Working backwards" show-after-submission="1">
+    $\tau = E_{t0}/E_{i0}$, so $E_{i0} = E_{t0}/\tau$; then $E_{r0} = \Gamma E_{i0}$. Check: $E_{i0} + E_{r0} = E_{t0}$ (tangential $\mathbf{E}$ is continuous).
+  </pl-hint>
+  <pl-hint hint-name="The reflected wave" show-after-submission="2">
+    It travels back into free space: reversed space factor, free-space $\beta_1$ and $\eta_0$, and $\mathbf{H}_r = (-\hat u)\times\mathbf{E}_r/\eta_0$ with $\hat u$ the incident direction.
+  </pl-hint>
+</pl-hidden-hints>
+
+<pl-answer-panel>
+  <p><b>(a)</b> $\beta_1 = \omega/c = {{params.s_b1}}\ \mathrm{rad/m}$. The transmitted exponent gives $\beta_t = {{params.s_bt}}\ \mathrm{rad/m}$, so $\sqrt{\epsilon_r} = \beta_t/\beta_1 = {{params.s_n}}$ and $\epsilon_r = {{params.s_epsr}}$. From $\eta\gamma = j\omega\mu$ with $\gamma = j\beta_t$: $\eta_t = \omega\mu_0/\beta_t = {{{params.s_etat_tex}}} = {{params.s_etat}}\ \Omega$.</p>
+  <p><b>(b)</b> $\Gamma = \dfrac{\eta_t-\eta_0}{\eta_t+\eta_0} = {{{params.s_Gam_tex}}} = {{params.s_Gam}}$ and $\tau = 1+\Gamma = {{{params.s_tau_tex}}} = {{params.s_tau}}$.</p>
+  <p><b>(c)</b> $E_{i0} = E_{t0}/\tau = {{params.s_Et}}/{{params.s_tau}} = {{params.s_Ei}}\ \mathrm{V/m}$ and $E_{r0} = \Gamma E_{i0} = {{params.s_Er}}\ \mathrm{V/m}$. Check: ${{params.s_Ei}} + ({{params.s_Er}}) = {{params.s_Et}}$.</p>
+  <p><b>(d)</b> The incident wave travels along ${{{params.s_udir}}}$ with $\beta_1$: $\tilde{\mathbf{E}}_i = \hat{ {{params.a}} }\,{{params.s_Ei}}\,e^{ {{params.s_sgt}}j{{params.s_b1}}{{params.w}} }$. The reflected wave travels back in the same medium: $\tilde{\mathbf{E}}_r = \hat{ {{params.a}} }\,({{params.s_Er}})\,e^{ {{params.s_sgr}}j{{params.s_b1}}{{params.w}} }$.</p>
+  <p><b>(e)</b> $\tilde{\mathbf{H}}_r = (-\hat u)\times\tilde{\mathbf{E}}_r/\eta_0$ with ${{{params.s_cross}}}$: size $\lvert E_{r0}\rvert/\eta_0 = {{params.s_Hrmag}}\ \mathrm{mA/m}$, and with the sign of $E_{r0}$ the component is ${{params.s_Hr}}\ \mathrm{mA/m}$.</p>
+  <p><b>(f)</b> The reflected fraction is $\Gamma^2 = {{params.s_G2}}$, so ${{params.s_pct}}\,\%$ is transmitted. $\langle\mathbf{S}_t\rangle = \hat u\,E_{t0}^2/(2\eta_t) = {{params.s_Stmag}}\ \mathrm{W/m^2}$ along ${{{params.s_udir}}}$: $\langle S_{t,{{params.w}}}\rangle = {{params.s_St}}\ \mathrm{W/m^2}$. Note that $\tau^2$ is not the transmitted power fraction: the two media have different impedances.</p>
+</pl-answer-panel>

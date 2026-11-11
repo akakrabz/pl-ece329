@@ -1,0 +1,22 @@
+{
+  "uuid": "368aaf5e-94fc-415e-8d8f-bb909e08d145",
+  "title": "A parallel-plate line: impedance, fields, plate currents and power",
+  "topic": "Transmission lines",
+  "tags": [
+    "lec27",
+    "exam3",
+    "midterm3",
+    "exam-style",
+    "calculate",
+    "concept",
+    "numeric",
+    "MC",
+    "transmission-lines",
+    "boundary-conditions",
+    "poynting"
+  ],
+  "type": "v3",
+  "gradingMethod": "Internal",
+  "singleVariant": false,
+  "showCorrectAnswer": true
+}

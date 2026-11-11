@@ -1,0 +1,22 @@
+{
+  "uuid": "3a625234-2bae-4db0-98eb-6fd63cf455df",
+  "title": "A matched source on a shorted or open line: steady state, then a pulse and its echo",
+  "topic": "Transmission lines",
+  "tags": [
+    "lec28",
+    "lec29",
+    "exam3",
+    "midterm3",
+    "exam-style",
+    "calculate",
+    "concept",
+    "numeric",
+    "MC",
+    "transmission-lines",
+    "bounce-diagrams"
+  ],
+  "type": "v3",
+  "gradingMethod": "Internal",
+  "singleVariant": false,
+  "showCorrectAnswer": true
+}

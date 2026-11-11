@@ -1,0 +1,30 @@
+<pl-question-panel>
+  <p>
+    Six independent quick-fire items covering Lectures 21–30. Each has exactly one correct choice.
+    Use $c = 3\times10^{8}\ \mathrm{m/s}$, $\eta_0 = 120\pi\ \Omega$, $\mu_0 = 4\pi\times10^{-7}\ \mathrm{H/m}$ and $\epsilon_0 = 10^{-9}/36\pi\ \mathrm{F/m}$. On transmission lines, $+z$ points from the generator toward the load, and $I$ is positive along $+z$ in the upper conductor.
+  </p>
+</pl-question-panel>
+
+{{#params.items}}
+<div class="card my-3"><div class="card-body">
+<p><b>({{num}})</b> {{{stem}}}</p>
+<pl-multiple-choice answers-name="{{name}}" number-answers="4">
+  {{#choices}}<pl-answer correct="{{correct}}" feedback="{{feedback}}">{{{text}}}</pl-answer>
+  {{/choices}}
+</pl-multiple-choice>
+</div></div>
+{{/params.items}}
+
+<pl-hidden-hints>
+  <pl-hint hint-name="Strategy">
+    Each item needs one relation. Write it down before looking at the choices, and decide signs from the direction of travel.
+  </pl-hint>
+  <pl-hint hint-name="The relations involved" show-after-submission="1">
+    $\sin x = \cos(x-90^\circ)$; loss tangent $\sigma/\omega\epsilon$; $\delta = 1/\sqrt{\pi f\mu\sigma}$, with the field going as $e^{-z/\delta}$ and the power as $e^{-2z/\delta}$; circular means equal amplitudes a quarter cycle apart, with the hand set by the travel direction; standing-wave nulls of one field are $\lambda/2$ apart and those of $\mathbf{E}$ and $\mathbf{H}$ are offset by $\lambda/4$; $\Gamma = (\eta_2-\eta_1)/(\eta_2+\eta_1)$, $\tau = 1+\Gamma$; on a line $I = \pm V/Z_0$ for travel toward $\pm z$; $V^+ = V_0Z_0/(R_g+Z_0)$; $\Gamma_L = (R_L-Z_0)/(R_L+Z_0)$ for voltage and $-\Gamma_L$ for current; the DC limit ignores the line; $\tau_{12} = 2Z_2/(Z_1+Z_2)$; $Z_0 = \eta\,d/w$ for parallel plates.
+  </pl-hint>
+</pl-hidden-hints>
+
+<pl-answer-panel>
+  {{#params.items}}<p><b>({{num}})</b> {{{solution}}}</p>
+  {{/params.items}}
+</pl-answer-panel>

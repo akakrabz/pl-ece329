@@ -1,0 +1,32 @@
+{
+  "uuid": "4d4d4dda-8785-4219-bcb5-bef76ca0b1d5",
+  "title": "Midterm 3 quick-fire: six short multiple-choice items",
+  "topic": "Transmission lines",
+  "tags": [
+    "lec21",
+    "lec22",
+    "lec23",
+    "lec24",
+    "lec25",
+    "lec26",
+    "lec27",
+    "lec28",
+    "lec29",
+    "lec30",
+    "exam3",
+    "midterm3",
+    "exam-style",
+    "concept",
+    "MC",
+    "lossy-media",
+    "wave-polarization",
+    "reflection",
+    "standing-waves",
+    "transmission-lines",
+    "bounce-diagrams"
+  ],
+  "type": "v3",
+  "gradingMethod": "Internal",
+  "singleVariant": false,
+  "showCorrectAnswer": true
+}

@@ -1,0 +1,23 @@
+{
+  "uuid": "08daa0a9-9cd5-48ed-abd4-664c7007d3cf",
+  "title": "Reading a line from two pulses seen at a probe",
+  "topic": "Transmission lines",
+  "tags": [
+    "lec27",
+    "lec28",
+    "lec29",
+    "exam3",
+    "midterm3",
+    "exam-style",
+    "calculate",
+    "concept",
+    "numeric",
+    "MC",
+    "transmission-lines",
+    "bounce-diagrams"
+  ],
+  "type": "v3",
+  "gradingMethod": "Internal",
+  "singleVariant": false,
+  "showCorrectAnswer": true
+}

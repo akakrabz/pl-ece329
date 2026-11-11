@@ -1,0 +1,72 @@
+<pl-question-panel>
+  <p>
+    A uniform plane wave in {{{params.medium}}} has the electric field
+    $$ {{{params.field_tex}}}\ \ \mathrm{V/m}, $$
+    with $\omega \gt 0$ and $\beta \gt 0$. Phasors follow $\mathbf{E} = \mathrm{Re}\{\tilde{\mathbf{E}}\,e^{j\omega t}\}$. Use $\eta_0 = 120\pi\ \Omega$.
+  </p>
+  <p>
+    Handedness: point your thumb along the direction of travel. If the fingers of your right hand curl the way the field turns at a fixed point, the wave is right-handed; if those of your left hand do, it is left-handed.
+  </p>
+</pl-question-panel>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(a)</b> Which is the phasor $\tilde{\mathbf{E}}$ of this field?</p>
+<pl-multiple-choice answers-name="phasor" hide-letter-keys="true">
+  {{#params.ph_choices}}<pl-answer correct="{{correct}}" feedback="{{feedback}}">{{{text}}}</pl-answer>
+  {{/params.ph_choices}}
+</pl-multiple-choice>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(b)</b> Find the two components of the magnetic field $\mathbf{H}$ at the origin at $t = 0$ (signed).</p>
+<pl-number-input answers-name="Ha" label="$H_{ {{params.a}} } =$" suffix="$\mathrm{A/m}$" comparison="relabs" rtol="0.01" atol="1e-4"></pl-number-input>
+<pl-number-input answers-name="Hb" label="$H_{ {{params.b}} } =$" suffix="$\mathrm{A/m}$" comparison="relabs" rtol="0.01" atol="1e-4"></pl-number-input>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(c)</b> Find the ${{params.w}}$ component of the time-average Poynting vector (signed: positive means along $+\hat{ {{params.w}} }$).</p>
+<pl-number-input answers-name="Sw" label="$\langle S_{ {{params.w}} }\rangle =$" suffix="$\mathrm{W/m^2}$" comparison="relabs" rtol="0.01" atol="1e-4"></pl-number-input>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(d)</b> Keep the form $\mathbf{E} = \hat{ {{params.a}} }\,A\cos(\cdot) + \hat{ {{params.b}} }\,B\sin(\cdot + \phi)$ with the same arguments and the same $A \gt 0$, but choose $B$ and $\phi$ freely. Which choice makes the wave <b>{{params.tname}}</b>?</p>
+<pl-multiple-choice answers-name="circular" hide-letter-keys="true">
+  {{#params.circ_choices}}<pl-answer correct="{{correct}}" feedback="{{feedback}}">{{{text}}}</pl-answer>
+  {{/params.circ_choices}}
+</pl-multiple-choice>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(e)</b> A different plane wave, travelling along ${{{params.s3dir}}}$ in free space, is given through its magnetic field,
+$$ {{{params.hfield}}}. $$
+Name its polarization for each set of constants.</p>
+<pl-matching answers-name="pol" fixed-order="true" fixed-options-order="true" counter-type="full-text" partial-credit="true" weight="2">
+  {{#params.match_items}}<pl-statement match="{{key}}">{{{text}}}</pl-statement>
+  {{/params.match_items}}
+  <pl-option name="lin">linear</pl-option>
+  <pl-option name="rc">right-circular</pl-option>
+  <pl-option name="lc">left-circular</pl-option>
+  <pl-option name="ell">elliptical</pl-option>
+</pl-matching>
+</div></div>
+
+<pl-hidden-hints>
+  <pl-hint hint-name="Sine to phasor">
+    Write the sine as a cosine first: $\sin x = \cos(x - 90^\circ)$. The phasor of $\cos(\omega t + \psi)$ is $e^{j\psi}$, and $e^{-j90^\circ} = -j$.
+  </pl-hint>
+  <pl-hint hint-name="Power of two components" show-after-submission="1">
+    The two perpendicular components do not interfere in the time average: add $A^2/2\eta$ and $B^2/2\eta$. The phase $\phi$ does not matter.
+  </pl-hint>
+  <pl-hint hint-name="Testing handedness" show-after-submission="2">
+    Sit at one point and evaluate the field at $\omega t = 0$ and a quarter period later. Circular needs equal amplitudes and a quarter-cycle phase difference between two <em>cosines</em>. A magnetic field turns the same way as its electric field.
+  </pl-hint>
+</pl-hidden-hints>
+
+<pl-answer-panel>
+  <p><b>(a)</b> $\sin(\theta+\phi) = \cos(\theta+\phi-90^\circ)$, whose phasor factor is $e^{j\phi}e^{-j90^\circ} = -j\,e^{j\phi}$; the travel along ${{{params.s_udir}}}$ sets the sign of the space factor: $\tilde{\mathbf{E}} = {{{params.s_correct_ph}}}$.</p>
+  <p><b>(b)</b> At the origin at $t = 0$: $E_{ {{params.a}} } = {{{params.s_kA}}} = {{params.s_Ea0}}\ \mathrm{V/m}$ and $E_{ {{params.b}} } = {{{params.s_kB}}}\sin\phi = {{params.s_Eb0}}\ \mathrm{V/m}$. With $\mathbf{H} = \hat u\times\mathbf{E}/\eta$, $\hat u = {{{params.s_udir}}}$, $\eta = {{{params.s_etatex}}} = {{params.s_eta}}\ \Omega$, and ${{{params.s_x1}}}$, ${{{params.s_x2}}}$:
+     $H_{ {{params.b}} } = {{params.s_Hb}}\ \mathrm{A/m}$ (from $E_{ {{params.a}} }$) and $H_{ {{params.a}} } = {{params.s_Ha}}\ \mathrm{A/m}$ (from $E_{ {{params.b}} }$).</p>
+  <p><b>(c)</b> $\langle\mathbf{S}\rangle = \hat u\,\dfrac{A^2+B^2}{2\eta} = {{params.s_Smag}}\ \mathrm{W/m^2}$ along ${{{params.s_udir}}}$, so $\langle S_{ {{params.w}} }\rangle = {{params.s_Sw}}\ \mathrm{W/m^2}$.</p>
+  <p><b>(d)</b> Circular needs $B = A$ and the second component a quarter cycle away from the first. Since the second component is already a sine, that means $\phi = 0^\circ$ or $180^\circ$; $\phi = \pm90^\circ$ turns the sine into $\pm$ a cosine and gives a linear wave. With ${{{params.s_circ}}}$ the field at a fixed point turns ${{{params.s_turn}}}$ in a quarter period, which is {{params.tname}} for travel along ${{{params.s_udir}}}$.</p>
+  <p><b>(e)</b> $\phi = 0^\circ$ or $180^\circ$: linear, whatever $A$ and $B$ are. $A = B$ and $\phi = \pm90^\circ$: circular; the component that leads turns toward the one that lags, and the hand follows from the travel direction ${{{params.s3dir}}}$. Anything else: elliptical. Here: {{{params.s_rows}}}.</p>
+</pl-answer-panel>

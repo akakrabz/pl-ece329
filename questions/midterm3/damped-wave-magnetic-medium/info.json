@@ -1,0 +1,23 @@
+{
+  "uuid": "5bbe9a46-f6af-4d66-a452-cb53b29bdac3",
+  "title": "A damped wave in a magnetic, conducting medium",
+  "topic": "Waves",
+  "tags": [
+    "lec21",
+    "lec22",
+    "lec23",
+    "exam3",
+    "midterm3",
+    "exam-style",
+    "calculate",
+    "concept",
+    "numeric",
+    "MC",
+    "lossy-media",
+    "phasors"
+  ],
+  "type": "v3",
+  "gradingMethod": "Internal",
+  "singleVariant": false,
+  "showCorrectAnswer": true
+}

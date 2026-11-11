@@ -1,0 +1,65 @@
+<pl-question-panel>
+  <p>
+    A lossless, non-magnetic transmission line has $Z_0 = {{params.Z0}}\ \Omega$ and length $\ell = {{params.ell}}\ \mathrm{m}$. Its generator (at $z = 0$) has an unknown internal resistance $R_g$ and produces one very narrow rectangular pulse at $t = 0$, of open-circuit height ${{params.V0}}\ \mathrm{V}$. The load at $z = \ell$ is an unknown resistor $R_L$. The line is empty before $t = 0$.
+  </p>
+  <p>
+    A voltage probe {{params.where}}, at $z_p = {{params.zp}}\ \mathrm{m}$, records exactly two pulses and then nothing more: one of height $A$ at $t = {{params.t1}}\ \mu\mathrm{s}$ and one of height ${{{params.rho_tex}}}$ at $t = {{params.t2}}\ \mu\mathrm{s}$.
+  </p>
+  {{{params.svg}}}
+  <p>Use $c = 300\ \mathrm{m}/\mu\mathrm{s}$.</p>
+</pl-question-panel>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(a)</b> Find the wave speed on the line and the relative permittivity of its filling.</p>
+<pl-number-input answers-name="v" label="$v =$" suffix="$\mathrm{m}/\mu\mathrm{s}$" comparison="relabs" rtol="0.01" atol="1e-3"></pl-number-input>
+<pl-number-input answers-name="epsr" label="$\epsilon_r =$" comparison="relabs" rtol="0.01" atol="1e-3"></pl-number-input>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(b)</b> Find the load reflection coefficient and the load resistance.</p>
+<pl-number-input answers-name="GL" label="$\Gamma_L =$" comparison="relabs" rtol="0.01" atol="1e-4"></pl-number-input>
+<pl-number-input answers-name="RL" label="$R_L =$" suffix="$\Omega$" comparison="relabs" rtol="0.01" atol="1e-3"></pl-number-input>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(c)</b> What does the absence of a third pulse tell you?</p>
+<pl-multiple-choice answers-name="silence" hide-letter-keys="true">
+  {{#params.why}}<pl-answer correct="{{correct}}" feedback="{{feedback}}">{{{text}}}</pl-answer>
+  {{/params.why}}
+</pl-multiple-choice>
+<p class="mt-3">Find the generator resistance and the height $A$ of the first pulse.</p>
+<pl-number-input answers-name="Rg" label="$R_g =$" suffix="$\Omega$" comparison="relabs" rtol="0.01" atol="1e-3"></pl-number-input>
+<pl-number-input answers-name="A" label="$A =$" suffix="$\mathrm{V}$" comparison="relabs" rtol="0.01" atol="1e-3"></pl-number-input>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(d)</b> Find the height of the voltage pulse that appears across the load when the pulse arrives there.</p>
+<pl-number-input answers-name="Vload" label="$V(\ell)_{\text{peak}} =$" suffix="$\mathrm{V}$" comparison="relabs" rtol="0.01" atol="1e-3"></pl-number-input>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(e)</b> The generator's resistance is now changed to $R_g' = {{params.Rg2}}\ \Omega$; the source pulse, the line and the load stay the same. Find the new height of the first pulse at the probe, and the arrival time and height of the <em>third</em> pulse that the probe now records.</p>
+<pl-number-input answers-name="A2" label="first pulse $=$" suffix="$\mathrm{V}$" comparison="relabs" rtol="0.01" atol="1e-3"></pl-number-input>
+<pl-number-input answers-name="t3" label="third pulse at $t =$" suffix="$\mu\mathrm{s}$" comparison="relabs" rtol="0.01" atol="1e-4"></pl-number-input>
+<pl-number-input answers-name="C" label="third pulse height $=$" suffix="$\mathrm{V}$" comparison="relabs" rtol="0.01" atol="1e-3"></pl-number-input>
+</div></div>
+
+<pl-hidden-hints>
+  <pl-hint hint-name="Three pieces of information">
+    The <em>times</em> give the speed. The <em>ratio</em> of the two heights gives the load. The <em>silence</em> afterwards gives the generator.
+  </pl-hint>
+  <pl-hint hint-name="Paths" show-after-submission="1">
+    The first pulse has travelled $z_p$. The second has gone to the load and come back to the probe: $2\ell - z_p$. A third would have gone on to the generator and returned: $2\ell + z_p$.
+  </pl-hint>
+  <pl-hint hint-name="The launched height" show-after-submission="2">
+    At $t = 0$ the generator sees only $Z_0$, so the launched pulse is the source pulse times $Z_0/(R_g+Z_0)$. The open-circuit height is not what travels down the line.
+  </pl-hint>
+</pl-hidden-hints>
+
+<pl-answer-panel>
+  <p><b>(a)</b> The first pulse covers $z_p = {{params.zp}}\ \mathrm{m}$ in ${{params.t1}}\ \mu\mathrm{s}$: $v = {{params.s_v}}\ \mathrm{m}/\mu\mathrm{s}$. Check with the second: $(2\ell - z_p)/v = {{params.s_back}}/{{params.s_v}} = {{params.t2}}\ \mu\mathrm{s}$. For a non-magnetic line $\epsilon_r = (c/v)^2 = {{params.s_epsr}}$.</p>
+  <p><b>(b)</b> The second pulse is the first one after one reflection at the load: $\Gamma_L = {{{params.s_GL}}}$, so $R_L = Z_0\dfrac{1+\Gamma_L}{1-\Gamma_L} = {{params.s_RL}}\ \Omega$.</p>
+  <p><b>(c)</b> No third pulse means the echo is not re-launched at the generator: $\Gamma_g = 0$, so $R_g = Z_0 = {{params.Z0}}\ \Omega$. Then the launched pulse is $A = {{params.V0}}\times\dfrac{Z_0}{R_g+Z_0} = {{params.s_A}}\ \mathrm{V}$: half of the source pulse stays across $R_g$.</p>
+  <p><b>(d)</b> At the load the arriving pulse and its echo are present together: $A(1+\Gamma_L) = {{params.s_Vload}}\ \mathrm{V}$.</p>
+  <p><b>(e)</b> With $R_g' = {{params.Rg2}}\ \Omega$ the launched pulse is ${{params.V0}}\times\dfrac{Z_0}{R_g'+Z_0} = {{params.s_A2}}\ \mathrm{V}$ and $\Gamma_g' = {{{params.s_Gg2}}}$. The third pulse has been reflected at the load and at the generator: ${{params.s_A2}}\times\Gamma_L\Gamma_g' = {{params.s_C}}\ \mathrm{V}$, after travelling $2\ell + z_p = {{params.s_third}}\ \mathrm{m}$: $t = {{params.s_t3}}\ \mu\mathrm{s}$.</p>
+</pl-answer-panel>

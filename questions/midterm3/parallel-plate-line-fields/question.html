@@ -1,0 +1,58 @@
+<pl-question-panel>
+  <p>
+    A parallel-plate transmission line runs along $z$. Its perfectly conducting plates lie in the planes $x = 0$ (bottom) and $x = d$ (top), with $d = {{params.d_s}}\ \mathrm{mm}$; each is $W = {{params.W_s}}\ \mathrm{cm}$ wide along $y$. The gap is filled with {{params.fill}} ($\epsilon_r = {{params.epsr_s}}$, $\mu = \mu_0$). Because $W \gg d$, the fields between the plates are uniform, $\mathbf{E} = \hat x\,E_x$ and $\mathbf{H} = \hat y\,H_y$, and are zero outside.
+  </p>
+  {{{params.svg}}}
+  <p>
+    $V$ is the voltage of the top plate relative to the bottom plate, and $I$ is the current flowing along $+z$ in the top plate. Use $c = 3\times10^{8}\ \mathrm{m/s}$, $\eta_0 = 120\pi\ \Omega$ and $\epsilon_0 = 10^{-9}/36\pi\ \mathrm{F/m}$.
+  </p>
+</pl-question-panel>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(a)</b> Find the characteristic impedance of the line and the speed of waves on it.</p>
+<pl-number-input answers-name="Z0" label="$Z_0 =$" suffix="$\Omega$" comparison="relabs" rtol="0.01" atol="1e-6"></pl-number-input>
+<pl-number-input answers-name="v" label="$v =$" suffix="$\times10^{8}\ \mathrm{m/s}$" comparison="relabs" rtol="0.01" atol="1e-6"></pl-number-input>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(b)</b> A single pulse travels toward ${{params.zdir}}$. At one cross-section, at one instant, the <b>{{params.plate}} plate</b> carries a total current of ${{params.I1_s}}\ \mathrm{A}$ flowing in the ${{params.idir}}$ direction (spread evenly over its inner face). Find, at that cross-section and instant, the fields between the plates (signed), the voltage $V$, and the surface charge density on the inner face of the top plate.</p>
+<pl-number-input answers-name="Hy" label="$H_y =$" suffix="$\mathrm{A/m}$" comparison="relabs" rtol="0.01" atol="1e-6"></pl-number-input>
+<pl-number-input answers-name="Ex" label="$E_x =$" suffix="$\mathrm{V/m}$" comparison="relabs" rtol="0.01" atol="1e-6"></pl-number-input>
+<pl-number-input answers-name="V" label="$V =$" suffix="$\mathrm{V}$" comparison="relabs" rtol="0.01" atol="1e-6"></pl-number-input>
+<pl-number-input answers-name="rho" label="$\rho_s(\text{top}) =$" suffix="$\mathrm{nC/m^2}$" comparison="relabs" rtol="0.01" atol="1e-6"></pl-number-input>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(c)</b> For the pulse of part (b), the ratio $V/I$ equals</p>
+<pl-multiple-choice answers-name="vi_ratio" hide-letter-keys="true">
+  {{#params.ratio}}<pl-answer correct="{{correct}}" feedback="{{feedback}}">{{{text}}}</pl-answer>
+  {{/params.ratio}}
+</pl-multiple-choice>
+</div></div>
+
+<div class="card my-3"><div class="card-body">
+<p><b>(d)</b> The pulse is replaced by a sinusoidal wave with $\tilde{\mathbf{E}} = \hat x\,{{{params.E0_tex}}}\,e^{-j\beta z}\ \mathrm{V/m}$ between the plates. Find the amplitude of the voltage between the plates, and the time-average power the wave carries through a cross-section of the line.</p>
+<pl-number-input answers-name="V0" label="$\lvert\tilde V\rvert =$" suffix="$\mathrm{V}$" comparison="relabs" rtol="0.01" atol="1e-6"></pl-number-input>
+<pl-number-input answers-name="P" label="$\langle P\rangle =$" suffix="$\mathrm{W}$" comparison="relabs" rtol="0.01" atol="1e-6"></pl-number-input>
+</div></div>
+
+<pl-hidden-hints>
+  <pl-hint hint-name="Impedance of the line">
+    $V = E\,d$ and $I = H\,W$, and the fields of a TEM wave obey $E/H = \eta$. So $Z_0 = \eta\,d/W$: separation over width, not the other way round.
+  </pl-hint>
+  <pl-hint hint-name="From a plate current to H" show-after-submission="1">
+    On a perfect conductor $\mathbf{J}_s = \hat n\times\mathbf{H}$, with $\hat n$ pointing out of the metal into the field region: $-\hat x$ on the top plate, $+\hat x$ on the bottom plate. The total current is $J_s W$.
+  </pl-hint>
+  <pl-hint hint-name="From H to E, V and the charge" show-after-submission="2">
+    $\mathbf{E}\times\mathbf{H}$ points along the travel, which fixes the sign of $E_x$. Then $V = -\int_{\text{bottom}}^{\text{top}}\mathbf{E}\cdot d\mathbf{l} = -E_x d$ and $\rho_s = \hat n\cdot\mathbf{D}$ on the top plate.
+  </pl-hint>
+</pl-hidden-hints>
+
+<pl-answer-panel>
+  <p><b>(a)</b> $\eta = {{{params.s_eta_tex}}} = {{params.s_eta}}\ \Omega$, so $Z_0 = \eta\,d/W = {{params.s_eta}}\times{{{params.s_dW}}} = {{params.s_Z0}}\ \Omega$, and $v = c/\sqrt{\epsilon_r} = {{params.s_v}}\times10^{8}\ \mathrm{m/s}$.</p>
+  <p><b>(b)</b> The given current is ${{params.s_Igiven}}\ \mathrm{A}$ along $+z$ in the {{params.plate}} plate. $\mathbf{J}_s = \hat n\times\mathbf{H}$ on the {{{params.s_plate_rule}}}: $H_y = {{params.s_Hy}}\ \mathrm{A/m}$. (The other plate carries the opposite current, so $I = {{params.s_Itop}}\ \mathrm{A}$.)
+     The wave travels toward ${{params.zdir}}$, so $\mathbf{E}\times\mathbf{H} = E_xH_y\,\hat z$ must point that way: $E_x = {{params.s_s}}\eta H_y = {{params.s_Ex}}\ \mathrm{V/m}$.
+     Then $V = -E_x d = {{params.s_V}}\ \mathrm{V}$, and on the top plate ($\hat n = -\hat x$) $\rho_s = -\epsilon E_x = {{params.s_rho}}\ \mathrm{nC/m^2}$.</p>
+  <p><b>(c)</b> $V/I = {{params.s_V}}/({{params.s_Itop}}) = {{params.s_sZ0}}\ \Omega = {{params.s_s}}Z_0$: a wave toward $+z$ has $V/I = +Z_0$, a wave toward $-z$ has $V/I = -Z_0$.</p>
+  <p><b>(d)</b> $\lvert\tilde V\rvert = E_0 d = {{params.s_V0}}\ \mathrm{V}$. The power density is $E_0^2/2\eta$ over the area $W d$: $\langle P\rangle = \dfrac{E_0^2}{2\eta}\,W d = {{params.s_P}}\ \mathrm{W}$, the same as $\lvert\tilde V\rvert^2/2Z_0$.</p>
+</pl-answer-panel>
